@@ -5,7 +5,7 @@ import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 public class DataSource {
 
 	private int id;
-	private DataSourceConnection dataSourceConnection;
+	private DataSourceConnection dataSourceConnection;	
 	
 	
 	

@@ -45,8 +45,7 @@ public class DataSourceService {
 	}
 
 	public void addDataSource(DataSource dataSource) {
-		datasources.add(dataSource);
-		System.out.println("Step4:"+dataSource.getId());
+		datasources.add(dataSource);		
 		
 	}
 }
