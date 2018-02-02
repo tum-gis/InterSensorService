@@ -17,7 +17,7 @@ public class CSVReadAndParseToBean {
 	
 	
 	
-	private static final String SAMPLE_CSV_FILE_PATH = "C:/Kanishk/feed_20151108_10.csv";
+	private static final String SAMPLE_CSV_FILE_PATH = "C:/Kanishk/testCSV1.csv";
 	
 	public static void main(String[] args) throws IOException {
 		
