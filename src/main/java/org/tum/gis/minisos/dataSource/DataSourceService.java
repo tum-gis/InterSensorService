@@ -19,6 +19,7 @@ public class DataSourceService {
 			"double", 
 			"Celsius", 
 			"C:/kanishk/test1.csv",
+			",",
 			0,
 			1);
 	
@@ -31,6 +32,7 @@ public class DataSourceService {
 			"double", 
 			"Celsius", 
 			"C:/kanishk/test2.csv",
+			",",
 			0,
 			1)
 			);

@@ -5,6 +5,7 @@ import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 public class CsvConnection extends DataSourceConnection {
 
 	private String fileLocation;
+	private String separator;
 	private int timeColumn;
 	private int valueColumn;
 	
@@ -17,7 +18,8 @@ public class CsvConnection extends DataSourceConnection {
 						String connectionType,
 						String observationType,			
 						String unitOfMeasure, 
-						String fileLocation, 
+						String fileLocation,
+						String separator,
 						int timeColumn, 
 						int valueColumn) {
 		
@@ -29,6 +31,7 @@ public class CsvConnection extends DataSourceConnection {
 				unitOfMeasure);
 		
 		this.fileLocation = fileLocation;
+		this.separator = separator;
 		this.timeColumn = timeColumn;
 		this.valueColumn = valueColumn;
 	}
@@ -40,7 +43,15 @@ public class CsvConnection extends DataSourceConnection {
 	public void setFileLocation(String fileLocation) {
 		this.fileLocation = fileLocation;
 	}
-
+	
+	
+	public String getSeparator() {
+		return separator;
+	}
+	public void setSeparator(String separator) {
+		this.separator = separator;
+	}
+	
 	public int getTimeColumn() {
 		return timeColumn;
 	}

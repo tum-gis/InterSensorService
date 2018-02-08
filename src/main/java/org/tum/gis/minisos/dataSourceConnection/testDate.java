@@ -28,7 +28,7 @@ public class testDate {
 		
 		
 		
-		s="2017-03-13 05:00";
+		s="2018-01-30T00:00:28.000+01:00";
 		//System.out.println(CustomDateUtil.convertDate(s));
 		System.out.println(CustomDateUtil.DateTimePatternEval(s));
 		

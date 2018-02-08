@@ -10,6 +10,9 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,7 +78,7 @@ public class testCSVConnection {
         	
         	String header = br.readLine();
         	if (header != null) {
-        		String[] columns = header.split(",");
+        		String[] columns = header.split("|");
         		System.out.println(columns.length);
         	}
         	System.out.println(br.readLine());
@@ -95,12 +98,23 @@ public class testCSVConnection {
            
            
             List<CsvObservation> myUsers = csvToBean.parse();
-
+            
+            AtomicInteger seq = new AtomicInteger();
+            
+            //@SequenceGenerator(name="idGen", sequenceName="idSeq")
+            int nextVal;
+            
+            //for (int i=0;i<10;i++) {
+            	nextVal = seq.getAndIncrement();
+                
+                System.out.println(nextVal);
+            //}
+            
 
            // System.out.println(myUsers);
             
             
-            /*for (CsvObservation myUser : myUsers) {
+           /* for (CsvObservation myUser : myUsers) {
                 System.out.println("Name : " + myUser.getTime());
                 System.out.println("Email : " + myUser.getValue());               
                 System.out.println("---------------------------");

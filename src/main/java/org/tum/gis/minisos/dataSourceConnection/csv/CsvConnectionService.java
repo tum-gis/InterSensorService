@@ -36,10 +36,13 @@ public class CsvConnectionService {
 	
 	public void addDataSource(CsvConnection csvConnection) throws IOException {	
 		
+		//Add a new dataSourceConnection
 		DataSource dataSource = new DataSource(3,csvConnection);
 		
+		//if datasource with name is not available, add a new data source with unique id; else don't insert
 		dataSourceService.addDataSource(dataSource);
 		
+		//insert a new timeseries with unique id
 		timeseriesService.addTimeseries(csvConnection);
 		
 		parseCsv(csvConnection);
@@ -57,6 +60,7 @@ public class CsvConnectionService {
 		int valueColumn = csvConnection.getValueColumn();
 		String fileLocation = csvConnection.getFileLocation();
 		
+		
 		try(
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(fileLocation));  
 				Reader reader = Files.newBufferedReader(Paths.get(fileLocation));
@@ -67,7 +71,7 @@ public class CsvConnectionService {
 				String[] csvHeaderList;
 				String csvHeader = bufferedReader.readLine();
 	        	if (csvHeader != null) {
-	        		csvHeaderList = csvHeader.split(",");	      		
+	        		csvHeaderList = csvHeader.split(csvConnection.getSeparator());	      		
 	        	
 	        		Map<String, String> mapping = new HashMap<String, String>();
 		        	mapping.put(csvHeaderList[timeColumn], "time");
@@ -81,7 +85,7 @@ public class CsvConnectionService {
 		             		 .withType(CsvObservation.class)
 		                     .withMappingStrategy(strategy)		                     
 		                     .withIgnoreLeadingWhiteSpace(true)
-		                     .withSeparator(',')
+		                     .withSeparator(csvConnection.getSeparator().charAt(0))
 		                     .build();
 		             
 		        	 csvToBean.setMappingStrategy(strategy);		             
