@@ -7,6 +7,8 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,9 @@ import javax.persistence.SequenceGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tum.gis.minisos.dataSource.DataSource;
+import org.tum.gis.minisos.dataSource.DataSourceService;
 import org.tum.gis.minisos.observation.ObservationService;
+import org.tum.gis.minisos.util.IdSequenceManager;
 
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
@@ -30,6 +34,8 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 public class testCSVConnection {
 
 	private static final String SAMPLE_CSV_FILE_PATH = "C:/Kanishk/testCSV1.csv";
+	
+	private static DataSourceService dataSourceService;
 	
 	/*public static void main(String[] args) throws IOException {
 		try(
@@ -62,6 +68,7 @@ public class testCSVConnection {
         	
         	
         	Map<String, String> mapping = new HashMap<String, String>();
+        	mapping.put("1", "timeseriesId");
         	mapping.put("time", "time");
         	mapping.put("value", "value");
         	
@@ -78,7 +85,7 @@ public class testCSVConnection {
         	
         	String header = br.readLine();
         	if (header != null) {
-        		String[] columns = header.split("|");
+        		String[] columns = header.split(";");
         		System.out.println(columns.length);
         	}
         	System.out.println(br.readLine());
@@ -90,7 +97,7 @@ public class testCSVConnection {
                     .withMappingStrategy(strategy)
                     //.withSkipLines(1)
                     .withIgnoreLeadingWhiteSpace(true)
-                    .withSeparator(',')
+                    .withSeparator(';')
                     .build();
             
             //csvToBean.setMappingStrategy(strategy);
@@ -99,15 +106,15 @@ public class testCSVConnection {
            
             List<CsvObservation> myUsers = csvToBean.parse();
             
-            AtomicInteger seq = new AtomicInteger();
+           // AtomicInteger seq = new AtomicInteger();
             
             //@SequenceGenerator(name="idGen", sequenceName="idSeq")
-            int nextVal;
+           // int nextVal;
             
             //for (int i=0;i<10;i++) {
-            	nextVal = seq.getAndIncrement();
+            //	nextVal = seq.getAndIncrement();
                 
-                System.out.println(nextVal);
+             //   System.out.println(nextVal);
             //}
             
 
@@ -115,10 +122,30 @@ public class testCSVConnection {
             
             
            /* for (CsvObservation myUser : myUsers) {
-                System.out.println("Name : " + myUser.getTime());
+            	System.out.println("Name : " + myUser.getTimeseriesId());
+            	System.out.println("Name : " + myUser.getTime());
                 System.out.println("Email : " + myUser.getValue());               
                 System.out.println("---------------------------");
             }*/
-        
+    	/*int dataSourceId = IdSequenceManager.DataSourceSequence();
+    	System.out.println(dataSourceId);
+    	
+    	List<String> abc = new ArrayList<>(Arrays.asList("a","b","c","d"));
+    	int flag = 0;
+    	for(int i=0;i<abc.size();i++) {
+    		if(abc.get(i)=="cd") {
+    			flag = 1;
+    			break;
+    		}
+    		
+    	}
+    	
+    	if (flag==1) {
+    		System.out.println("Success");
+    	}else {
+    		System.out.println("failure");
+    	}*/
+    	
+    	
     }
 }

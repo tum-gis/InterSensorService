@@ -11,15 +11,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class IdSequenceManager {
 	
-	AtomicInteger dataSourceSeq = new AtomicInteger();
-	AtomicInteger timeseriesSeq = new AtomicInteger();
+	static AtomicInteger dataSourceSeq = new AtomicInteger();
+	static AtomicInteger timeseriesSeq = new AtomicInteger();
 	
 	
-	public int DataSourceSequence() {
+	public static int DataSourceSequence() {
 		return dataSourceSeq.incrementAndGet();
 	}
 	
-	public int TimeseriesSourceSequence() {
+	public static int TimeseriesSourceSequence() {
 		return timeseriesSeq.incrementAndGet();
 	}
 

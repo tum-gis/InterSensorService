@@ -1,7 +1,7 @@
 package org.tum.gis.minisos.dataSourceConnection;
 
 public class DataSourceConnection {
-	private int id;
+	//private int id;
 	private String name;
 	private String description;
 	private String connectionType;
@@ -15,7 +15,7 @@ public class DataSourceConnection {
 	public DataSourceConnection(int id, String name, String description, String connectionType, String observationType,
 			String unitOfMeasure) {
 		super();
-		this.id = id;
+		//this.id = id;
 		this.name = name;
 		this.description = description;
 		this.connectionType = connectionType;
@@ -24,14 +24,14 @@ public class DataSourceConnection {
 	}
 
 
-	public int getId() {
+	/*public int getId() {
 		return id;
-	}
+	}*/
 
 
-	public void setId(int id) {
+	/*public void setId(int id) {
 		this.id = id;
-	}
+	}*/
 
 
 	public String getName() {

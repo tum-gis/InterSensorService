@@ -13,10 +13,11 @@ public class TimeseriesService {
 	
 	public List<Timeseries> timeseriesList = new ArrayList<>(); 
 	
-	public void addTimeseries(DataSourceConnection dataSourceConnection) {
+	public void addTimeseries(int timeseriesId , int dataSourceId, DataSourceConnection dataSourceConnection) {
 		
 		Timeseries timeseries = new Timeseries(
-				dataSourceConnection.getId(),
+				timeseriesId,
+				dataSourceId,				
 				dataSourceConnection.getName(),
 				dataSourceConnection.getDescription(),
 				dataSourceConnection.getConnectionType(),
@@ -31,5 +32,9 @@ public class TimeseriesService {
 	
 	public List<Timeseries> getTimeseriesList(){
 		return timeseriesList;
+	}
+	
+	public Timeseries getTimeseriesById(int id) {
+		return timeseriesList.get(id-1);
 	}
 }

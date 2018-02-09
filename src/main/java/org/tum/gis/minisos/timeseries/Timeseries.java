@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 public class Timeseries {
 
 	private int id;
+	private int dataSourceId;
 	private String name;
 	private String description;
 	private String dataSourceType;
@@ -17,10 +18,11 @@ public class Timeseries {
 		
 	}
 	
-	public Timeseries(int id, String name, String description, String dataSourceType, DateTime firstObservation,
+	public Timeseries(int id, int dataSourceId, String name, String description, String dataSourceType, DateTime firstObservation,
 			DateTime lastObservation, String observationType, String unitOfMeasure) {
 		super();
 		this.id = id;
+		this.dataSourceId = dataSourceId;
 		this.name = name;
 		this.description = description;
 		this.dataSourceType = dataSourceType;
@@ -36,6 +38,14 @@ public class Timeseries {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+		
+	public int getDataSourceId() {
+		return dataSourceId;
+	}
+
+	public void setDataSourceId(int dataSourceId) {
+		this.dataSourceId = dataSourceId;
 	}
 
 	public String getName() {

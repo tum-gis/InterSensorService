@@ -8,7 +8,7 @@ import org.tum.gis.minisos.util.CustomDateUtil;
 
 public class Observation {
 
-	private int timeseriesId;
+	//private int timeseriesId;
 	private String time;
 	private String timestamp;
 	private double value;
@@ -20,20 +20,14 @@ public class Observation {
 		
 	}
 	
-	public Observation(int timeseriesId, String time, double value) {
+	public Observation( String time, double value) {
 		super();
-		this.timeseriesId = timeseriesId;
+		
 		this.time = time;
 		this.value = value;
 	}
 	
-	public int getTimeseriesId() {
-		return timeseriesId;
-	}
 	
-	public void setTimeseriesId(int timeseriesId) {		
-		this.timeseriesId = timeseriesId;
-	}	
 	
 	public String getTime() throws java.text.ParseException {			
 		
@@ -49,8 +43,8 @@ public class Observation {
 			System.err.println("Could not parse date: " + time);
 		}
 				
-		this.timestamp = CustomDateUtil.IsoFormatter(date);	
-		
+		//this.timestamp = CustomDateUtil.IsoFormatter(date);	
+		this.timestamp = date.toString();
 		return timestamp;
 	}
 	

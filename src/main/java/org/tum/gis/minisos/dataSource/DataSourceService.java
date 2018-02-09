@@ -38,8 +38,8 @@ public class DataSourceService {
 			);
 	
 	public List<DataSource> datasources = new ArrayList<>(Arrays.asList(
-			data1,
-			data2
+			//data1,
+			//data2
 			));
 	
 	public List<DataSource> getAllDataSources(){
@@ -49,5 +49,9 @@ public class DataSourceService {
 	public void addDataSource(DataSource dataSource) {
 		datasources.add(dataSource);		
 		
+	}
+	
+	public DataSource getDataSource(int id) {
+		return datasources.get(id-1);
 	}
 }

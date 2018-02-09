@@ -14,10 +14,12 @@ import com.opencsv.bean.CsvBindByPosition;
 
 public class CsvObservation extends Observation  {
 	
+	//private int timeseriesId;
 	
 	private String time;
 	
 	private double value;
+	
 	
 
 }

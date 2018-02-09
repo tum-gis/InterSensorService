@@ -23,14 +23,18 @@ public class testDate {
 		
 		Date d;
 		String s;
+		DateTime dt;
 		//CSVObject o1 = new CSVObject("2017-03-13","3");
 		//s="2017-03-13";
 		
 		
 		
-		s="2018-01-30T00:00:28.000+01:00";
+		s="01/02/2009 6:00";
 		//System.out.println(CustomDateUtil.convertDate(s));
-		System.out.println(CustomDateUtil.DateTimePatternEval(s));
+		d = CustomDateUtil.DateTimePatternEval(s);
+		dt = CustomDateUtil.DateTimeCreator(d);
+		
+		System.out.println(dt.toString());
 		
 		/*String[] acceptedFormats = {"dd/MM/yyyy","dd/MM/yyyy HH:mm","dd/MM/yyyy HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss"};
 		Date date1 = DateUtils.parseDate(s, acceptedFormats);*/
