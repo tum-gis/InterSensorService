@@ -64,6 +64,7 @@ public class CsvConnectionService {
 			//get dataSourceID and create timeseries
 			int timeseriesId = IdSequenceManager.TimeseriesSourceSequence();
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,csvConnection);
+			//create an entry in ObservationListmanagere with TimeseriesID
 			parseCsv(timeseriesId, csvConnection);
 			
 		}else {
@@ -74,6 +75,7 @@ public class CsvConnectionService {
 			
 			int timeseriesId = IdSequenceManager.TimeseriesSourceSequence();
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,csvConnection);
+			//create an entry in ObservationListmanagere with TimeseriesID
 			parseCsv(timeseriesId, csvConnection);
 		}
 		//DataSource dataSource = new DataSource(3,csvConnection);
