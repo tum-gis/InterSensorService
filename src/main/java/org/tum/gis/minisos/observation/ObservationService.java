@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tum.gis.minisos.dataSource.DataSource;
 import org.tum.gis.minisos.dataSource.DataSourceService;
+import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
+import org.tum.gis.minisos.dataSourceConnection.thingspeak.ThingspeakConnection;
+import org.tum.gis.minisos.dataSourceConnection.thingspeak.ThingspeakService;
 import org.tum.gis.minisos.timeseries.Timeseries;
 import org.tum.gis.minisos.timeseries.TimeseriesService;
 
@@ -23,6 +26,9 @@ public class ObservationService {
 	@Autowired
 	private DataSourceService dataSourceService;
 	
+	@Autowired
+	private ThingspeakService thingspeakService;
+	
 	public List<ObservationListManager> observationList = new ArrayList<>();
 	
 	
@@ -35,9 +41,9 @@ public class ObservationService {
 	 
 	 */
 	
-	public List<Observation> getObservationList(int id){
+	/*public List<Observation> getObservationList(int id){
 		return observationList.get(id-1).getObservationList();
-	}
+	}*/
 	
 	public List<Observation> getObservationList(int id, String startTime, String endTime) throws ParseException {
 		DateTime start = DateTime.parse(startTime);
@@ -60,10 +66,20 @@ public class ObservationService {
 	// insert into observationList
 	//retrieve List
 	
-	/*public List<Observation> getObservationList(int id){
+	public List<Observation> getObservationList(int id){
 		Timeseries timeseries = timeseriesService.timeseriesList.get(id-1);
-		DataSource dataSource = dataSourceService.datasources.get(timeseries.getDataSourceId()-1);
-		//check data source and parse
+		DataSourceConnection dataSource = dataSourceService.datasources.get(timeseries.getDataSourceId()-1).getDataSourceConnection();
 		
-	}*/
+		if (dataSource instanceof ThingspeakConnection) {
+			ThingspeakConnection ts = (ThingspeakConnection) dataSource;
+			
+			//thingspeakService.parseTSService(id, ts);
+			thingspeakService.parseThingspeak(id,ts);
+			
+		}
+		//check data source and parse
+		return observationList.get(id-1).getObservationList();
+	}
+	
+	
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tum.gis.minisos.dataSource.DataSource;
 import org.tum.gis.minisos.dataSource.DataSourceService;
+import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 import org.tum.gis.minisos.observation.Observation;
 import org.tum.gis.minisos.observation.ObservationListManager;
 import org.tum.gis.minisos.observation.ObservationService;
@@ -66,7 +67,7 @@ public class ThingspeakService {
 		if (flag==1) {
 			int timeseriesId = IdSequenceManager.TimeseriesSourceSequence();
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,thingspeakConnection);
-			parseThingspeak(timeseriesId,thingspeakConnection);
+			//parseThingspeak(timeseriesId,thingspeakConnection);
 		}
 		else {
 			dataSourceId = IdSequenceManager.DataSourceSequence();
@@ -75,7 +76,7 @@ public class ThingspeakService {
 			
 			int timeseriesId = IdSequenceManager.TimeseriesSourceSequence();
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,thingspeakConnection);
-			parseThingspeak(timeseriesId,thingspeakConnection);
+			//parseThingspeak(timeseriesId,thingspeakConnection);
 		}
 		
 	}
@@ -104,6 +105,10 @@ public class ThingspeakService {
 		 ObservationListManager observationListManager = new ObservationListManager(timeseriesId,observationList3);
          observationService.observationList.add(observationListManager);
 	}
+	
+	/*public void parseTSService(int timeseriesId, T t ) {
+		
+	}*/
 		
 }
 
