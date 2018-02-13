@@ -37,12 +37,18 @@ public class ThingspeakService {
 
 	//private static final Logger log = LoggerFactory.getLogger(ThingspeakService.class);
 	
-	/*public static void main(String args[]) {
-        RestTemplate restTemplate = new RestTemplate();
-        ThingspeakResponse thingspeakResponse = restTemplate.getForObject("https://thingspeak.com/channels/64242/fields/1.json", ThingspeakResponse.class);
+	public static void main(String args[]) {
+		 String serviceUrl = "https://thingspeak.com/channels/"+64242+"/feeds/"+1+".json";
+		RestTemplate restTemplate = new RestTemplate();
+        ThingspeakResponse thingspeakResponse = restTemplate.getForObject("https://thingspeak.com/channels/64242/fields/2.json", ThingspeakResponse.class);
         //log.info(thingspeakResponse.toString());
-        System.out.println(thingspeakResponse.getFeed().get(0).getField1());
-    }*/
+		//String s = "25.0/n";
+		//s = s.replaceAll("[^\\d.]", "");
+		//double d = Double.parseDouble(s);
+        //System.out.println(thingspeakResponse.getFeed().get(0).getField1());
+        System.out.println(serviceUrl);
+		//System.out.println(d);
+    }
 	
 	public void addDataSource(ThingspeakConnection thingspeakConnection) {
 		
@@ -75,8 +81,9 @@ public class ThingspeakService {
 	}
 	
 	public void parseThingspeak(int timeseriesId, ThingspeakConnection thingspeakConnection) {
+		 String serviceUrl = "https://thingspeak.com/channels/"+thingspeakConnection.getChannel()+"/fields/"+thingspeakConnection.getfield()+".json";
 		 RestTemplate restTemplate = new RestTemplate();
-		 ThingspeakResponse thingspeakResponse = restTemplate.getForObject(thingspeakConnection.getServiceUrl(), ThingspeakResponse.class);
+		 ThingspeakResponse thingspeakResponse = restTemplate.getForObject(serviceUrl, ThingspeakResponse.class);
 		 
 		 List<ThingspeakObservation> thingspeakObservationList = new ArrayList<>();
 		 List<Observation> observationList3 = new ArrayList<>();
@@ -84,7 +91,12 @@ public class ThingspeakService {
 		 for (int i=0;i<thingspeakResponse.getFeed().size();i++) {
 			 ThingspeakObservation thingspeakObservation = new ThingspeakObservation();
 			 thingspeakObservation.setTime(thingspeakResponse.getFeed().get(i).getCreated_at());
-			 thingspeakObservation.setValue(thingspeakResponse.getFeed().get(i).getField1());
+			 if (thingspeakConnection.getfield()==1) {
+				 thingspeakObservation.setValue(thingspeakResponse.getFeed().get(i).getField1());
+			 }else {
+				 thingspeakObservation.setValue(thingspeakResponse.getFeed().get(i).getField2());
+			 }
+			 
 			 
 			 observationList3.add(thingspeakObservation);			 
 		 }

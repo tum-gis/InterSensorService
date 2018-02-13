@@ -13,7 +13,9 @@ public class ThingspeakConnection extends DataSourceConnection {
 
 	private String serviceName;
 	private String serviceType;
-	private String serviceUrl;
+	//private String serviceUrl;
+	private int channel;
+	private int field;
 	private String authKey;
 	
 	public ThingspeakConnection() {
@@ -28,7 +30,9 @@ public class ThingspeakConnection extends DataSourceConnection {
 								String unitOfMeasure,
 								String serviceName,
 								String serviceType,
-								String serviceUrl) {
+								int channel,
+								int field,
+								String authKey) {
 		super(id, 
 			  name, 
 			  description, 
@@ -38,7 +42,8 @@ public class ThingspeakConnection extends DataSourceConnection {
 		// TODO Auto-generated constructor stub
 		this.serviceName = serviceName;
 		this.serviceType = serviceType;
-		this.serviceUrl = serviceUrl;
+		this.channel = channel;
+		this.field = field;
 		this.authKey = authKey;
 	}
 	
@@ -55,11 +60,18 @@ public class ThingspeakConnection extends DataSourceConnection {
 	public void setServiceType(String serviceType) {
 		this.serviceType = serviceType;
 	}
-	public String getServiceUrl() {
-		return serviceUrl;
+		
+	public int getChannel() {
+		return channel;
 	}
-	public void setServiceUrl(String serviceUrl) {
-		this.serviceUrl = serviceUrl;
+	public void setChannel(int channel) {
+		this.channel = channel;
+	}
+	public int getfield() {
+		return field;
+	}
+	public void setfield(int field) {
+		this.field = field;
 	}
 	public String getAuthKey() {
 		return authKey;
