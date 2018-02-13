@@ -5,12 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.tum.gis.minisos.dataSource.DataSource;
+import org.tum.gis.minisos.dataSource.DataSourceService;
+import org.tum.gis.minisos.timeseries.Timeseries;
+import org.tum.gis.minisos.timeseries.TimeseriesService;
 
 @Service
 public class ObservationService {
 
 	//public List<Observation> observationList = new ArrayList<>();
+	
+	@Autowired
+	private TimeseriesService timeseriesService;
+	
+	@Autowired
+	private DataSourceService dataSourceService;
 	
 	public List<ObservationListManager> observationList = new ArrayList<>();
 	
@@ -41,4 +52,18 @@ public class ObservationService {
 		}
 		return queriedList;
 	}
+	
+	//Another approach
+	//Input timeseries ID, check with timeseries ID, what datasource it is. Open the connection and Parse accordingly and close
+	//getObservationList(timeseriesID)
+	//Datasource.parse()
+	// insert into observationList
+	//retrieve List
+	
+	/*public List<Observation> getObservationList(int id){
+		Timeseries timeseries = timeseriesService.timeseriesList.get(id-1);
+		DataSource dataSource = dataSourceService.datasources.get(timeseries.getDataSourceId()-1);
+		//check data source and parse
+		
+	}*/
 }

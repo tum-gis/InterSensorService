@@ -37,7 +37,7 @@ public class ThingspeakService {
 
 	//private static final Logger log = LoggerFactory.getLogger(ThingspeakService.class);
 	
-	public static void main(String args[]) {
+	/*public static void main(String args[]) {
 		 String serviceUrl = "https://thingspeak.com/channels/"+64242+"/feeds/"+1+".json";
 		RestTemplate restTemplate = new RestTemplate();
         ThingspeakResponse thingspeakResponse = restTemplate.getForObject("https://thingspeak.com/channels/64242/fields/2.json", ThingspeakResponse.class);
@@ -48,7 +48,7 @@ public class ThingspeakService {
         //System.out.println(thingspeakResponse.getFeed().get(0).getField1());
         System.out.println(serviceUrl);
 		//System.out.println(d);
-    }
+    }*/
 	
 	public void addDataSource(ThingspeakConnection thingspeakConnection) {
 		
