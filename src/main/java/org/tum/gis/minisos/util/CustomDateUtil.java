@@ -58,6 +58,11 @@ public class CustomDateUtil {
 		return str;
 	}
 	
+	public static long UnixTimeCreator(String time) {
+		DateTime dt = DateTime.parse(time);
+		return dt.getMillis();
+	}
+	
 	
 }
 

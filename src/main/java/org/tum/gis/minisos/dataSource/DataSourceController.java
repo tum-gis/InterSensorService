@@ -3,6 +3,7 @@ package org.tum.gis.minisos.dataSource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +16,12 @@ public class DataSourceController {
 	@Autowired
 	private DataSourceService dataSourceService;
 	
-	@RequestMapping("/datasources")
+	@RequestMapping(value = "/datasources", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<DataSource> getAllDataSources(){
 		return dataSourceService.getAllDataSources();
 	}
 	
-	@RequestMapping("/datasources/{id}")
+	@RequestMapping(value = "/datasources/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public DataSource getDataSource(@PathVariable int id) {
 		return dataSourceService.getDataSource(id);
 	}

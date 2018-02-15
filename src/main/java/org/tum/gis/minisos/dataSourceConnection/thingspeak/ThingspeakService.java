@@ -67,7 +67,7 @@ public class ThingspeakService {
 		if (flag==1) {
 			int timeseriesId = IdSequenceManager.TimeseriesSourceSequence();
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,thingspeakConnection);
-			//parseThingspeak(timeseriesId,thingspeakConnection);
+			validateThingspeakConnection(timeseriesId,thingspeakConnection);
 		}
 		else {
 			dataSourceId = IdSequenceManager.DataSourceSequence();
@@ -76,18 +76,31 @@ public class ThingspeakService {
 			
 			int timeseriesId = IdSequenceManager.TimeseriesSourceSequence();
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,thingspeakConnection);
-			//parseThingspeak(timeseriesId,thingspeakConnection);
+			validateThingspeakConnection(timeseriesId,thingspeakConnection);
 		}
 		
 	}
 	
-	public void parseThingspeak(int timeseriesId, ThingspeakConnection thingspeakConnection) {
+	public void validateThingspeakConnection(int timeseriesId, ThingspeakConnection thingspeakConnection) {
 		 String serviceUrl = "https://thingspeak.com/channels/"+thingspeakConnection.getChannel()+"/fields/"+thingspeakConnection.getfield()+".json";
 		 RestTemplate restTemplate = new RestTemplate();
 		 ThingspeakResponse thingspeakResponse = restTemplate.getForObject(serviceUrl, ThingspeakResponse.class);
 		 
-		 List<ThingspeakObservation> thingspeakObservationList = new ArrayList<>();
-		 List<Observation> observationList3 = new ArrayList<>();
+		 if (thingspeakResponse!=null) {
+			 timeseriesService.timeseriesList.get(timeseriesId-1).setName(thingspeakResponse.getChannel().getName());
+			 timeseriesService.timeseriesList.get(timeseriesId-1).setDescription(thingspeakResponse.getChannel().getDescription());
+			 timeseriesService.timeseriesList.get(timeseriesId-1).setFirstObservation(thingspeakResponse.getChannel().getCreated_at());
+			 timeseriesService.timeseriesList.get(timeseriesId-1).setLastObservation(thingspeakResponse.getChannel().getUpdated_at());
+		 }
+	}
+	
+	public List<Observation> parseThingspeak(int timeseriesId, ThingspeakConnection thingspeakConnection) {
+		 String serviceUrl = "https://thingspeak.com/channels/"+thingspeakConnection.getChannel()+"/fields/"+thingspeakConnection.getfield()+".json";
+		 RestTemplate restTemplate = new RestTemplate();
+		 ThingspeakResponse thingspeakResponse = restTemplate.getForObject(serviceUrl, ThingspeakResponse.class);
+		 
+		 //List<ThingspeakObservation> thingspeakObservationList = new ArrayList<>();
+		 List<Observation> observationList = new ArrayList<>();
 		 
 		 for (int i=0;i<thingspeakResponse.getFeed().size();i++) {
 			 ThingspeakObservation thingspeakObservation = new ThingspeakObservation();
@@ -99,16 +112,42 @@ public class ThingspeakService {
 			 }
 			 
 			 
-			 observationList3.add(thingspeakObservation);			 
+			 observationList.add(thingspeakObservation);			 
 		 }
 		 
-		 ObservationListManager observationListManager = new ObservationListManager(timeseriesId,observationList3);
-         observationService.observationList.add(observationListManager);
+		 return observationList;
+		 /*ObservationListManager observationListManager = new ObservationListManager(timeseriesId,observationList3);
+         observationService.observationList.add(observationListManager);*/
+         
 	}
 	
-	/*public void parseTSService(int timeseriesId, T t ) {
-		
-	}*/
-		
+	public List<Observation> parseThingspeak(int timeseriesId, ThingspeakConnection thingspeakConnection, String startTime, String endTime) {
+		 String serviceUrl = "https://thingspeak.com/channels/"+thingspeakConnection.getChannel()+"/fields/"+thingspeakConnection.getfield()+".json?start="+startTime+"&end="+endTime;
+		 RestTemplate restTemplate = new RestTemplate();
+		 ThingspeakResponse thingspeakResponse = restTemplate.getForObject(serviceUrl, ThingspeakResponse.class);
+		 
+		 //List<ThingspeakObservation> thingspeakObservationList = new ArrayList<>();
+		 List<Observation> observationList = new ArrayList<>();
+		 
+		 for (int i=0;i<thingspeakResponse.getFeed().size();i++) {
+			 ThingspeakObservation thingspeakObservation = new ThingspeakObservation();
+			 thingspeakObservation.setTime(thingspeakResponse.getFeed().get(i).getCreated_at());
+			 if (thingspeakConnection.getfield()==1) {
+				 thingspeakObservation.setValue(thingspeakResponse.getFeed().get(i).getField1());
+			 }else {
+				 thingspeakObservation.setValue(thingspeakResponse.getFeed().get(i).getField2());
+			 }
+			 
+			 
+			 observationList.add(thingspeakObservation);			 
+		 }
+		 
+		 return observationList;
+		 /*ObservationListManager observationListManager = new ObservationListManager(timeseriesId,observationList3);
+        observationService.observationList.add(observationListManager);*/
+        
+	}
+	
+	
 }
 

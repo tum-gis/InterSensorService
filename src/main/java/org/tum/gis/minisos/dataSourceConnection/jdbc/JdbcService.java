@@ -68,6 +68,7 @@ public class JdbcService {
 		List<JdbcObservation> jdbcObservationList = new ArrayList<>();
 		List<Observation> observationList2 = new ArrayList<>();
 		
+		
 		jdbcRepository.findAll()
 		.forEach(jdbcObservationList::add);
 		

@@ -1,6 +1,7 @@
 package org.tum.gis.minisos.dataSourceConnection.csv;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +16,7 @@ public class CsvConnectionController {
 	private CsvConnectionService csvConnectionService;
 	
 	@RequestMapping(method=RequestMethod.POST, value="/datasources")
-	public void addDataSource(@RequestBody CsvConnection csvConnection) throws IOException {		
+	public void addDataSource(@RequestBody CsvConnection csvConnection) throws IOException, ParseException {		
 		csvConnectionService.addDataSource(csvConnection);
 	}
 }
