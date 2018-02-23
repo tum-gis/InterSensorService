@@ -109,12 +109,15 @@ public class ObservationService {
 		return null;
 	}
 	
+	//just for testing
+	public ListObservation52n list52n;
+	
 	public ListObservation52n getObservationList(int timeseriesId, String startTime, String endTime, String format) throws IOException, ParseException{
 		Timeseries timeseries = timeseriesService.timeseriesList.get(timeseriesId-1);
 		DataSourceConnection dataSource = dataSourceService.datasources.get(timeseries.getDataSourceId()-1).getDataSourceConnection();
 		List<Observation> observationList = new ArrayList<>();
 		List<Observation52n> observation52nList = new ArrayList<>();
-		ListObservation52n list52n = new ListObservation52n();
+		 list52n = new ListObservation52n();
 		
 		if (dataSource instanceof ThingspeakConnection) {
 			ThingspeakConnection thingspeakConnection = (ThingspeakConnection) dataSource;		
