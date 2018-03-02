@@ -40,7 +40,7 @@ public class TimeseriesCollection {
 		this.procedure = procedure;
 	}
 
-	public Category getCategory() {
+	/*public Category getCategory() {
 		return category;
 	}
 
@@ -62,7 +62,7 @@ public class TimeseriesCollection {
 
 	public void setFeature(Feature feature) {
 		this.feature = feature;
-	}
+	}*/
 
 	public Service getService() {
 		return service;

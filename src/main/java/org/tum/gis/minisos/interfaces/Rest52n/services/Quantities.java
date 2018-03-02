@@ -41,13 +41,13 @@ public class Quantities {
 		this.procedures = procedures;
 	}
 
-	public int getCategories() {
+	/*public int getCategories() {
 		return categories;
 	}
 
 	public void setCategories(int categories) {
 		this.categories = categories;
-	}
+	}*/
 
 	public int getPhenomena() {
 		return phenomena;
@@ -57,7 +57,7 @@ public class Quantities {
 		this.phenomena = phenomena;
 	}
 
-	public int getDatasets() {
+	/*public int getDatasets() {
 		return datasets;
 	}
 
@@ -87,7 +87,7 @@ public class Quantities {
 
 	public void setOfferings(int offerings) {
 		this.offerings = offerings;
-	}
+	}*/
 	
 	
 	

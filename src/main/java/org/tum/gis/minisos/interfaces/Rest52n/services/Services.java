@@ -60,7 +60,7 @@ public class Services {
 	}
 
 
-	public List<String> getExtras() {		
+	/*public List<String> getExtras() {		
 		return extras;
 	}
 
@@ -117,7 +117,7 @@ public class Services {
 
 	public void setQuantities(Quantities quantities) {
 		this.quantities = quantities;
-	}	 
+	}	*/ 
 	
 	
 }

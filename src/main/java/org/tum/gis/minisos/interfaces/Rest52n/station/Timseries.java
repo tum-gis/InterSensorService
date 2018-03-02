@@ -2,6 +2,8 @@ package org.tum.gis.minisos.interfaces.Rest52n.station;
 
 import java.util.HashMap;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Timseries {
 	
 	private static HashMap<String, TimeseriesCollection> t = new HashMap<>();
@@ -30,6 +32,7 @@ public class Timseries {
 		return mapper;
 	}*/
 	
+	@JsonProperty("1")
 	public  TimeseriesCollection getT1() {
 		return t.get("1");
 	}

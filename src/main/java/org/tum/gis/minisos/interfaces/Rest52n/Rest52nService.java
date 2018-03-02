@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.tum.gis.minisos.interfaces.Rest52n.api.API;
@@ -15,6 +16,7 @@ import org.tum.gis.minisos.interfaces.Rest52n.procedures.Procedures;
 import org.tum.gis.minisos.interfaces.Rest52n.services.Services;
 import org.tum.gis.minisos.interfaces.Rest52n.station.Station;
 import org.tum.gis.minisos.interfaces.Rest52n.stations.Stations;
+import org.tum.gis.minisos.interfaces.Rest52n.timeseries.FlotSeries;
 import org.tum.gis.minisos.interfaces.Rest52n.timeseries.Timeseries;
 import org.tum.gis.minisos.interfaces.Rest52n.station.TimeseriesCollection;
 import org.tum.gis.minisos.interfaces.Rest52n.station.Timseries;
@@ -26,6 +28,7 @@ import org.tum.gis.minisos.interfaces.Rest52n.station.Timseries;
 @Service
 public class Rest52nService {
 
+	//this can be used as it is.
 	public List<API> getAPI(){
 		API node1 = new API("services","Service Provider","A service provider offers timeseries data.");
 		API node2 = new API("stations","stations","A service provider offers timeseries data.");
@@ -49,6 +52,11 @@ public class Rest52nService {
 		Services service = new Services();
 		list1.add(service);
 		return list1;
+	}
+	
+	public Services getService() {
+		List<Services> list2 = getServices();
+		return list2.get(0);
 	}
 	
 	public List<Stations> getStations(){
@@ -77,16 +85,30 @@ public class Rest52nService {
 		return list1;
 	}
 	
-	public Timeseries getTimeseriesMetadata(){
+	public Timeseries getTimeseriesMetadata(){		
 		Timeseries timeseries = new Timeseries();		
 		return timeseries;
 	}
 	
+	public FlotSeries getFlotSeries() {
+		FlotSeries t1 = new FlotSeries();
+		return t1;
+	}
+	
 	public static void main(String[] args) {
-		HashMap <String, TimeseriesCollection> mapper = new HashMap();
-		mapper.put("1", new TimeseriesCollection());
 		
-		System.out.println(mapper);
+		Services services = new Services(); 
+		List<Services> list1 = new ArrayList<>();
+		list1.add(services);
+		List<Services> list2 = list1.stream().map(temp -> {
+			Services s1 = new Services();
+			s1.setLabel(temp.getLabel());
+			s1.setId(temp.getId());
+			return s1;
+		}).collect(Collectors.toList());
+		
+		
+		//System.out.println(list2.get(0).getVersion());
 	}
 	
 	

@@ -19,6 +19,7 @@ import org.tum.gis.minisos.interfaces.Rest52n.procedures.Procedures;
 import org.tum.gis.minisos.interfaces.Rest52n.services.Services;
 import org.tum.gis.minisos.interfaces.Rest52n.station.Station;
 import org.tum.gis.minisos.interfaces.Rest52n.stations.Stations;
+import org.tum.gis.minisos.interfaces.Rest52n.timeseries.FlotSeries;
 import org.tum.gis.minisos.interfaces.Rest52n.timeseries.Timeseries;
 import org.tum.gis.minisos.observation.ObservationService;
 
@@ -39,6 +40,12 @@ public class Rest52nController {
 	public List<Services> getServices(@RequestParam (value = "expanded") String expanded,
 						  			  @RequestParam (value = "locale") String locale){
 		return rest52nService.getServices();
+	}
+	
+	@RequestMapping(value = "/api/services/1", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public Services getService(@RequestParam (value = "expanded") String expanded,
+						  			  @RequestParam (value = "locale") String locale){
+		return rest52nService.getService();
 	}
 	
 	@RequestMapping(value = "/api/procedures/1", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -80,7 +87,7 @@ public class Rest52nController {
 		return rest52nService.getTimeseriesMetadata();
 	}
 	
-	@RequestMapping(value = "/api/timeseries/t1/getData", produces = {MediaType.APPLICATION_JSON_VALUE})
+	/*@RequestMapping(value = "/api/timeseries/t1/getData", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ListObservation52n getObservationList(
 												@RequestParam (value = "expanded") String startTime,
 												@RequestParam (value = "generalize") String endTime,
@@ -90,6 +97,15 @@ public class Rest52nController {
 		//find a way to take only Rest52n as input to the value of format
 		//then, create multiple functions with same name returning different types
 		return observationService.list52n;
+	}*/
+	
+	@RequestMapping(value = "/api/timeseries/t1/getData", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public FlotSeries getFlotSeries(@RequestParam (value = "expanded") String startTime,
+			@RequestParam (value = "generalize") String endTime,
+			@RequestParam (value = "format") String format,
+			@RequestParam (value = "locale") String locale,
+			@RequestParam (value = "timespan") String timespan) throws ParseException, IOException {
+		return rest52nService.getFlotSeries();
 	}
 	
 }

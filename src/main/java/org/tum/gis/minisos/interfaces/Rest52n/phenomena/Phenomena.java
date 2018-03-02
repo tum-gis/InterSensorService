@@ -34,7 +34,7 @@ public class Phenomena {
 		this.id = id;
 	}
 
-	public String getHref() {
+	/*public String getHref() {
 		return href;
 	}
 
@@ -48,7 +48,7 @@ public class Phenomena {
 
 	public void setDomainId(String domainId) {
 		this.domainId = domainId;
-	}
+	}*/
 
 	public String getLabel() {
 		return label;

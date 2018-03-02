@@ -53,7 +53,7 @@ public class Timeseries {
 		this.label = label;
 	}
 
-	public List<String> getExtras() {
+	/*public List<String> getExtras() {
 		return extras;
 	}
 
@@ -67,7 +67,7 @@ public class Timeseries {
 
 	public void setReferenceValues(List<String> referenceValues) {
 		this.referenceValues = referenceValues;
-	}
+	}*/
 
 	public TimeValue getFirstValue() {
 		return firstValue;
@@ -101,13 +101,13 @@ public class Timeseries {
 		this.station = station;
 	}
 
-	public TimeseriesCollection getParameters() {
+	/*public TimeseriesCollection getParameters() {
 		return parameters;
 	}
 
 	public void setParameters(TimeseriesCollection parameters) {
 		this.parameters = parameters;
-	}
+	}*/
 	
 	
 	
