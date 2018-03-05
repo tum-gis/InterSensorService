@@ -26,6 +26,7 @@ public class JdbcConnection extends DataSourceConnection {
 						  String name, 
 						  String description, 
 						  String connectionType,
+						  String observationProperty,
 						  String observationType,			
 						  String unitOfMeasure, 
 						  String datatbaseType,
@@ -38,6 +39,7 @@ public class JdbcConnection extends DataSourceConnection {
 			  name, 
 			  description, 
 			  connectionType, 
+			  observationProperty,
 			  observationType, 
 			  unitOfMeasure);
 		

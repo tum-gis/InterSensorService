@@ -36,49 +36,49 @@ public class Rest52nController {
 	@Autowired
 	private ObservationService observationService;
 	
-	@RequestMapping(value = "/api/services/", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/api/services2/", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Services> getServices(@RequestParam (value = "expanded") String expanded,
 						  			  @RequestParam (value = "locale") String locale){
 		return rest52nService.getServices();
 	}
 	
-	@RequestMapping(value = "/api/services/1", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/api/services2/1", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Services getService(@RequestParam (value = "expanded") String expanded,
 						  			  @RequestParam (value = "locale") String locale){
 		return rest52nService.getService();
 	}
 	
-	@RequestMapping(value = "/api/procedures/1", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/api/procedures2/1", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Procedures getProcedure(
 						  			  @RequestParam (value = "locale") String locale){
 		return rest52nService.getProcedure();
 	}
 	
-	@RequestMapping(value = "/api/stations/2", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/api/stations2/2", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Station getStation(
 						  			  @RequestParam (value = "locale") String locale){
 		return rest52nService.getStation();
 	}
 	
-	@RequestMapping(value = "/api/stations/", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/api/stations2/", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Stations> getStations(@RequestParam (value = "locale") String locale,
 			  @RequestParam (value = "service") String service){
 		return rest52nService.getStations();
 	}
 	
-	@RequestMapping(value = "/api/phenomena/", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/api/phenomena2/", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Phenomena> getPhenomena(@RequestParam (value = "locale") String locale,
 			  @RequestParam (value = "platformTypes") String platformTypes,
 			  @RequestParam (value = "service") String service){
 		return rest52nService.getPhenomena();
 	}
 	
-	@RequestMapping(value = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/api2", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<API> getAPI(){
 		return rest52nService.getAPI();
 	}
 	
-	@RequestMapping(value = "/api/timeseries/t1", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/api/timeseries2/t1", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Timeseries getTimeseriesMetadata(@RequestParam (value = "locale") String locale,
 			  @RequestParam (value = "expanded") String expanded,
 			  @RequestParam (value = "force_latest_values") String force_latest_values,
@@ -99,13 +99,16 @@ public class Rest52nController {
 		return observationService.list52n;
 	}*/
 	
-	@RequestMapping(value = "/api/timeseries/t1/getData", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public FlotSeries getFlotSeries(@RequestParam (value = "expanded") String startTime,
-			@RequestParam (value = "generalize") String endTime,
+	/*@RequestMapping(value = "/api/timeseries/1/getData", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public FlotSeries getFlotSeries(@RequestParam (value = "expanded") String expanded,
+			@RequestParam (value = "generalize") String generalize,
 			@RequestParam (value = "format") String format,
 			@RequestParam (value = "locale") String locale,
 			@RequestParam (value = "timespan") String timespan) throws ParseException, IOException {
-		return rest52nService.getFlotSeries();
-	}
+		String[] splitStr = timespan.split("/");
+		String startTime = splitStr[0];
+		String endTime = splitStr[1];
+		return rest52nService.getFlotSeries1(startTime,endTime);
+	}*/
 	
 }

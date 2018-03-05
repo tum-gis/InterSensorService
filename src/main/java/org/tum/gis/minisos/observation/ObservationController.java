@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.tum.gis.minisos.interfaces.Interface;
-import org.tum.gis.minisos.interfaces.Rest52n.ListObservation52n;
+
 import org.tum.gis.minisos.interfaces.SosOM.GetObservationResponse;
+import org.tum.gis.minisos.interfaces.seriesRestApi52n.ListObservation52n;
 
 
 @RestController

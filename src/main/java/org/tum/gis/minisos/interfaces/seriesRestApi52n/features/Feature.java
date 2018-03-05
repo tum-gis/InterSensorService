@@ -1,15 +1,15 @@
-package org.tum.gis.minisos.interfaces.seriesRestApi52n.stations;
+package org.tum.gis.minisos.interfaces.seriesRestApi52n.features;
 
-public class Properties {
+public class Feature {
 
-	private String id = "2";
+	private String id = "1";
 	private String label = "MiniSOS_Virtual_Sensor";
 	
-	public Properties() {
+	public Feature() {
 		
 	}
 	
-	public Properties(String id, String label) {
+	public Feature(String id, String label) {
 		super();
 		this.id = id;
 		this.label = label;

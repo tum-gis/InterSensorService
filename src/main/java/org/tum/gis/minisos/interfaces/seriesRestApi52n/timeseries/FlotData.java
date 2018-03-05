@@ -1,4 +1,4 @@
-package org.tum.gis.minisos.interfaces.Rest52n.timeseries;
+package org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,24 +27,7 @@ public class FlotData {
 
 
 
-	public List<Number[]> getValues() {		
-		List<Number> value1 = new ArrayList<>(); 
-		List<Number> value2 = new ArrayList<>(); 
-		List<Number> value3 = new ArrayList<>(); 
-		
-		value1.add(1509490824000L);
-		value1.add(23.3);
-		
-		value2.add(1509490855000L);
-		value2.add(24.3);
-		
-		value3.add(1509490887000L);
-		value3.add(25.3);
-		 
-		/* values.add(value1.toArray(new Number[0]));
-		 values.add(value2.toArray(new Number[1]));
-		 values.add(value3.toArray(new Number[2]));*/
-		 
+	public List<Number[]> getValues() {				 
 		 return values;
 	}
 	public void setValues(List<Number[]> values) {

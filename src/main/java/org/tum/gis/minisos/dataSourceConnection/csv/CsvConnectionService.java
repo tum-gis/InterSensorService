@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tum.gis.minisos.dataSource.DataSource;
 import org.tum.gis.minisos.dataSource.DataSourceService;
+import org.tum.gis.minisos.interfaces.seriesRestApi52n.SeriesRestApiService;
 import org.tum.gis.minisos.observation.Observation;
 import org.tum.gis.minisos.observation.ObservationListManager;
 import org.tum.gis.minisos.observation.ObservationService;
@@ -44,6 +45,9 @@ public class CsvConnectionService {
 	
 	@Autowired
 	private ObservationService observationService;
+	
+	@Autowired
+	private SeriesRestApiService seriesRestApiService;
 	
 	public void addDataSource(CsvConnection csvConnection) throws IOException, ParseException {	
 		
@@ -70,6 +74,7 @@ public class CsvConnectionService {
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,csvConnection);
 			//create an entry in ObservationListmanagere with TimeseriesID
 			validateCsvConnection(timeseriesId, csvConnection);
+			seriesRestApiService.seriesRestApi52nFormatter(csvConnection);
 			
 		}else {
 			//create datasource with new id and then create timeseries
@@ -81,6 +86,7 @@ public class CsvConnectionService {
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,csvConnection);
 			//create an entry in ObservationListmanagere with TimeseriesID
 			validateCsvConnection(timeseriesId, csvConnection);
+			seriesRestApiService.seriesRestApi52nFormatter(csvConnection);
 		}
 		//DataSource dataSource = new DataSource(3,csvConnection);
 		

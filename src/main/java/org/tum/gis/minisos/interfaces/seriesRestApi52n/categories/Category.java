@@ -1,15 +1,15 @@
-package org.tum.gis.minisos.interfaces.seriesRestApi52n.stations;
+package org.tum.gis.minisos.interfaces.seriesRestApi52n.categories;
 
-public class Properties {
+public class Category {
 
-	private String id = "2";
-	private String label = "MiniSOS_Virtual_Sensor";
+	private String id = "1";
+	private String label = "Temperature";
 	
-	public Properties() {
+	public Category() {
 		
 	}
 	
-	public Properties(String id, String label) {
+	public Category(String id, String label) {
 		super();
 		this.id = id;
 		this.label = label;

@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.tum.gis.minisos.dataSource.DataSource;
 import org.tum.gis.minisos.dataSource.DataSourceService;
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
+import org.tum.gis.minisos.interfaces.seriesRestApi52n.SeriesRestApiService;
 import org.tum.gis.minisos.observation.Observation;
 import org.tum.gis.minisos.observation.ObservationListManager;
 import org.tum.gis.minisos.observation.ObservationService;
@@ -35,6 +36,9 @@ public class ThingspeakService {
 	
 	@Autowired
 	private ObservationService observationService;
+	
+	@Autowired
+	private SeriesRestApiService seriesRestApiService;
 
 	//private static final Logger log = LoggerFactory.getLogger(ThingspeakService.class);
 	
@@ -68,6 +72,7 @@ public class ThingspeakService {
 			int timeseriesId = IdSequenceManager.TimeseriesSourceSequence();
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,thingspeakConnection);
 			validateThingspeakConnection(timeseriesId,thingspeakConnection);
+			seriesRestApiService.seriesRestApi52nFormatter(thingspeakConnection);
 		}
 		else {
 			dataSourceId = IdSequenceManager.DataSourceSequence();
@@ -77,6 +82,7 @@ public class ThingspeakService {
 			int timeseriesId = IdSequenceManager.TimeseriesSourceSequence();
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,thingspeakConnection);
 			validateThingspeakConnection(timeseriesId,thingspeakConnection);
+			seriesRestApiService.seriesRestApi52nFormatter(thingspeakConnection);
 		}
 		
 	}

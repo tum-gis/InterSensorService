@@ -6,7 +6,7 @@ public class PropertiesAll {
 
 	private TimeseriesIdentifier timeseries = new TimeseriesIdentifier();
 	private String id = "2";
-	private String label = "Konigsplatz_Augsburg";
+	private String label = "MiniSOS_Virtual_Sensor";
 	
 	public PropertiesAll() {
 		

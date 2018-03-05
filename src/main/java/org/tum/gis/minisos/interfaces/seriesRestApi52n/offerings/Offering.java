@@ -1,15 +1,15 @@
-package org.tum.gis.minisos.interfaces.seriesRestApi52n.services;
+package org.tum.gis.minisos.interfaces.seriesRestApi52n.offerings;
 
-public class Service {
+public class Offering {
 
 	private String id = "1";
-	private String label = "My RESTful Dataset Service";
+	private String label = "Offering_MiniSOS_Virtual_Sensor";
 	
-	public Service() {
+	public Offering() {
 		
 	}
 	
-	public Service(String id, String label) {
+	public Offering(String id, String label) {
 		super();
 		this.id = id;
 		this.label = label;

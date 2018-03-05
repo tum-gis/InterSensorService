@@ -16,6 +16,7 @@ public class CsvConnection extends DataSourceConnection {
 						String name, 
 						String description, 
 						String connectionType,
+						String observationProperty,
 						String observationType,			
 						String unitOfMeasure, 
 						String fileLocation,
@@ -27,6 +28,7 @@ public class CsvConnection extends DataSourceConnection {
 				name, 
 				description, 
 				connectionType, 
+				observationProperty,
 				observationType, 
 				unitOfMeasure);
 		

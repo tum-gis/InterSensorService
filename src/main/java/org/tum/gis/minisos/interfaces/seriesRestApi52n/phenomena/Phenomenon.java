@@ -3,7 +3,7 @@ package org.tum.gis.minisos.interfaces.seriesRestApi52n.phenomena;
 public class Phenomenon {
 
 	private String id = "1";
-	private String label = "temperature";
+	private String label = "Temperature";
 	
 	public Phenomenon() {
 		

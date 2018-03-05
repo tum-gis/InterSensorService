@@ -1,8 +1,10 @@
 package org.tum.gis.minisos.interfaces.Rest52n.timeseries;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class FlotSeries {
 
-	FlotData t1 = new FlotData();
+	FlotData t1;
 
 	public FlotSeries() {
 		
@@ -13,7 +15,8 @@ public class FlotSeries {
 		this.t1 = t1;
 	}
 
-	public FlotData getT1() {
+	@JsonProperty("1")
+	public FlotData getT1() {	
 		return t1;
 	}
 

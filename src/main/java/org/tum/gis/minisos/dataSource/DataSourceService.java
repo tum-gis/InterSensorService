@@ -12,7 +12,7 @@ import org.tum.gis.minisos.dataSourceConnection.csv.CsvConnection;
 public class DataSourceService {
 
 	//try
-	static CsvConnection csv1 = new CsvConnection(1, 
+	/*static CsvConnection csv1 = new CsvConnection(1, 
 			"csv1", 
 			null, 
 			"csv", 
@@ -35,7 +35,7 @@ public class DataSourceService {
 			",",
 			0,
 			1)
-			);
+			);*/
 	
 	public List<DataSource> datasources = new ArrayList<>(Arrays.asList(
 			//data1,

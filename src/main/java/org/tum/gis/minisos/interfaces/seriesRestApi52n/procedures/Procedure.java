@@ -3,7 +3,7 @@ package org.tum.gis.minisos.interfaces.seriesRestApi52n.procedures;
 public class Procedure {
 
 	private String id = "1";
-	private String label = "Konigsplatz_Augsburg";
+	private String label = "MiniSOS_Virtual_Sensor";
 	
 	public Procedure() {
 		

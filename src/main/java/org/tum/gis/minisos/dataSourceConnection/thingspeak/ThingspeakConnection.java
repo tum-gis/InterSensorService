@@ -26,6 +26,7 @@ public class ThingspeakConnection extends DataSourceConnection {
 								String name, 
 								String description, 
 								String connectionType, 
+								String observationProperty,
 								String observationType,
 								String unitOfMeasure,
 								String serviceName,
@@ -37,6 +38,7 @@ public class ThingspeakConnection extends DataSourceConnection {
 			  name, 
 			  description, 
 			  connectionType, 
+			  observationProperty,
 			  observationType, 
 			  unitOfMeasure);
 		// TODO Auto-generated constructor stub
