@@ -3,7 +3,7 @@ package org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries;
 public class FirstValue {
 
 	private long timestamp = 1518786000000L;
-	private double value = 0.1;
+	private double value;
 	
 	public FirstValue() {
 		

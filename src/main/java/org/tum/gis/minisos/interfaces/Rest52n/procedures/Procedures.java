@@ -37,30 +37,30 @@ public class Procedures {
 	public void setId(String id) {
 		this.id = id;
 	}
-	/*public String getDomainId() {
+	public String getDomainId() {
 		return domainId;
 	}
 	public void setDomainId(String domainId) {
 		this.domainId = domainId;
-	}*/
+	}
 	public String getLabel() {
 		return label;
 	}
 	public void setLabel(String label) {
 		this.label = label;
 	}
-	/*public List<String> getExtras() {
+	public List<String> getExtras() {
 		return extras;
 	}
 	public void setExtras(List<String> extras) {
 		this.extras = extras;
-	}*/
-	/*public Service getService() {
+	}
+	public Service getService() {
 		return service;
 	}
 	public void setService(Service service) {
 		this.service = service;
-	}*/
+	}
 	
 	
 	

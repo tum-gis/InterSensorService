@@ -23,6 +23,8 @@ import org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries.FlotData;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries.FlotSeries;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries.TimeseriesMetadata;
 import org.tum.gis.minisos.observation.ObservationService;
+import org.tum.gis.minisos.timeseries.TimeseriesService;
+import org.tum.gis.minisos.util.CustomDateUtil;
 
 
 
@@ -31,6 +33,9 @@ public class SeriesRestApiService {
 
 	@Autowired
 	private ObservationService observationService;
+	
+	@Autowired
+	private TimeseriesService timeseriesService;
 	
 	public List<Services> serviceList = new ArrayList<>();
 	public List<Procedure> procedureList = new ArrayList<>();
@@ -118,9 +123,11 @@ public class SeriesRestApiService {
 		
 		Phenomenon phenomenon = new Phenomenon();		
 		phenomenon.setLabel(dataSource.getObservationProperty());
+		phenomenon.setDomainId(dataSource.getObservationProperty());
 		phenomenonList.add(phenomenon);
 		
 		Stations stations = new Stations();
+		stations.getProperties().setLabel(dataSource.getName());
 		stationsList.add(stations);
 		
 		Services services = new Services();
@@ -128,6 +135,7 @@ public class SeriesRestApiService {
 		
 		Procedure procedure = new Procedure();
 		procedure.setLabel(dataSource.getName());
+		procedure.setDomainId(dataSource.getName());
 		procedureList.add(procedure);		
 		
 		
@@ -140,9 +148,11 @@ public class SeriesRestApiService {
 		offeringList.add(offering);
 		
 		Feature feature = new Feature();
+		feature.setLabel(dataSource.getName());
 		featureList.add(feature);
 		
 		Station station = new Station();
+		station.getProperties().setLabel(dataSource.getName());
 		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setCategory(category);
 		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setFeature(feature);
 		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setOffering(offering);
@@ -152,6 +162,10 @@ public class SeriesRestApiService {
 		stationList.add(station);
 		
 		TimeseriesMetadata timeseriesMetadata = new TimeseriesMetadata();
+		
+		timeseriesMetadata.getFirstValue().setTimestamp(CustomDateUtil.UnixTimeCreator(timeseriesService.timeseriesList.get(0).getFirstObservation()));
+		timeseriesMetadata.getLastValue().setTimestamp(CustomDateUtil.UnixTimeCreator(timeseriesService.timeseriesList.get(0).getLastObservation()));
+		timeseriesMetadata.setStation(stations);
 		timeseriesMetadata.getParameters().setCategory(category);
 		timeseriesMetadata.getParameters().setFeature(feature);
 		timeseriesMetadata.getParameters().setOffering(offering);

@@ -1,5 +1,9 @@
 package org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.SeriesRestApiService;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.stations.Stations;
@@ -8,7 +12,9 @@ public class TimeseriesMetadata {
 
 	
 	private String id = "1";
-	private String label = "MiniSOS" ;
+	private String label = "MiniSOS123, Thingspeak_Sensor" ;
+	private List<String> extras =  new ArrayList<>(Arrays.asList("license","renderingHints","statusIntervals")) ;
+	private List<String> referenceValues =  new ArrayList<>(Arrays.asList("")) ;
 	private FirstValue firstValue = new FirstValue();
 	private LastValue lastValue = new LastValue();
 	private String uom = "unit";
@@ -19,17 +25,22 @@ public class TimeseriesMetadata {
 		
 	}
 	
-	public TimeseriesMetadata(String id, String label, FirstValue firstValue, LastValue lastValue, String uom,
-			Stations station, Parameters parameters) {
+	
+	public TimeseriesMetadata(String id, String label, List<String> extras, List<String> referenceValues,
+			FirstValue firstValue, LastValue lastValue, String uom, Stations station, Parameters parameters) {
 		super();
 		this.id = id;
 		this.label = label;
+		this.extras = extras;
+		this.referenceValues = referenceValues;
 		this.firstValue = firstValue;
 		this.lastValue = lastValue;
 		this.uom = uom;
 		this.station = station;
 		this.parameters = parameters;
 	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -74,6 +85,28 @@ public class TimeseriesMetadata {
 	public void setParameters(Parameters parameters) {
 		this.parameters = parameters;
 	}
+
+
+	public List<String> getExtras() {
+		return extras;
+	}
+
+
+	public void setExtras(List<String> extras) {
+		this.extras = extras;
+	}
+
+
+	public List<String> getReferenceValues() {
+		return referenceValues;
+	}
+
+
+	public void setReferenceValues(List<String> referenceValues) {
+		this.referenceValues = referenceValues;
+	}
+	
+	
 	
 	
 	

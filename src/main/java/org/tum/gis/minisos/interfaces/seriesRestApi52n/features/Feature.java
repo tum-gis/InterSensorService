@@ -2,7 +2,7 @@ package org.tum.gis.minisos.interfaces.seriesRestApi52n.features;
 
 public class Feature {
 
-	private String id = "1";
+	private String id = "2";
 	private String label = "MiniSOS_Virtual_Sensor";
 	
 	public Feature() {
