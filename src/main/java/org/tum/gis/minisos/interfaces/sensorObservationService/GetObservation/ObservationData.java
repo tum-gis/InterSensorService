@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.tum.gis.minisos.interfaces.SosOM;
+package org.tum.gis.minisos.interfaces.sensorObservationService.GetObservation;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
