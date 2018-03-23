@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tum.gis.minisos.observation.Observation;
@@ -32,15 +34,32 @@ public class GetObservationService {
 		return getObservationResponse;
 	}*/
 	
-	public List<ObservationData> getObservationResponse(int timeseriesId, String startTime, String endTime) throws IOException, ParseException {
+	
+	/*public GetObservationResponse getObservationResponse(int timeseriesId, String startTime, String endTime) throws IOException, ParseException {
 		List<Observation> observationList = observationService.getObservationList(timeseriesId, startTime, endTime);		
-		List<ObservationData> observationDataList = new ArrayList<>();;
+		List<ObservationData> observationDataList = new ArrayList<>();
 		for (int i=0; i<observationList.size(); i++) {
 			ObservationData observationData = new ObservationData();
 			observationData.setPhenomenonTime(observationList.get(i).getTime());
 			observationData.setValue(observationList.get(i).getValue());
 			observationDataList.add(observationData);
 		}		
-		return observationDataList;
+		GetObservationResponse getObservationResponse = new GetObservationResponse();
+		getObservationResponse.setObservationData(observationDataList);		
+		return getObservationResponse;
+	}*/
+	
+	public GetObservationResponse getObservationResponse(int timeseriesId, String startTime, String endTime) throws IOException, ParseException {
+		List<Observation> observationList = observationService.getObservationList(timeseriesId, startTime, endTime);		
+		List<ObservationData> observationDataList = new ArrayList<>();
+		for (int i=0; i<observationList.size(); i++) {
+			ObservationData observationData = new ObservationData();
+			observationData.getOm_Observation().getPhenomenonTime().getTimeInstant().setTimePosition(observationList.get(i).getTime());
+			observationData.getOm_Observation().getResult().setResult(observationList.get(i).getValue());
+			observationDataList.add(observationData);
+		}		
+		GetObservationResponse getObservationResponse = new GetObservationResponse();
+		getObservationResponse.setObservationData(observationDataList);		
+		return getObservationResponse;
 	}
 }

@@ -1,0 +1,30 @@
+package org.tum.gis.minisos.interfaces.sensorObservationService.GetObservation;
+
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
+public class PhenomenonTime {
+
+	@JacksonXmlProperty (isAttribute = true)
+	private String id = "phenomenonTime_1";
+	
+	private TimeInstant timeInstant = new TimeInstant();
+
+	public PhenomenonTime() {
+		
+	}
+	
+	public PhenomenonTime(TimeInstant timeInstant) {
+		super();
+		this.timeInstant = timeInstant;
+	}
+
+	public TimeInstant getTimeInstant() {
+		return timeInstant;
+	}
+
+	public void setTimeInstant(TimeInstant timeInstant) {
+		this.timeInstant = timeInstant;
+	}
+	
+	
+}

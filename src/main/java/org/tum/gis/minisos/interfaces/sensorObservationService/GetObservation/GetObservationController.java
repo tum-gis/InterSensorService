@@ -15,10 +15,10 @@ public class GetObservationController {
 
 	@Autowired
 	private GetObservationService getObservationService;	
-	@RequestMapping(value = "/api/getObservation", params = {"phenomenonTime"} )	
-	public List<ObservationData> getObservationResponse(@RequestParam (value = "phenomenonTime") String phenomenonTime
+	@RequestMapping(value = "/api/getObservation", params = {"phenomenonTime"}, produces = {MediaType.APPLICATION_XML_VALUE} )	
+	public GetObservationResponse getObservationResponse(@RequestParam (value = "phenomenonTime") String phenomenonTime
 														) throws IOException, ParseException {
-		System.out.println("started");
+		
 		String[] splitStr = phenomenonTime.split("/");
 		String startTime = splitStr[0];
 		String endTime = splitStr[1];
