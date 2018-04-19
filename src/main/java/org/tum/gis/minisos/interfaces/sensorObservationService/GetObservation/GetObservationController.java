@@ -1,6 +1,7 @@
 package org.tum.gis.minisos.interfaces.sensorObservationService.GetObservation;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class GetObservationController {
 	private GetObservationService getObservationService;	
 	@RequestMapping(value = "/api/getObservation", params = {"phenomenonTime"}, produces = {MediaType.APPLICATION_XML_VALUE} )	
 	public GetObservationResponse getObservationResponse(@RequestParam (value = "phenomenonTime") String phenomenonTime
-														) throws IOException, ParseException {
+														) throws IOException, ParseException, URISyntaxException {
 		
 		String[] splitStr = phenomenonTime.split("/");
 		String startTime = splitStr[0];

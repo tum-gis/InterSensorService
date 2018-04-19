@@ -1,6 +1,7 @@
 package org.tum.gis.minisos.observation;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,8 @@ import org.tum.gis.minisos.dataSource.DataSourceService;
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 import org.tum.gis.minisos.dataSourceConnection.csv.CsvConnection;
 import org.tum.gis.minisos.dataSourceConnection.csv.CsvConnectionService;
+import org.tum.gis.minisos.dataSourceConnection.openSensors.OpenSensorsConnection;
+import org.tum.gis.minisos.dataSourceConnection.openSensors.OpenSensorsService;
 import org.tum.gis.minisos.dataSourceConnection.sensorThings.SensorThingsConnection;
 import org.tum.gis.minisos.dataSourceConnection.sensorThings.SensorThingsService;
 import org.tum.gis.minisos.dataSourceConnection.thingspeak.ThingspeakConnection;
@@ -44,6 +47,9 @@ public class ObservationService {
 	
 	@Autowired
 	private SensorThingsService sensorThingsService;
+	
+	@Autowired
+	private OpenSensorsService openSensorsService;
 	
 	public List<ObservationListManager> observationList = new ArrayList<>();
 	
@@ -99,7 +105,7 @@ public class ObservationService {
 		return null;
 	}
 	
-	public List<Observation> getObservationList(int timeseriesId, String startTime, String endTime) throws IOException, ParseException{
+	public List<Observation> getObservationList(int timeseriesId, String startTime, String endTime) throws IOException, ParseException, URISyntaxException{
 		Timeseries timeseries = timeseriesService.timeseriesList.get(timeseriesId-1);
 		DataSourceConnection dataSource = dataSourceService.datasources.get(timeseries.getDataSourceId()-1).getDataSourceConnection();
 		
@@ -110,9 +116,14 @@ public class ObservationService {
 		}else if (dataSource instanceof CsvConnection) {
 			CsvConnection csvConnection = (CsvConnection) dataSource;
 			return csvConnectionService.parseCsv(timeseriesId, csvConnection, startTime, endTime);
+			
 		} else if(dataSource instanceof SensorThingsConnection) {
 			SensorThingsConnection sensorThingsConnection = (SensorThingsConnection) dataSource;
 			return sensorThingsService.parseSensorThings(timeseriesId, sensorThingsConnection, startTime, endTime);
+			
+		} else if (dataSource instanceof OpenSensorsConnection) {
+			OpenSensorsConnection openSensorsConnection = (OpenSensorsConnection) dataSource;
+			return openSensorsService.parseOpenSensors(timeseriesId, openSensorsConnection, startTime, endTime);
 		}
 		return null;
 	}
@@ -120,7 +131,7 @@ public class ObservationService {
 	//just for testing
 	public ListObservation52n list52n;
 	
-	public ListObservation52n getObservationList(int timeseriesId, String startTime, String endTime, String format) throws IOException, ParseException{
+	public ListObservation52n getObservationList(int timeseriesId, String startTime, String endTime, String format) throws IOException, ParseException, URISyntaxException{
 		Timeseries timeseries = timeseriesService.timeseriesList.get(timeseriesId-1);
 		DataSourceConnection dataSource = dataSourceService.datasources.get(timeseries.getDataSourceId()-1).getDataSourceConnection();
 		List<Observation> observationList = new ArrayList<>();
@@ -154,6 +165,18 @@ public class ObservationService {
 		} else if (dataSource instanceof SensorThingsConnection) {
 			SensorThingsConnection sensorThingsConnection = (SensorThingsConnection) dataSource;
 			observationList = sensorThingsService.parseSensorThings(timeseriesId, sensorThingsConnection, startTime, endTime);
+			for (Observation observation : observationList) {
+				Observation52n observation52n = new Observation52n();
+				observation52n.setTimestamp(CustomDateUtil.UnixTimeCreator(observation.getTime()));
+				observation52n.setValue(observation.getValue());
+				observation52nList.add(observation52n);
+			}
+			list52n.setValues(observation52nList);
+			return list52n;
+			
+		} else if (dataSource instanceof OpenSensorsConnection) {
+			OpenSensorsConnection openSensorsConnection = (OpenSensorsConnection) dataSource;
+			observationList = openSensorsService.parseOpenSensors(timeseriesId, openSensorsConnection, startTime, endTime);
 			for (Observation observation : observationList) {
 				Observation52n observation52n = new Observation52n();
 				observation52n.setTimestamp(CustomDateUtil.UnixTimeCreator(observation.getTime()));

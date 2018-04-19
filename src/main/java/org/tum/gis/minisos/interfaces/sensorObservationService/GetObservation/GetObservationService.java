@@ -1,6 +1,7 @@
 package org.tum.gis.minisos.interfaces.sensorObservationService.GetObservation;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class GetObservationService {
 		return getObservationResponse;
 	}*/
 	
-	public GetObservationResponse getObservationResponse(int timeseriesId, String startTime, String endTime) throws IOException, ParseException {
+	public GetObservationResponse getObservationResponse(int timeseriesId, String startTime, String endTime) throws IOException, ParseException, URISyntaxException {
 		List<Observation> observationList = observationService.getObservationList(timeseriesId, startTime, endTime);		
 		List<ObservationData> observationDataList = new ArrayList<>();
 		for (int i=0; i<observationList.size(); i++) {

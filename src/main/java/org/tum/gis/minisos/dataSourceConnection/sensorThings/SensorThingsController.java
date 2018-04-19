@@ -14,9 +14,6 @@ public class SensorThingsController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/datasourcesSensorThings")
 	public void addDataSource(@RequestBody SensorThingsConnection sensorThingsConnection) {
-		System.out.println(sensorThingsConnection.getBaseUrl());
-		System.out.println(sensorThingsConnection.getThingId());
-		System.out.println(sensorThingsConnection.getDescription());
 		sensorThingsService.addDataSource(sensorThingsConnection);
 	}
 }

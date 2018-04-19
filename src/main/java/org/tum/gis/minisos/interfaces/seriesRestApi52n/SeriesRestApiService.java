@@ -1,6 +1,7 @@
 package org.tum.gis.minisos.interfaces.seriesRestApi52n;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,7 +94,7 @@ public class SeriesRestApiService {
 		return serviceList.get(0);		
 	}
 	
-	public FlotSeries getFlotSeries(String startTime, String endTime) throws IOException, ParseException {
+	public FlotSeries getFlotSeries(String startTime, String endTime) throws IOException, ParseException, URISyntaxException {
 		FlotSeries flotSeries = new FlotSeries();
 		ListObservation52n listObservation52n = observationService.getObservationList(1, startTime, endTime, "abc");
 		List<Number[]> values = new ArrayList<>();

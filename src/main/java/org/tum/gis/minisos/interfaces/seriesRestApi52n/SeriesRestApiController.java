@@ -1,6 +1,7 @@
 package org.tum.gis.minisos.interfaces.seriesRestApi52n;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class SeriesRestApiController {
 			@RequestParam (value = "generalize") String generalize,
 			@RequestParam (value = "format") String format,
 			@RequestParam (value = "locale") String locale,
-			@RequestParam (value = "timespan") String timespan) throws ParseException, IOException {
+			@RequestParam (value = "timespan") String timespan) throws ParseException, IOException, URISyntaxException {
 		String[] splitStr = timespan.split("/");
 		String startTime = splitStr[0];
 		String endTime = splitStr[1];

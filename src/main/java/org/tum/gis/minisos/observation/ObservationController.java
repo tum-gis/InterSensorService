@@ -2,6 +2,7 @@ package org.tum.gis.minisos.observation;
 
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class ObservationController {
 	@RequestMapping(value = "/timeseries/{id}/observations", params = {"start", "end"} , produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Observation> getObservationList(@PathVariable int id,
 												@RequestParam (value = "start") String startTime,
-												@RequestParam (value = "end") String endTime) throws ParseException, IOException{
+												@RequestParam (value = "end") String endTime) throws ParseException, IOException, URISyntaxException{
 		return observationService.getObservationList(id,startTime,endTime);
 	}
 	
@@ -42,7 +43,7 @@ public class ObservationController {
 	public ListObservation52n getObservationList(@PathVariable int id,
 												@RequestParam (value = "start") String startTime,
 												@RequestParam (value = "end") String endTime,
-												@RequestParam (value = "format") String format) throws ParseException, IOException{
+												@RequestParam (value = "format") String format) throws ParseException, IOException, URISyntaxException{
 		//find a way to take only Rest52n as input to the value of format
 		//then, create multiple functions with same name returning different types
 		return observationService.getObservationList(id,startTime,endTime,format);
