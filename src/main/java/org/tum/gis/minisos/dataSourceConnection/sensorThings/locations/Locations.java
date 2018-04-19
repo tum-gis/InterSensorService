@@ -1,4 +1,4 @@
-package org.tum.gis.minisos.dataSource.sensorThings.locations;
+package org.tum.gis.minisos.dataSourceConnection.sensorThings.locations;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.tum.gis.minisos.dataSource.sensorThings;
+package org.tum.gis.minisos.dataSourceConnection.sensorThings;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

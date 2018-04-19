@@ -1,8 +1,8 @@
-package org.tum.gis.minisos.dataSource.sensorThings;
+package org.tum.gis.minisos.dataSourceConnection.sensorThings;
 
 import org.springframework.web.client.RestTemplate;
-import org.tum.gis.minisos.dataSource.sensorThings.locations.Locations;
-import org.tum.gis.minisos.dataSource.sensorThings.observations.Observations;
+import org.tum.gis.minisos.dataSourceConnection.sensorThings.locations.Locations;
+import org.tum.gis.minisos.dataSourceConnection.sensorThings.observations.Observations;
 
 
 

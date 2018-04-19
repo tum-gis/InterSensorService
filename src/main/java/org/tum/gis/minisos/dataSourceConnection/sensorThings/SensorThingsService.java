@@ -1,4 +1,4 @@
-package org.tum.gis.minisos.dataSource.sensorThings;
+package org.tum.gis.minisos.dataSourceConnection.sensorThings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tum.gis.minisos.dataSource.DataSource;
 import org.tum.gis.minisos.dataSource.DataSourceService;
-import org.tum.gis.minisos.dataSource.sensorThings.locations.Locations;
-import org.tum.gis.minisos.dataSource.sensorThings.observations.Observations;
-import org.tum.gis.minisos.dataSource.sensorThings.things.Things;
-import org.tum.gis.minisos.dataSource.sensorThings.datastreams.Datastreams;
+import org.tum.gis.minisos.dataSourceConnection.sensorThings.datastreams.Datastreams;
+import org.tum.gis.minisos.dataSourceConnection.sensorThings.locations.Locations;
+import org.tum.gis.minisos.dataSourceConnection.sensorThings.observations.Observations;
+import org.tum.gis.minisos.dataSourceConnection.sensorThings.things.Things;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.SeriesRestApiService;
 import org.tum.gis.minisos.observation.Observation;
 import org.tum.gis.minisos.observation.ObservationService;

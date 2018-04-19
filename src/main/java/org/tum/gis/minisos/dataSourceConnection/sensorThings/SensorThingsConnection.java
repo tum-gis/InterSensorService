@@ -1,4 +1,4 @@
-package org.tum.gis.minisos.dataSource.sensorThings;
+package org.tum.gis.minisos.dataSourceConnection.sensorThings;
 
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 

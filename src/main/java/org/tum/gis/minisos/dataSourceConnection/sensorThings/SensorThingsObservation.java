@@ -1,4 +1,4 @@
-package org.tum.gis.minisos.dataSource.sensorThings;
+package org.tum.gis.minisos.dataSourceConnection.sensorThings;
 
 import java.text.ParseException;
 import java.util.Date;

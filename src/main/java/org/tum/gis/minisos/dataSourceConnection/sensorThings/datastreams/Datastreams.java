@@ -1,4 +1,4 @@
-package org.tum.gis.minisos.dataSource.sensorThings.datastreams;
+package org.tum.gis.minisos.dataSourceConnection.sensorThings.datastreams;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
