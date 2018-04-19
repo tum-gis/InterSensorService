@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tum.gis.minisos.dataSource.DataSource;
 import org.tum.gis.minisos.dataSource.DataSourceService;
+import org.tum.gis.minisos.dataSource.sensorThings.SensorThingsConnection;
+import org.tum.gis.minisos.dataSource.sensorThings.SensorThingsService;
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 import org.tum.gis.minisos.dataSourceConnection.csv.CsvConnection;
 import org.tum.gis.minisos.dataSourceConnection.csv.CsvConnectionService;
@@ -39,6 +41,9 @@ public class ObservationService {
 	
 	@Autowired
 	private CsvConnectionService csvConnectionService;
+	
+	@Autowired
+	private SensorThingsService sensorThingsService;
 	
 	public List<ObservationListManager> observationList = new ArrayList<>();
 	
@@ -90,7 +95,7 @@ public class ObservationService {
 		} else if (dataSource instanceof CsvConnection) {
 			CsvConnection csvConnection = (CsvConnection) dataSource;
 			return csvConnectionService.parseCsv(timeseriesId, csvConnection);
-		}
+		} 
 		return null;
 	}
 	
@@ -105,7 +110,10 @@ public class ObservationService {
 		}else if (dataSource instanceof CsvConnection) {
 			CsvConnection csvConnection = (CsvConnection) dataSource;
 			return csvConnectionService.parseCsv(timeseriesId, csvConnection, startTime, endTime);
-		}		
+		} else if(dataSource instanceof SensorThingsConnection) {
+			SensorThingsConnection sensorThingsConnection = (SensorThingsConnection) dataSource;
+			return sensorThingsService.parseSensorThings(timeseriesId, sensorThingsConnection, startTime, endTime);
+		}
 		return null;
 	}
 	
@@ -142,7 +150,19 @@ public class ObservationService {
 			}
 			list52n.setValues(observation52nList);
 			return list52n;
-		}		
+			
+		} else if (dataSource instanceof SensorThingsConnection) {
+			SensorThingsConnection sensorThingsConnection = (SensorThingsConnection) dataSource;
+			observationList = sensorThingsService.parseSensorThings(timeseriesId, sensorThingsConnection, startTime, endTime);
+			for (Observation observation : observationList) {
+				Observation52n observation52n = new Observation52n();
+				observation52n.setTimestamp(CustomDateUtil.UnixTimeCreator(observation.getTime()));
+				observation52n.setValue(observation.getValue());
+				observation52nList.add(observation52n);
+			}
+			list52n.setValues(observation52nList);
+			return list52n;
+		}
 		return null;
 	}
 	
