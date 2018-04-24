@@ -16,12 +16,12 @@ public class DataSourceController {
 	@Autowired
 	private DataSourceService dataSourceService;
 	
-	@RequestMapping(value = "/datasources", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/mini-sos-api/datasources", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<DataSource> getAllDataSources(){
 		return dataSourceService.getAllDataSources();
 	}
 	
-	@RequestMapping(value = "/datasources/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/mini-sos-api/datasources/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public DataSource getDataSource(@PathVariable int id) {
 		return dataSourceService.getDataSource(id);
 	}

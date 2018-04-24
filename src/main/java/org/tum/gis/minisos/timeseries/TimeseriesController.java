@@ -14,12 +14,12 @@ public class TimeseriesController {
 	@Autowired
 	private TimeseriesService timeseriesService;
 	
-	@RequestMapping(value = "/timeseries", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/mini-sos-api/timeseries", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Timeseries> getTimeseriesList(){
 		return timeseriesService.getTimeseriesList();
 	}
 	
-	@RequestMapping(value = "/timeseries/{id}" , produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/mini-sos-api/timeseries/{id}" , produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Timeseries getTimeseriesById(@PathVariable int id) {
 		return timeseriesService.getTimeseriesById(id);
 	}

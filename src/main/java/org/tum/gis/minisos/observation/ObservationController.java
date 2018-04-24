@@ -27,19 +27,19 @@ public class ObservationController {
 	@Autowired
 	private ObservationService observationService;
 	
-	@RequestMapping(value = "/timeseries/{id}/observations" , produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/mini-sos-api/timeseries/{id}/observations" , produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Observation> getObservationList(@PathVariable int id) throws IOException{
 		return observationService.getObservationList(id);
 	}
 	
-	@RequestMapping(value = "/timeseries/{id}/observations", params = {"start", "end"} , produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/mini-sos-api/timeseries/{id}/observations", params = {"start", "end"} , produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Observation> getObservationList(@PathVariable int id,
 												@RequestParam (value = "start") String startTime,
 												@RequestParam (value = "end") String endTime) throws ParseException, IOException, URISyntaxException{
 		return observationService.getObservationList(id,startTime,endTime);
 	}
 	
-	@RequestMapping(value = "/timeseries/{id}/observations", params = {"start", "end", "format"}, produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/mini-sos-api/timeseries/{id}/observations", params = {"start", "end", "format"}, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ListObservation52n getObservationList(@PathVariable int id,
 												@RequestParam (value = "start") String startTime,
 												@RequestParam (value = "end") String endTime,

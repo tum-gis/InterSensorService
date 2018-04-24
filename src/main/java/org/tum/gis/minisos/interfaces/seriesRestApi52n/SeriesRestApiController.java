@@ -28,7 +28,7 @@ public class SeriesRestApiController {
 	private SeriesRestApiService seriesRestApiService;
 	
 	@CrossOrigin()
-	@RequestMapping(value = "/api/phenomena/", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/52n-rest-api/phenomena/", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Phenomenon> getPhenomena(@RequestParam (value = "locale") String locale,
 			  @RequestParam (value = "platformTypes") String platformTypes,
 			  @RequestParam (value = "service") String service){
@@ -36,28 +36,28 @@ public class SeriesRestApiController {
 	}
 	
 	@CrossOrigin()
-	@RequestMapping(value = "/api/stations/", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/52n-rest-api/stations/", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Stations> getStations(@RequestParam (value = "locale") String locale,
 			  @RequestParam (value = "service") String service){
 		return seriesRestApiService.getStations();
 	}
 	
 	@CrossOrigin()
-	@RequestMapping(value = "/api/procedures/1", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/52n-rest-api/procedures/1", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Procedure getProcedure(
 						  			  @RequestParam (value = "locale") String locale){
 		return seriesRestApiService.getProcedure();
 	}
 	
 	@CrossOrigin()
-	@RequestMapping(value = "/api/stations/2", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/52n-rest-api/stations/2", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Station getStation(
 						  			  @RequestParam (value = "locale") String locale){
 		return seriesRestApiService.getStation();
 	}
 		
 	@CrossOrigin()
-	@RequestMapping(value = "/api/timeseries/1", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/52n-rest-api/timeseries/1", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public TimeseriesMetadata getTimeseriesMetadata(@RequestParam (value = "locale") String locale,
 			  @RequestParam (value = "expanded") String expanded,
 			  @RequestParam (value = "force_latest_values") String force_latest_values,
@@ -67,27 +67,27 @@ public class SeriesRestApiController {
 	}
 	
 	@CrossOrigin()
-	@RequestMapping(value = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/52n-rest-api", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<SeriesRestApi> getSeriesRestApi(){
 		return seriesRestApiService.getSeriesRestApi();
 	}
 	
 	@CrossOrigin()
-	@RequestMapping(value = "/api/services/", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/52n-rest-api/services/", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Services> getServices(@RequestParam (value = "expanded") String expanded,
 			  						  @RequestParam (value = "locale") String locale){
 		return seriesRestApiService.getServices();
 	}
 	
 	@CrossOrigin()
-	@RequestMapping(value = "/api/services/1", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/52n-rest-api/services/1", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Services getService(@RequestParam (value = "expanded") String expanded,
 			  				   @RequestParam (value = "locale") String locale) {
 		return seriesRestApiService.getService();
 	}
 	
 	@CrossOrigin()
-	@RequestMapping(value = "/api/timeseries/1/getData", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/52n-rest-api/timeseries/1/getData", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public FlotSeries getFlotSeries(@RequestParam (value = "expanded") String expanded,
 			@RequestParam (value = "generalize") String generalize,
 			@RequestParam (value = "format") String format,
