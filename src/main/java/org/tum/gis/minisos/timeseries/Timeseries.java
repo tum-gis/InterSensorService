@@ -11,6 +11,7 @@ public class Timeseries {
 	private String dataSourceType;
 	private String firstObservation;
 	private String lastObservation;
+	private String observationProperty;
 	private String observationType;
 	private String unitOfMeasure;
 	
@@ -19,7 +20,7 @@ public class Timeseries {
 	}
 	
 	public Timeseries(int id, int dataSourceId, String name, String description, String dataSourceType, String firstObservation,
-			String lastObservation, String observationType, String unitOfMeasure) {
+			String lastObservation, String observationProperty, String observationType, String unitOfMeasure) {
 		super();
 		this.id = id;
 		this.dataSourceId = dataSourceId;
@@ -28,6 +29,7 @@ public class Timeseries {
 		this.dataSourceType = dataSourceType;
 		this.firstObservation = firstObservation;
 		this.lastObservation = lastObservation;
+		this.observationProperty = observationProperty;
 		this.observationType = observationType;
 		this.unitOfMeasure = unitOfMeasure;
 	}
@@ -86,6 +88,16 @@ public class Timeseries {
 
 	public void setLastObservation(String lastObservation) {
 		this.lastObservation = lastObservation;
+	}
+	
+	
+
+	public String getObservationProperty() {
+		return observationProperty;
+	}
+
+	public void setObservationProperty(String observationProperty) {
+		this.observationProperty = observationProperty;
 	}
 
 	public String getObservationType() {

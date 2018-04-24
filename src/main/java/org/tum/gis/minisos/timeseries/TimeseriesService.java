@@ -23,6 +23,7 @@ public class TimeseriesService {
 				dataSourceConnection.getConnectionType(),
 				null,
 				null,
+				dataSourceConnection.getObservationProperty(),
 				dataSourceConnection.getObservationType(),
 				dataSourceConnection.getUnitOfMeasure()				
 				);

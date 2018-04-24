@@ -14,6 +14,8 @@ public class IdSequenceManager {
 	static AtomicInteger dataSourceSeq = new AtomicInteger();
 	static AtomicInteger timeseriesSeq = new AtomicInteger();
 	
+	static AtomicInteger observationSeq = new AtomicInteger();
+	
 	
 	public static int DataSourceSequence() {
 		return dataSourceSeq.incrementAndGet();
@@ -21,6 +23,10 @@ public class IdSequenceManager {
 	
 	public static int TimeseriesSourceSequence() {
 		return timeseriesSeq.incrementAndGet();
+	}
+	
+	public static int ObservationSequence() {
+		return observationSeq.incrementAndGet();
 	}
 
 }

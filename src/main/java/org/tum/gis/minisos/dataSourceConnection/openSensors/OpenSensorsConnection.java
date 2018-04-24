@@ -4,6 +4,8 @@ import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 
 public class OpenSensorsConnection extends DataSourceConnection {
 
+	private String serviceName;
+	private String serviceType;
 	private String baseUrl;
 	private String topicName;
 	private String authKey;
@@ -18,6 +20,8 @@ public class OpenSensorsConnection extends DataSourceConnection {
 								 String observationProperty, 
 								 String observationType, 
 								 String unitOfMeasure,
+								 String serviceName,
+								 String serviceType,
 								 String baseUrl,
 								 String topicName,
 								 String authKey) {
@@ -30,9 +34,26 @@ public class OpenSensorsConnection extends DataSourceConnection {
 			  unitOfMeasure
 			  );
 		// TODO Auto-generated constructor stub
+		this.serviceName = serviceName;
+		this.serviceType = serviceType;
 		this.baseUrl = baseUrl;
 		this.topicName = topicName;
 		this.authKey = authKey;
+	}
+	
+	
+	
+	public String getServiceName() {
+		return serviceName;
+	}
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+	public String getServiceType() {
+		return serviceType;
+	}
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
 	}
 	public String getBaseUrl() {
 		return baseUrl;

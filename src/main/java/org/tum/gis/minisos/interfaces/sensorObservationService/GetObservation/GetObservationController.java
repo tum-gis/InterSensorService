@@ -16,20 +16,25 @@ public class GetObservationController {
 
 	@Autowired
 	private GetObservationService getObservationService;	
-	@RequestMapping(value = "/api/getObservation", params = {"phenomenonTime"}, produces = {MediaType.APPLICATION_XML_VALUE} )	
-	public GetObservationResponse getObservationResponse(@RequestParam (value = "phenomenonTime") String phenomenonTime
+	@RequestMapping(value = "/ogc-sos-webapp/service", produces = {MediaType.APPLICATION_XML_VALUE} )	
+	public GetObservationResponse getObservationResponse(@RequestParam (value = "service") String service,
+														 @RequestParam (value = "version") String version,
+														 @RequestParam (value = "request") String request,
+														 @RequestParam (value = "temporalFilter") String temporalFilter
 														) throws IOException, ParseException, URISyntaxException {
 		
-		String[] splitStr = phenomenonTime.split("/");
-		String startTime = splitStr[0];
-		String endTime = splitStr[1];
-		return getObservationService.getObservationResponse(1, startTime, endTime);
+		//if (service == "SOS" && version == "2.0.0" && request == "GetObservation") {
+			String[] phenomenonTime = temporalFilter.split(",");
+			
+			String[] splitStr = phenomenonTime[1].split("/");
+			String startTime = splitStr[0];
+			String endTime = splitStr[1];
+			return getObservationService.getObservationResponse(1, startTime, endTime);
+		//}
+		//return null;	
 	}
 	
 	
-	/*public String abc() {
-	System.out.println("started");
-	String s = "abc";
-	return s;
-}*/
+	
+	
 }
