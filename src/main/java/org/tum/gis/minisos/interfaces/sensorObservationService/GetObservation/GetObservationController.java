@@ -16,7 +16,7 @@ public class GetObservationController {
 
 	@Autowired
 	private GetObservationService getObservationService;	
-	@RequestMapping(value = "/ogc-sos-webapp/service", produces = {MediaType.APPLICATION_XML_VALUE} )	
+	@RequestMapping(value = "/ogc-sos-webapp/service",  params = {"service","version","request","temporalFilter"}, produces = {MediaType.APPLICATION_XML_VALUE} )	
 	public GetObservationResponse getObservationResponse(@RequestParam (value = "service") String service,
 														 @RequestParam (value = "version") String version,
 														 @RequestParam (value = "request") String request,
