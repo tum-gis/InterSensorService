@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.tum.gis.minisos.dataSource.DataSourceService;
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.ListObservation52n;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.categories.Category;
@@ -32,6 +33,9 @@ import org.tum.gis.minisos.util.CustomDateUtil;
 @Service
 public class SeriesRestApiService {
 
+	@Autowired
+	private DataSourceService dataSourceService;
+	
 	@Autowired
 	private ObservationService observationService;
 	
@@ -120,6 +124,7 @@ public class SeriesRestApiService {
 	//create an initializer that reads data from Mini SOS and creates all components in one go!
 	public void seriesRestApi52nFormatter(DataSourceConnection dataSource) {
 		Geometry geometry = new Geometry();
+		geometry.setCoordinates(dataSourceService.datasources.get(0).getCoordinates());
 		geometryList.add(geometry);
 		
 		Phenomenon phenomenon = new Phenomenon();		
@@ -129,6 +134,7 @@ public class SeriesRestApiService {
 		
 		Stations stations = new Stations();
 		stations.getProperties().setLabel(dataSource.getName());
+		stations.getGeometry().setCoordinates(dataSourceService.datasources.get(0).getCoordinates());
 		stationsList.add(stations);
 		
 		Services services = new Services();

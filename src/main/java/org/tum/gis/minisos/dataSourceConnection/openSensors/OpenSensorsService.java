@@ -1,10 +1,12 @@
 package org.tum.gis.minisos.dataSourceConnection.openSensors;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +19,10 @@ import org.tum.gis.minisos.observation.Observation;
 import org.tum.gis.minisos.observation.ObservationService;
 import org.tum.gis.minisos.timeseries.TimeseriesService;
 import org.tum.gis.minisos.util.IdSequenceManager;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class OpenSensorsService {
@@ -69,7 +75,7 @@ public class OpenSensorsService {
 		//RestTemplate requires Get request as URI. The default conversion of string to Uri omits special or extra characters which lead to issues
 		URI topicUri = new URI(topicUrl); 
 		
-		System.out.println(topicUri);
+		
 		
 		RestTemplate restTemplateTopic = new RestTemplate();
 		Topics topics = restTemplateTopic.getForObject(topicUri, Topics.class);
@@ -82,10 +88,20 @@ public class OpenSensorsService {
 			//Update first and last observations TODO
 			timeseriesService.timeseriesList.get(timeseriesId-1).setFirstObservation("2017-01-24T23:00:00");
 			timeseriesService.timeseriesList.get(timeseriesId-1).setLastObservation("2018-04-19T00:00:00");
+			
+			//location
+			List<Double> coordinates = new ArrayList<>();
+			coordinates.add(topics.getStats().getLocation().getLon());
+			coordinates.add(topics.getStats().getLocation().getLat());
+			
+			dataSourceService.datasources.get(0).setCoordinates(coordinates);
+			
+			//update location for 52 North REST API
+			//seriesRestApiService.geometryList.get(0).setCoordinates(coordinates);
 		}
 	}
 	
-	public List<Observation> parseOpenSensors(int timeseriesId, OpenSensorsConnection openSensorsConnection, String startTime, String endTime) throws URISyntaxException{
+	public List<Observation> parseOpenSensors(int timeseriesId, OpenSensorsConnection openSensorsConnection, String startTime, String endTime) throws URISyntaxException, JsonProcessingException, IOException{
 		
 		//manipulate datetime strings, inclusion of + character is creating issues. Replace + with %2B
 		
@@ -105,13 +121,38 @@ public class OpenSensorsService {
 		Observations observations = restTemplateMessages.getForObject(messagesUri, Observations.class);
 		
 		List<Observation> observationList = new ArrayList<>();
+		String observationProperty = timeseriesService.timeseriesList.get(0).getObservationProperty();
 		
 		for (int i=0;i<observations.getMessages().size()-1;i++) {
 			OpenSensorsObservation openSensorsObservation = new OpenSensorsObservation();
-			openSensorsObservation.setTime(observations.getMessages().get(i).getDate());
-			openSensorsObservation.setValue(observations.getMessages().get(i).getValue());
 			
-			observationList.add(openSensorsObservation);
+			//Message text as JSON response
+			String textResponse = observations.getMessages().get(i).getPayload().getText();
+			
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode jsonTextResponse = mapper.readTree(textResponse);		
+			
+			//handler for Bat counts (Have to be refined later)
+			if (observationProperty=="count") {
+				Double observationValue = 1.0;
+				openSensorsObservation.setTime(observations.getMessages().get(i).getDate());
+				openSensorsObservation.setValue(observationValue);
+				observationList.add(openSensorsObservation);
+			}
+			
+			else {
+				JsonNode observationResponse = jsonTextResponse.get(observationProperty);
+				
+				if (observationResponse!=null) {
+					Double observationValue = observationResponse.asDouble();
+					openSensorsObservation.setTime(observations.getMessages().get(i).getDate());
+					openSensorsObservation.setValue(observationValue);
+					observationList.add(openSensorsObservation);
+				}	
+			}
+			
+					
+			
 			
 		} 
 		

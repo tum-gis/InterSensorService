@@ -80,6 +80,7 @@ public class SensorThingsService {
 		
 		if (locations!=null) {
 			//seriesRestApiService.geometryList.get(0).setCoordinates(locations.getValue().get(0).getLocation().getCoordinates());
+			dataSourceService.datasources.get(0).setCoordinates(locations.getValue().get(0).getLocation().getCoordinates());
 		}
 		
 		//read SensorThings and update DataSource

@@ -7,8 +7,8 @@ public class Topics {
 	@JsonProperty("description")
 	private String description;
 	
-	@JsonProperty("last-location")
-	private Location location;
+	@JsonProperty("stats")
+	private Stats stats;
 	
 	@JsonProperty("unit")
 	private String unit;
@@ -20,13 +20,17 @@ public class Topics {
 		
 	}
 	
-	public Topics(String description, Location location, String unit, String name) {
+	
+
+	public Topics(String description, Stats stats, String unit, String name) {
 		super();
 		this.description = description;
-		this.location = location;
+		this.stats = stats;
 		this.unit = unit;
 		this.name = name;
 	}
+
+
 
 	public String getDescription() {
 		return description;
@@ -36,13 +40,19 @@ public class Topics {
 		this.description = description;
 	}
 
-	public Location getLocation() {
-		return location;
+	
+
+	public Stats getStats() {
+		return stats;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+
+
+	public void setStats(Stats stats) {
+		this.stats = stats;
 	}
+
+
 
 	public String getUnit() {
 		return unit;
