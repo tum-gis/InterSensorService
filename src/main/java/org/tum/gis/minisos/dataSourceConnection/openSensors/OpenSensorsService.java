@@ -86,8 +86,8 @@ public class OpenSensorsService {
 			
 			//Update lcoation TODO
 			//Update first and last observations TODO
-			timeseriesService.timeseriesList.get(timeseriesId-1).setFirstObservation("2017-01-24T23:00:00");
-			timeseriesService.timeseriesList.get(timeseriesId-1).setLastObservation("2018-04-19T00:00:00");
+			//timeseriesService.timeseriesList.get(timeseriesId-1).setFirstObservation("2017-01-24T23:00:00");
+			//timeseriesService.timeseriesList.get(timeseriesId-1).setLastObservation("2018-04-19T00:00:00");
 			
 			//location
 			List<Double> coordinates = new ArrayList<>();

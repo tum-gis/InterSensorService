@@ -170,8 +170,13 @@ public class SeriesRestApiService {
 		
 		TimeseriesMetadata timeseriesMetadata = new TimeseriesMetadata();
 		
-		timeseriesMetadata.getFirstValue().setTimestamp(CustomDateUtil.UnixTimeCreator(timeseriesService.timeseriesList.get(0).getFirstObservation()));
-		timeseriesMetadata.getLastValue().setTimestamp(CustomDateUtil.UnixTimeCreator(timeseriesService.timeseriesList.get(0).getLastObservation()));
+		if(timeseriesService.timeseriesList.get(0).getFirstObservation()!=null) {
+			timeseriesMetadata.getFirstValue().setTimestamp(CustomDateUtil.UnixTimeCreator(timeseriesService.timeseriesList.get(0).getFirstObservation()));
+		}
+		if(timeseriesService.timeseriesList.get(0).getLastObservation()!=null) {
+			timeseriesMetadata.getLastValue().setTimestamp(CustomDateUtil.UnixTimeCreator(timeseriesService.timeseriesList.get(0).getLastObservation()));
+		}
+		
 		timeseriesMetadata.setStation(stations);
 		timeseriesMetadata.getParameters().setCategory(category);
 		timeseriesMetadata.getParameters().setFeature(feature);
