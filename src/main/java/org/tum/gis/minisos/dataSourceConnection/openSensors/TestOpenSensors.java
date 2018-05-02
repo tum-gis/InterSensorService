@@ -6,10 +6,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+
 import org.tum.gis.minisos.dataSourceConnection.openSensors.observations.Observations;
 import org.tum.gis.minisos.dataSourceConnection.openSensors.topics.Topics;
 
