@@ -10,15 +10,23 @@ public class Observations {
 
 	@JsonProperty("messages")
 	private List<Message> messages;
+	
+	@JsonProperty("next")
+	private String next;
 
 	public Observations() {
 		
 	}
 	
-	public Observations(List<Message> messages) {
+	
+
+	public Observations(List<Message> messages, String next) {
 		super();
 		this.messages = messages;
+		this.next = next;
 	}
+
+
 
 	public List<Message> getMessages() {
 		return messages;
@@ -27,6 +35,19 @@ public class Observations {
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
+
+
+
+	public String getNext() {
+		return next;
+	}
+
+
+
+	public void setNext(String next) {
+		this.next = next;
+	}
+	
 	
 	
 	

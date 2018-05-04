@@ -22,10 +22,10 @@ public class TestOpenSensors {
 	public static void main(String[] args) throws URISyntaxException, JsonProcessingException, IOException {
 		// TODO Auto-generated method stub
 
-		String baseUrl = "https://api.opensensors.io/v1";
+		String baseUrl = "https://api.opensensors.io";
 		String topicName = "/users/thomashkolbe/tumgis-seeeduino-wo-gps";
-		String start = "2018-05-01";
-		String end = "2018-05-02";
+		String start = "2018-05-02T00:00:00";
+		String end = "2018-05-03T00:00:00";
 		String authKey = "5bc93dcc-6bf6-4cae-9ea3-a325587d6443";
 		
 		
@@ -37,37 +37,39 @@ public class TestOpenSensors {
 		
 	
 		
-		String serviceUrl = baseUrl+"/messages/topic/"+topicName+"?api-key="+authKey+"&start-date="+start1+"&end-date="+end1;
+		String serviceUrl = baseUrl+"/v1/messages/topic/"+topicName+"?start-date="+start+"&end-date="+end+"&api-key="+authKey;
 		//System.out.println(serviceUrl);
 		URI uri = new URI(serviceUrl);
 		//System.out.println(uri);
 		RestTemplate restTemplate = new RestTemplate();
 		Observations observations = restTemplate.getForObject(uri, Observations.class);
 		//Topics topics = restTemplate.getForObject(uri, Topics.class); 
-		
-		String topicUrl = baseUrl+"/topics/"+topicName+"?api-key="+authKey;
-		//RestTemplate requires Get request as URI. The default conversion of string to Uri omits special or extra characters which lead to issues
-		URI topicUri = new URI(topicUrl); 
-		
-		
-		RestTemplate restTemplateTopic = new RestTemplate();
-		Topics topics = restTemplateTopic.getForObject(topicUri, Topics.class);
-		
-		List<Double> coordinates = new ArrayList<>();
-		coordinates.add(topics.getStats().getLocation().getLat());
-		coordinates.add(topics.getStats().getLocation().getLon());
-		System.out.println(coordinates.get(1));
-		
+		String nextLink = "/v1/messages/topic/"+topicName+"?start-date="+start1+"&end-date="+end1;
+				
+		while (nextLink != null) {
+			System.out.println("Before:"+nextLink);
+			serviceUrl = baseUrl+nextLink+"&api-key="+authKey;
+			uri = new URI(serviceUrl);
+			System.out.println("Uri:"+uri);
+			
+			observations = restTemplate.getForObject(uri, Observations.class);
+			nextLink = observations.getNext();
+			System.out.println("After:"+nextLink);
+		}
+		//System.out.println(observations.getMessages().size());
+		//System.out.println(observations.getNext());
+	
+		//System.out.println(observations.getMessages().size());
 		
 		
 		//System.out.println(observations.getMessages().get(0).getDate());
 		//System.out.println(observations.getMessages().get(0).getPayload().getText());
 		
-		String str = observations.getMessages().get(0).getPayload().getText();
+		//String str = observations.getMessages().get(0).getPayload().getText();
 		
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode actualObj = mapper.readTree(str);
-		JsonNode abc = actualObj.get("abc");
+		//ObjectMapper mapper = new ObjectMapper();
+		//JsonNode actualObj = mapper.readTree(str);
+		//JsonNode abc = actualObj.get("abc");
 		//System.out.println(abc);
 	}
 	

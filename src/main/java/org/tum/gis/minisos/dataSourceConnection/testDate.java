@@ -29,9 +29,10 @@ public class testDate {
 		
 		
 		
-		s="01/02/2009 6:00";
+		s="2018-05-02T00:00:42.662Z";
 		//System.out.println(CustomDateUtil.convertDate(s));
 		d = CustomDateUtil.DateTimePatternEval(s);
+		System.out.println(d);
 		dt = CustomDateUtil.DateTimeCreator(d);
 		
 		System.out.println(dt.toString());

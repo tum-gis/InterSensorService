@@ -71,7 +71,7 @@ public class OpenSensorsService {
 	public void validateOpenSensorsConnection(int timeseriesId, OpenSensorsConnection openSensorsConnection) throws URISyntaxException {
 		// read topic and validate
 		
-		String topicUrl = openSensorsConnection.getBaseUrl()+"/topics/"+openSensorsConnection.getTopicName()+"?api-key="+openSensorsConnection.getAuthKey();
+		String topicUrl = openSensorsConnection.getBaseUrl()+"/v1/topics/"+openSensorsConnection.getTopicName()+"?api-key="+openSensorsConnection.getAuthKey();
 		//RestTemplate requires Get request as URI. The default conversion of string to Uri omits special or extra characters which lead to issues
 		URI topicUri = new URI(topicUrl); 
 		
@@ -108,11 +108,23 @@ public class OpenSensorsService {
 		String startTimeModified = startTime.replaceAll("\\+","%2B");
 		String endTimeModified = endTime.replaceAll("\\+","%2B");
 		
-		String messagesUrl = openSensorsConnection.getBaseUrl()+
-							 "/messages/topic/"+openSensorsConnection.getTopicName()+
-							 "?api-key="+openSensorsConnection.getAuthKey()+
-							 "&start-date="+startTimeModified+
-							 "&end-date="+endTimeModified;
+		/*String messagesUrl = openSensorsConnection.getBaseUrl()+
+							 "/v1/messages/topic/"+openSensorsConnection.getTopicName()+							
+							 "?start-date="+startTimeModified+
+							 "&end-date="+endTimeModified+
+							  "&api-key="+openSensorsConnection.getAuthKey();*/
+		
+		List<Observation> observationList = new ArrayList<>();
+		//OpenSensors API responds with only 1000 messages at once and gives a "next" link for another set of 1000 messages.
+		
+		// A handler is required to handle such paginations
+		
+		String nextLink = "/v1/messages/topic/"+openSensorsConnection.getTopicName()+							
+				 "?start-date="+startTimeModified+
+				 "&end-date="+endTimeModified;
+		
+		while (nextLink != null) {
+			String messagesUrl = openSensorsConnection.getBaseUrl()+nextLink+"&api-key="+openSensorsConnection.getAuthKey();
 		
 		
 		URI messagesUri = new URI(messagesUrl);
@@ -120,7 +132,11 @@ public class OpenSensorsService {
 		RestTemplate restTemplateMessages = new RestTemplate();
 		Observations observations = restTemplateMessages.getForObject(messagesUri, Observations.class);
 		
-		List<Observation> observationList = new ArrayList<>();
+
+		
+		
+		
+		// call a function to update observationList for first link and then for every next link
 		String observationProperty = timeseriesService.timeseriesList.get(0).getObservationProperty();
 		
 		for (int i=0;i<observations.getMessages().size()-1;i++) {
@@ -155,6 +171,8 @@ public class OpenSensorsService {
 			
 			
 		} 
+		nextLink = observations.getNext();
+		}
 		
 		return observationList;
 	}
