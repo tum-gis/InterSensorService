@@ -25,9 +25,8 @@ public class CustomDateUtil {
 				"yyyy-MM-dd HH:mm",
 				"yyyy-MM-dd HH:mm:ss",
 				"yyyy-MM-dd'T'HH:mm:ss",
-				"yyyy-MM-dd'T'HH:mm:ss'Z'",
-				"yyyy-MM-dd'T'HH:mm.ss'Z'",
 				"yyyy-MM-dd'T'HH:mm:ssXXX",
+				"yyyy-MM-dd'T'HH:mm:ss'Z'",
 				"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
 				"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 				};

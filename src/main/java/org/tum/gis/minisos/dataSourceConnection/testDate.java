@@ -29,7 +29,7 @@ public class testDate {
 		
 		
 		
-		s="2018-05-02T00:00:42.662Z";
+		s="2018-05-27T19:03:00Z";
 		//System.out.println(CustomDateUtil.convertDate(s));
 		d = CustomDateUtil.DateTimePatternEval(s);
 		System.out.println(d);
