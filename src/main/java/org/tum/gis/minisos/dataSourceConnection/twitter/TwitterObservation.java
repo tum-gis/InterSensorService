@@ -42,7 +42,10 @@ public class TwitterObservation extends Observation {
 	@Override
 	public void setTime(String time) {
 		// TODO Auto-generated method stub
-		this.time=time;
+		if(time != null) {
+			this.time=time;
+		}
+		
 	}
 
 	@Override
