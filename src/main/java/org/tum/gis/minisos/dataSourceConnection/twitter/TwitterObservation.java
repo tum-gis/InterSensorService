@@ -28,11 +28,12 @@ public class TwitterObservation extends Observation {
 			System.out.println("Step2: "+dateEval);
 			try {
 				date = CustomDateUtil.DateTimeCreator(dateEval);
+				System.out.println("Step3: "+date);
 			} catch (ParseException e) {
-				System.err.println("Could not parse date: " + dateEval);
+				System.err.println("dateEval: Could not parse date: " + dateEval);
 			}
 		} catch (ParseException e) {
-			System.err.println("Could not parse date: " + time);
+			System.err.println("time: Could not parse date: " + time);
 		}
 				
 		//this.timestamp = CustomDateUtil.IsoFormatter(date);	

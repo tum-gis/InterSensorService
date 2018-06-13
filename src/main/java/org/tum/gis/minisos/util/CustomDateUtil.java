@@ -18,6 +18,7 @@ public class CustomDateUtil {
 
 	public static Date DateTimePatternEval(String str) throws java.text.ParseException{
 		String[] acceptedFormats = {
+				"EEE MMM dd HH:mm:ss ZZZZZ yyyy",
 				"dd/MM/yyyy",
 				"dd/MM/yyyy HH:mm",
 				"dd/MM/yyyy HH:mm:ss", 
@@ -28,12 +29,10 @@ public class CustomDateUtil {
 				"yyyy-MM-dd'T'HH:mm:ssXXX",
 				"yyyy-MM-dd'T'HH:mm:ss'Z'",
 				"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-				"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-				"EEE MMM dd HH:mm:ss ZZZZZ yyyy"
+				"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 				};
 		
 		try {
-			System.out.println("Step1a: "+DateUtils.parseDate(str, acceptedFormats));
 			return DateUtils.parseDate(str, acceptedFormats);
 		} catch (ParseException pe) {
 			System.err.println("DateTimePatternEval: Could not parse date: " + str);
