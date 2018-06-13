@@ -33,7 +33,7 @@ public class CustomDateUtil {
 				};
 		
 		try {
-			System.out.println("Step1a: "+str);
+			System.out.println("Step1a: "+DateUtils.parseDate(str, acceptedFormats));
 			return DateUtils.parseDate(str, acceptedFormats);
 		} catch (ParseException pe) {
 			System.err.println("DateTimePatternEval: Could not parse date: " + str);
