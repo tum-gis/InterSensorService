@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
@@ -32,8 +33,9 @@ public class CustomDateUtil {
 				"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 				};
 		
+		
 		try {
-			return DateUtils.parseDate(str, acceptedFormats);
+			return DateUtils.parseDate(str, Locale.ENGLISH, acceptedFormats);
 		} catch (ParseException pe) {
 			System.err.println("DateTimePatternEval: Could not parse date: " + str);
 		}
