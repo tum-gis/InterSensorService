@@ -23,12 +23,9 @@ public class TwitterObservation extends Observation {
 		DateTime date = null;
 		
 		try {
-			System.out.println("Step1: "+time);
 			dateEval = CustomDateUtil.DateTimePatternEval(time) ;
-			System.out.println("Step2: "+dateEval);
 			try {
 				date = CustomDateUtil.DateTimeCreator(dateEval);
-				System.out.println("Step3: "+date);
 			} catch (ParseException e) {
 				System.err.println("dateEval: Could not parse date: " + dateEval);
 			}
