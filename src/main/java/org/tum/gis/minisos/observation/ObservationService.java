@@ -120,7 +120,7 @@ public class ObservationService {
 			CsvConnection csvConnection = (CsvConnection) dataSource;
 			return csvConnectionService.parseCsv(timeseriesId, csvConnection);
 		} else if (dataSource instanceof TwitterConnection) {
-			System.out.println("Step1");
+			
 			TwitterConnection twitterConnection = (TwitterConnection) dataSource;
 			return twitterService.parseTwitter(timeseriesId, twitterConnection);
 		}
