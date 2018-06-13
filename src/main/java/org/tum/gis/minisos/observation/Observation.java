@@ -13,6 +13,8 @@ public class Observation {
 	private String timestamp;
 	private double value;
 	
+	private String strValue;
+	
 	private Date dateEval;
 	private DateTime date;
 	
@@ -27,6 +29,12 @@ public class Observation {
 		this.value = value;
 	}
 	
+	public Observation( String time, String strValue) {
+		super();
+		
+		this.time = time;
+		this.strValue = strValue;
+	}
 	
 	
 	public String getTime() throws java.text.ParseException {			
@@ -59,6 +67,15 @@ public class Observation {
 	public void setValue(double value) {
 		this.value = value;
 	}
+
+	public String getStrValue() {
+		return strValue;
+	}
+
+	public void setStrValue(String strValue) {
+		this.strValue = strValue;
+	}
+	
 	
 	
 }

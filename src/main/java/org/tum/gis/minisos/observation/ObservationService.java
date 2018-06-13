@@ -20,6 +20,8 @@ import org.tum.gis.minisos.dataSourceConnection.sensorThings.SensorThingsConnect
 import org.tum.gis.minisos.dataSourceConnection.sensorThings.SensorThingsService;
 import org.tum.gis.minisos.dataSourceConnection.thingspeak.ThingspeakConnection;
 import org.tum.gis.minisos.dataSourceConnection.thingspeak.ThingspeakService;
+import org.tum.gis.minisos.dataSourceConnection.twitter.TwitterConnection;
+import org.tum.gis.minisos.dataSourceConnection.twitter.TwitterService;
 import org.tum.gis.minisos.interfaces.sensorObservationService.GetObservation.GetObservationResponse;
 import org.tum.gis.minisos.interfaces.sensorObservationService.GetObservation.ObservationData;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.ListObservation52n;
@@ -50,6 +52,9 @@ public class ObservationService {
 	
 	@Autowired
 	private OpenSensorsService openSensorsService;
+	
+	@Autowired
+	private TwitterService twitterService;
 	
 	public List<ObservationListManager> observationList = new ArrayList<>();
 	
@@ -89,8 +94,21 @@ public class ObservationService {
 	//retrieve List
 	
 	public List<Observation> getObservationList(int timeseriesId) throws IOException{
-		Timeseries timeseries = timeseriesService.timeseriesList.get(timeseriesId-1);
-		DataSourceConnection dataSource = dataSourceService.datasources.get(timeseries.getDataSourceId()-1).getDataSourceConnection();
+		Timeseries timeseries = null;
+		DataSourceConnection dataSource = null;
+		for (int i = 0; i< timeseriesService.timeseriesList.size();i++) {
+			if (timeseriesService.timeseriesList.get(i).getId()==timeseriesId) {
+				timeseries = timeseriesService.timeseriesList.get(i);
+			}
+		}
+		
+		for (int i = 0; i<dataSourceService.datasources.size();i++ ) {
+			if (dataSourceService.datasources.get(i).getId()==timeseries.getDataSourceId()) {
+				dataSource = dataSourceService.datasources.get(i).getDataSourceConnection();
+			}
+		}
+		
+		
 		
 		if (dataSource instanceof ThingspeakConnection) {
 			ThingspeakConnection thingspeakConnection = (ThingspeakConnection) dataSource;
@@ -101,13 +119,28 @@ public class ObservationService {
 		} else if (dataSource instanceof CsvConnection) {
 			CsvConnection csvConnection = (CsvConnection) dataSource;
 			return csvConnectionService.parseCsv(timeseriesId, csvConnection);
-		} 
+		} else if (dataSource instanceof TwitterConnection) {
+			System.out.println("Step1");
+			TwitterConnection twitterConnection = (TwitterConnection) dataSource;
+			return twitterService.parseTwitter(timeseriesId, twitterConnection);
+		}
 		return null;
 	}
 	
 	public List<Observation> getObservationList(int timeseriesId, String startTime, String endTime) throws IOException, ParseException, URISyntaxException{
-		Timeseries timeseries = timeseriesService.timeseriesList.get(timeseriesId-1);
-		DataSourceConnection dataSource = dataSourceService.datasources.get(timeseries.getDataSourceId()-1).getDataSourceConnection();
+		Timeseries timeseries = null;
+		DataSourceConnection dataSource = null;
+		for (int i = 0; i< timeseriesService.timeseriesList.size();i++) {
+			if (timeseriesService.timeseriesList.get(i).getId()==timeseriesId) {
+				timeseries = timeseriesService.timeseriesList.get(i);
+			}
+		}
+		
+		for (int i = 0; i<dataSourceService.datasources.size();i++ ) {
+			if (dataSourceService.datasources.get(i).getId()==timeseries.getDataSourceId()) {
+				dataSource = dataSourceService.datasources.get(i).getDataSourceConnection();
+			}
+		}
 		
 		if (dataSource instanceof ThingspeakConnection) {
 			ThingspeakConnection thingspeakConnection = (ThingspeakConnection) dataSource;		
@@ -132,8 +165,21 @@ public class ObservationService {
 	public ListObservation52n list52n;
 	
 	public ListObservation52n getObservationList(int timeseriesId, String startTime, String endTime, String format) throws IOException, ParseException, URISyntaxException{
-		Timeseries timeseries = timeseriesService.timeseriesList.get(timeseriesId-1);
-		DataSourceConnection dataSource = dataSourceService.datasources.get(timeseries.getDataSourceId()-1).getDataSourceConnection();
+		Timeseries timeseries = null;
+		DataSourceConnection dataSource = null;
+		for (int i = 0; i< timeseriesService.timeseriesList.size();i++) {
+			if (timeseriesService.timeseriesList.get(i).getId()==timeseriesId) {
+				timeseries = timeseriesService.timeseriesList.get(i);
+			}
+		}
+		
+		for (int i = 0; i<dataSourceService.datasources.size();i++ ) {
+			if (dataSourceService.datasources.get(i).getId()==timeseries.getDataSourceId()) {
+				dataSource = dataSourceService.datasources.get(i).getDataSourceConnection();
+			}
+		}
+		
+		
 		List<Observation> observationList = new ArrayList<>();
 		List<Observation52n> observation52nList = new ArrayList<>();
 		 list52n = new ListObservation52n();

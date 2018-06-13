@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class DataSource {
 
 	private int id;
@@ -31,6 +33,7 @@ public class DataSource {
 	public void setDataSourceConnection(DataSourceConnection dataSourceConnection) {
 		this.dataSourceConnection = dataSourceConnection;
 	}
+	@JsonIgnore
 	public List<Double> getCoordinates() {
 		return coordinates;
 	}

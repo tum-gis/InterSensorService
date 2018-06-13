@@ -36,6 +36,20 @@ public class TimeseriesService {
 	}
 	
 	public Timeseries getTimeseriesById(int id) {
-		return timeseriesList.get(id-1);
+		for (int i=0;i<timeseriesList.size();i++) {
+			if (timeseriesList.get(i).getId()==id) {
+				return timeseriesList.get(i);
+			}
+		}
+		return null;
+		
+	}
+	
+	public void deleteTimeseriesById (int id) {
+		for (int i=0;i<timeseriesList.size();i++) {
+			if (timeseriesList.get(i).getId()==id) {
+				timeseriesList.remove(i);
+			}
+		}
 	}
 }

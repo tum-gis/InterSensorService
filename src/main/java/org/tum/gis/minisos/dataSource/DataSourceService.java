@@ -4,38 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 import org.tum.gis.minisos.dataSourceConnection.csv.CsvConnection;
+import org.tum.gis.minisos.timeseries.TimeseriesService;
 
 @Service
 public class DataSourceService {
 
-	//try
-	/*static CsvConnection csv1 = new CsvConnection(1, 
-			"csv1", 
-			null, 
-			"csv", 
-			"double", 
-			"Celsius", 
-			"C:/kanishk/test1.csv",
-			",",
-			0,
-			1);
-	
-	static DataSource data1 = new DataSource(1, csv1);
-	static DataSource data2 = new DataSource(2, new CsvConnection
-			(2, 
-			"csv1", 
-			null, 
-			"csv", 
-			"double", 
-			"Celsius", 
-			"C:/kanishk/test2.csv",
-			",",
-			0,
-			1)
-			);*/
+	@Autowired
+	private TimeseriesService timeseriesService;
 	
 	public List<DataSource> datasources = new ArrayList<>(Arrays.asList(
 			//data1,
@@ -52,6 +31,21 @@ public class DataSourceService {
 	}
 	
 	public DataSource getDataSource(int id) {
-		return datasources.get(id-1);
+		for (int i=0; i<datasources.size();i++) {
+			if(datasources.get(i).getId()==id) {
+				return datasources.get(i);
+			}
+		}
+		return null;
+		
+	}
+	
+	public void deleteDataSource(int id) {
+		timeseriesService.deleteTimeseriesById(id); //supposing each datasource has exactly one timeseries
+		for (int i=0; i<datasources.size();i++) {
+			if(datasources.get(i).getId()==id) {
+				datasources.remove(i);	
+			}
+		}
 	}
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,19 +28,23 @@ public class ObservationController {
 	@Autowired
 	private ObservationService observationService;
 	
-	@RequestMapping(value = "/mini-sos-api/timeseries/{id}/observations" , produces = {MediaType.APPLICATION_JSON_VALUE})
+	@CrossOrigin()
+	@RequestMapping(value = "/inter-sensor-service/timeseries/{id}/observations" , produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Observation> getObservationList(@PathVariable int id) throws IOException{
 		return observationService.getObservationList(id);
 	}
 	
-	@RequestMapping(value = "/mini-sos-api/timeseries/{id}/observations", params = {"start", "end"} , produces = {MediaType.APPLICATION_JSON_VALUE})
+	@CrossOrigin()
+	@RequestMapping(value = "/inter-sensor-service/timeseries/{id}/observations", params = {"start", "end"} , produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<Observation> getObservationList(@PathVariable int id,
 												@RequestParam (value = "start") String startTime,
 												@RequestParam (value = "end") String endTime) throws ParseException, IOException, URISyntaxException{
 		return observationService.getObservationList(id,startTime,endTime);
 	}
 	
-	@RequestMapping(value = "/mini-sos-api/timeseries/{id}/observations", params = {"start", "end", "format"}, produces = {MediaType.APPLICATION_JSON_VALUE})
+	
+	@CrossOrigin()
+	@RequestMapping(value = "/inter-sensor-service/timeseries/{id}/observations", params = {"start", "end", "format"}, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ListObservation52n getObservationList(@PathVariable int id,
 												@RequestParam (value = "start") String startTime,
 												@RequestParam (value = "end") String endTime,
