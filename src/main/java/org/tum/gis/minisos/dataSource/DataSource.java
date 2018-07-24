@@ -33,7 +33,7 @@ public class DataSource {
 	public void setDataSourceConnection(DataSourceConnection dataSourceConnection) {
 		this.dataSourceConnection = dataSourceConnection;
 	}
-	@JsonIgnore
+	
 	public List<Double> getCoordinates() {
 		return coordinates;
 	}
