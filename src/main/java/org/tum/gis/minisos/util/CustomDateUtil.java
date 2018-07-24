@@ -30,7 +30,8 @@ public class CustomDateUtil {
 				"yyyy-MM-dd'T'HH:mm:ssXXX",
 				"yyyy-MM-dd'T'HH:mm:ss'Z'",
 				"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-				"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+				"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+				"dd.MM.yy HH:mm"
 				};
 		
 		
@@ -66,6 +67,12 @@ public class CustomDateUtil {
 		return dt.getMillis();
 	}
 	
+	public static String UnixToDateConvertor(Long unixTime) throws java.text.ParseException {
+		Date date = new Date (unixTime);
+		DateTime dt = DateTimeCreator(date);
+		return dt.toString();
+		
+	}
 	
 }
 

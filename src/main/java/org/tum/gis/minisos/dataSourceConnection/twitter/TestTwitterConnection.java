@@ -48,13 +48,19 @@ public class TestTwitterConnection {
 		int searchResultCount; 
 		long lowestTweetId = Long.MAX_VALUE;
 		
+		
 		String baseUrl = "https://api.twitter.com/1.1/search/tweets.json";
-		String queryParam = "?q=&geocode=51.543463,-0.016520,3km&include_entities=0&count=100";
-		String tweetUrl = baseUrl + queryParam;
+		String queryParam = "?q=&geocode=48.14336,11.57552,1km&include_entities=0&count=100";
+		//String tweetUrl = baseUrl + queryParam;
+		
+		String tweetUrl = "https://api.twitter.com/1.1/statuses/show/1007250912006557696.json";
+		
 		//String tweetUrl = "https://api.twitter.com/1.1/search/tweets.json?q=&geocode=51.54347,-0.01652,1km&include_entities=0&count=100";
 		//String tweetUrl  = "https://api.twitter.com/1.1/search/tweets.json?max_id=1006451989750927359&q=munich&include_entities=1";
 		URI finalUrl = URIBuilder.fromUri(tweetUrl).build();
 		String search = twitter.restOperations().getForObject(finalUrl, String.class);
+		
+		System.out.println(search);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode jsonTextResponse = mapper.readTree(search);
@@ -120,6 +126,12 @@ public class TestTwitterConnection {
 		String resultTweetAll = resultTweetList.toString();
 		System.out.println(resultTweetList.size());
 		System.out.println(resultTweetList.get(0));
+		System.out.println(resultTweetList.get(1));
+		System.out.println(resultTweetList.get(2));
+		System.out.println(resultTweetList.get(3));
+		System.out.println(resultTweetList.get(4));
+		System.out.println(resultTweetList.get(5));
+		System.out.println(resultTweetList.get(6));
 		
 		/*do {
 			

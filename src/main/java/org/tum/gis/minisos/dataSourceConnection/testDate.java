@@ -27,15 +27,23 @@ public class testDate {
 		//CSVObject o1 = new CSVObject("2017-03-13","3");
 		//s="2017-03-13";
 		
+		Long unixTime = 1529798400000L;
 		
+		Date d123 = new Date(unixTime);
 		
-		s="Tue Jun 12 10:04:08 +0000 2018";
+		//s="Tue Jun 12 10:04:08 +0000 2018";
+		s = "12.07.18 08:00";
 		//System.out.println(CustomDateUtil.convertDate(s));
 		d = CustomDateUtil.DateTimePatternEval(s);
 		System.out.println(d);
-		dt = CustomDateUtil.DateTimeCreator(d);
+		dt = CustomDateUtil.DateTimeCreator(d123);
+		
+		//String t = "30000";
+		//System.out.println(Double.parseDouble(t));
 		
 		System.out.println(dt.toString());
+		
+		System.out.println(d123);
 		
 		/*String[] acceptedFormats = {"dd/MM/yyyy","dd/MM/yyyy HH:mm","dd/MM/yyyy HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss"};
 		Date date1 = DateUtils.parseDate(s, acceptedFormats);*/

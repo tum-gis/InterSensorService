@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.tum.gis.minisos.dataSource.DataSource;
 import org.tum.gis.minisos.dataSource.DataSourceService;
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
+import org.tum.gis.minisos.dataSourceConnection.c3ntinel.C3ntinelConnection;
+import org.tum.gis.minisos.dataSourceConnection.c3ntinel.C3ntinelService;
 import org.tum.gis.minisos.dataSourceConnection.csv.CsvConnection;
 import org.tum.gis.minisos.dataSourceConnection.csv.CsvConnectionService;
 import org.tum.gis.minisos.dataSourceConnection.openSensors.OpenSensorsConnection;
@@ -56,6 +58,9 @@ public class ObservationService {
 	@Autowired
 	private TwitterService twitterService;
 	
+	@Autowired
+	private C3ntinelService c3ntinelService;
+	
 	public List<ObservationListManager> observationList = new ArrayList<>();
 	
 	
@@ -93,7 +98,7 @@ public class ObservationService {
 	// insert into observationList
 	//retrieve List
 	
-	public List<Observation> getObservationList(int timeseriesId) throws IOException{
+	public List<Observation> getObservationList(int timeseriesId) throws IOException, ParseException{
 		Timeseries timeseries = null;
 		DataSourceConnection dataSource = null;
 		for (int i = 0; i< timeseriesService.timeseriesList.size();i++) {
@@ -123,7 +128,7 @@ public class ObservationService {
 			
 			TwitterConnection twitterConnection = (TwitterConnection) dataSource;
 			return twitterService.parseTwitter(timeseriesId, twitterConnection);
-		}
+		} 
 		return null;
 	}
 	
@@ -157,6 +162,9 @@ public class ObservationService {
 		} else if (dataSource instanceof OpenSensorsConnection) {
 			OpenSensorsConnection openSensorsConnection = (OpenSensorsConnection) dataSource;
 			return openSensorsService.parseOpenSensors(timeseriesId, openSensorsConnection, startTime, endTime);
+		} else if (dataSource instanceof C3ntinelConnection) {
+			C3ntinelConnection c3ntinelConnection = (C3ntinelConnection) dataSource;
+			return c3ntinelService.parseC3ntinel(timeseriesId, c3ntinelConnection, startTime, endTime);
 		}
 		return null;
 	}
@@ -223,6 +231,18 @@ public class ObservationService {
 		} else if (dataSource instanceof OpenSensorsConnection) {
 			OpenSensorsConnection openSensorsConnection = (OpenSensorsConnection) dataSource;
 			observationList = openSensorsService.parseOpenSensors(timeseriesId, openSensorsConnection, startTime, endTime);
+			for (Observation observation : observationList) {
+				Observation52n observation52n = new Observation52n();
+				observation52n.setTimestamp(CustomDateUtil.UnixTimeCreator(observation.getTime()));
+				observation52n.setValue(observation.getValue());
+				observation52nList.add(observation52n);
+			}
+			list52n.setValues(observation52nList);
+			return list52n;
+			
+		} else if (dataSource instanceof C3ntinelConnection) {
+			C3ntinelConnection c3ntinelConnection = (C3ntinelConnection) dataSource;
+			observationList = c3ntinelService.parseC3ntinel(timeseriesId, c3ntinelConnection, startTime, endTime);
 			for (Observation observation : observationList) {
 				Observation52n observation52n = new Observation52n();
 				observation52n.setTimestamp(CustomDateUtil.UnixTimeCreator(observation.getTime()));

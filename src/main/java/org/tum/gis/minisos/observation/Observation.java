@@ -41,9 +41,10 @@ public class Observation {
 		
 		try {
 			dateEval = CustomDateUtil.DateTimePatternEval(time) ;
-			
+			System.out.println("Check:"+ dateEval );
 			try {
 				date = CustomDateUtil.DateTimeCreator(dateEval);
+				System.out.println("Check:"+ date );
 			} catch (ParseException e) {
 				System.err.println("Could not parse date: " + dateEval);
 			}
@@ -52,7 +53,8 @@ public class Observation {
 		}
 				
 		//this.timestamp = CustomDateUtil.IsoFormatter(date);	
-		this.timestamp = date.toString();
+		timestamp = date.toString();
+		System.out.println("Check:"+ timestamp );
 		return timestamp;
 	}
 	

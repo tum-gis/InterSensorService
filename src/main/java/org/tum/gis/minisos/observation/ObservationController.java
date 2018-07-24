@@ -30,7 +30,7 @@ public class ObservationController {
 	
 	@CrossOrigin()
 	@RequestMapping(value = "/inter-sensor-service/timeseries/{id}/observations" , produces = {MediaType.APPLICATION_JSON_VALUE})
-	public List<Observation> getObservationList(@PathVariable int id) throws IOException{
+	public List<Observation> getObservationList(@PathVariable int id) throws IOException, ParseException{
 		return observationService.getObservationList(id);
 	}
 	
