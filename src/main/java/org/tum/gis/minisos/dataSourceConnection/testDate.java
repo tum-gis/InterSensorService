@@ -40,10 +40,12 @@ public class testDate {
 		
 		//String t = "30000";
 		//System.out.println(Double.parseDouble(t));
+		DateTime dt1 = new DateTime("2018-06-24T01:59:55.000+02:00");
+		dt1 = dt1.plusSeconds(5);
+		System.out.println(dt1);
+		//System.out.println(dt.minusSeconds(5));
 		
-		System.out.println(dt.toString());
 		
-		System.out.println(d123);
 		
 		/*String[] acceptedFormats = {"dd/MM/yyyy","dd/MM/yyyy HH:mm","dd/MM/yyyy HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss"};
 		Date date1 = DateUtils.parseDate(s, acceptedFormats);*/

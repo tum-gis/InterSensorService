@@ -31,6 +31,7 @@ import org.tum.gis.minisos.util.IdSequenceManager;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
+import com.opencsv.enums.CSVReaderNullFieldIndicator;
 
 @Service
 public class CsvConnectionService {
@@ -107,11 +108,19 @@ public class CsvConnectionService {
 	//read csv location details, parse csv, create a list of observation 
 	
 	public void validateCsvConnection(int timeseriesId, CsvConnection csvConnection) throws IOException, ParseException {
-		int timeColumn = csvConnection.getTimeColumn();
+		int timeColumn = csvConnection.getTimeBeginColumn();
 		int valueColumn = csvConnection.getValueColumn();
 		String fileLocation = csvConnection.getFileLocation();
 		
 		List<Observation> observationList = new ArrayList<>();
+		
+		//location
+				List<Double> coordinates = new ArrayList<>();
+				coordinates.add(csvConnection.getLongitude());
+				coordinates.add(csvConnection.getLatitude());
+				
+				dataSourceService.datasources.get(0).setCoordinates(coordinates);
+		
 		
 		try(
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(fileLocation));  
@@ -128,7 +137,7 @@ public class CsvConnectionService {
 	        		Map<String, String> mapping = new HashMap<String, String>();
 	        		
 	        		mapping.put(csvHeaderList[timeColumn], "time");
-		        	mapping.put(csvHeaderList[valueColumn], "value");
+		        	mapping.put(csvHeaderList[valueColumn], "csvValue");
 		        	
 		        	HeaderColumnNameTranslateMappingStrategy<CsvObservation> strategy = new HeaderColumnNameTranslateMappingStrategy<CsvObservation>();
 		        	strategy.setType(CsvObservation.class);
@@ -147,14 +156,17 @@ public class CsvConnectionService {
 		        	 
 		             List<CsvObservation> csvObservations = csvToBean.parse();
 		             
-		             if (csvObservations!=null) {
+		            /* if (csvObservations!=null) {
 		            	 timeseriesService.timeseriesList.get(timeseriesId-1).setFirstObservation(csvObservations.get(0).getTime());
 		            	 timeseriesService.timeseriesList.get(timeseriesId-1).setLastObservation(csvObservations.get(csvObservations.size()-1).getTime());
-		             }
+		             }*/
 		             
 		             for (CsvObservation csvObservation : csvObservations) {
 		            	 //apply sorting here
-		 				observationList.add(csvObservation);
+		            	 double obsValue = Double.parseDouble(csvObservation.getCsvValue());
+		            	 Observation newObservation = new Observation (csvObservation.getTimeBegin(),obsValue);
+		            	 
+		            	 observationList.add(newObservation);
 		 				
 		 				//Collections.sort(observationList1, new DateTimeComparison());
 		 			}
@@ -170,9 +182,12 @@ public class CsvConnectionService {
 		
 	}
 	
-	public List<Observation> parseCsv(int timeseriesId, CsvConnection csvConnection) throws IOException {
-		int timeColumn = csvConnection.getTimeColumn();
+	public List<Observation> parseCsv(int timeseriesId, CsvConnection csvConnection) throws IOException, ParseException {
+		int timeBeginColumn = csvConnection.getTimeBeginColumn();
+		int timeEndColumn = csvConnection.getTimeEndColumn();
 		int valueColumn = csvConnection.getValueColumn();
+		int venueColumn = csvConnection.getVenueColumn();
+		
 		String fileLocation = csvConnection.getFileLocation();
 		
 		List<Observation> observationList = new ArrayList<>();
@@ -181,22 +196,34 @@ public class CsvConnectionService {
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(fileLocation));  
 				Reader reader = Files.newBufferedReader(Paths.get(fileLocation));
 				
+				BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileLocation));  
+				Reader reader1 = Files.newBufferedReader(Paths.get(fileLocation));
+				
 			){
 			
 				//Store Header values in an array. It is used for fetching appropriate header columns
 				String[] csvHeaderList;
+				String[] csvHeaderList1;
+				
 				String csvHeader = bufferedReader.readLine();
+				String csvHeader1 = bufferedReader1.readLine();
+				
 	        	if (csvHeader != null) {
 	        		csvHeaderList = csvHeader.split(csvConnection.getSeparator());	      		
 	        	
 	        		Map<String, String> mapping = new HashMap<String, String>();
 	        		
-	        		mapping.put(csvHeaderList[timeColumn], "time");
-		        	mapping.put(csvHeaderList[valueColumn], "value");
+	        		mapping.put(csvHeaderList[timeBeginColumn], "timeBegin");
+		        	mapping.put(csvHeaderList[valueColumn], "csvValue");
+		        	
+		        	mapping.put(csvHeaderList[venueColumn], "venue");
+		        	
 		        	
 		        	HeaderColumnNameTranslateMappingStrategy<CsvObservation> strategy = new HeaderColumnNameTranslateMappingStrategy<CsvObservation>();
 		        	strategy.setType(CsvObservation.class);
 		        	strategy.setColumnMapping(mapping);
+		        	
+		        	
 		        	
 		        	 CsvToBean csvToBean = new CsvToBeanBuilder(reader)
 		             		 .withType(CsvObservation.class)
@@ -206,25 +233,68 @@ public class CsvConnectionService {
 		                     .build();
 		             
 		        	 csvToBean.setMappingStrategy(strategy);		             
-		            
-		            
-		        	 
+		        	
 		             List<CsvObservation> csvObservations = csvToBean.parse();
 		             
+		             csvHeaderList1 = csvHeader1.split(csvConnection.getSeparator());
+		        		
+		        		Map<String, String> mapping1 = new HashMap<String, String>();
+		            	 
+		            	 	mapping1.put(csvHeaderList1[timeEndColumn], "timeEnd");
+				        	mapping1.put(csvHeaderList1[valueColumn], "csvValue");
+				        	
+				        	
+				        	
+				        	HeaderColumnNameTranslateMappingStrategy<CsvObservation> strategy1 = new HeaderColumnNameTranslateMappingStrategy<CsvObservation>();
+				        	strategy1.setType(CsvObservation.class);
+				        	strategy1.setColumnMapping(mapping1);
+				        	
+				        	 CsvToBean csvToBean1 = new CsvToBeanBuilder(reader1)
+				             		 .withType(CsvObservation.class)
+				                     .withMappingStrategy(strategy1)		                     
+				                     .withIgnoreLeadingWhiteSpace(true)
+				                     .withSeparator(csvConnection.getSeparator().charAt(0))
+				                     .build();
+				             
+				        	 csvToBean1.setMappingStrategy(strategy1);		
+				        	 
+				        	 List<CsvObservation> csvObservations1 = csvToBean1.parse();
+		         	
+		           
 		             
-		             
-		             for (CsvObservation csvObservation : csvObservations) {
-		            	 //apply sorting here
-		 				observationList.add(csvObservation);
+				       for (int i=0;i<csvObservations.size();i++) {
+					   
+				    	 if (csvObservations.get(i).getVenue().equals(csvConnection.getSearchVenue())) {
+				    		 double obsValue = Double.parseDouble(csvObservations.get(i).getCsvValue());
+						     Observation newObservation = new Observation (csvObservations.get(i).getTimeBegin(),obsValue);
+						            	 
+			            	 
+			            	 DateTime init_time = new DateTime(newObservation.getTime());
+			            	 init_time = init_time.minusSeconds(5);
+			            	 Observation initObservation = new Observation (init_time.toString(),0.0);
+			            	 
+			            	 double obsValue1 = Double.parseDouble(csvObservations1.get(i).getCsvValue());
+			            	 Observation newObservation1 = new Observation (csvObservations1.get(i).getTimeEnd(),obsValue1);
+			            	 
+			            	 DateTime end_time = new DateTime(newObservation1.getTime());
+			            	 end_time = end_time.plusSeconds(5);
+			            	 Observation endObservation = new Observation (end_time.toString(),0.0);
+			            	 
+			            	
+			            	 observationList.add(initObservation);		            		
+			            	 observationList.add(newObservation);		            	 
+			            	 observationList.add(newObservation1);			            	
+			            	 observationList.add(endObservation);
+				    	 }
+				    	 
+		            
+		            	 
 		 				
 		 				//Collections.sort(observationList1, new DateTimeComparison());
 		 			}
-		            
-		             
-		            
 	        	}
-	        	
-				
+		            
+
 	        	return observationList;
 			
 			}
@@ -232,9 +302,13 @@ public class CsvConnectionService {
 	}
 	
 	public List<Observation> parseCsv(int timeseriesId, CsvConnection csvConnection, String startTime, String endTime) throws IOException, ParseException {
-		int timeColumn = csvConnection.getTimeColumn();
+		int timeBeginColumn = csvConnection.getTimeBeginColumn();
+		int timeEndColumn = csvConnection.getTimeEndColumn();
 		int valueColumn = csvConnection.getValueColumn();
+		int venueColumn = csvConnection.getVenueColumn();
 		String fileLocation = csvConnection.getFileLocation();
+		
+		
 		
 		DateTime start = DateTime.parse(startTime);
 		DateTime end = DateTime.parse(endTime);
@@ -246,18 +320,27 @@ public class CsvConnectionService {
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(fileLocation));  
 				Reader reader = Files.newBufferedReader(Paths.get(fileLocation));
 				
+				BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileLocation));  
+				Reader reader1 = Files.newBufferedReader(Paths.get(fileLocation));
+				
 			){
 			
 				//Store Header values in an array. It is used for fetching appropriate header columns
 				String[] csvHeaderList;
 				String csvHeader = bufferedReader.readLine();
-	        	if (csvHeader != null) {
+				
+				String[] csvHeaderList1;
+				String csvHeader1 = bufferedReader1.readLine();
+				
+	        	if ((csvHeader != null) && (csvHeader1 != null)) {
 	        		csvHeaderList = csvHeader.split(csvConnection.getSeparator());	      		
 	        	
 	        		Map<String, String> mapping = new HashMap<String, String>();
 	        		
-	        		mapping.put(csvHeaderList[timeColumn], "time");
-		        	mapping.put(csvHeaderList[valueColumn], "value");
+	        		mapping.put(csvHeaderList[timeBeginColumn], "timeBegin");
+		        	mapping.put(csvHeaderList[valueColumn], "csvValue");
+		        	
+		        	mapping.put(csvHeaderList[venueColumn], "venue");
 		        	
 		        	HeaderColumnNameTranslateMappingStrategy<CsvObservation> strategy = new HeaderColumnNameTranslateMappingStrategy<CsvObservation>();
 		        	strategy.setType(CsvObservation.class);
@@ -270,29 +353,77 @@ public class CsvConnectionService {
 		                     .withSeparator(csvConnection.getSeparator().charAt(0))
 		                     .build();
 		             
-		        	 csvToBean.setMappingStrategy(strategy);		             
-		            
-		            
+		        	 csvToBean.setMappingStrategy(strategy);		            
 		        	 
 		             List<CsvObservation> csvObservations = csvToBean.parse();
 		             
 		             
+		             csvHeaderList1 = csvHeader1.split(csvConnection.getSeparator());
+		        		
+	        		 Map<String, String> mapping1 = new HashMap<String, String>();
+	            	 
+	        		 	mapping1.put(csvHeaderList1[timeEndColumn], "timeEnd");
+			        	mapping1.put(csvHeaderList1[valueColumn], "csvValue");
+			        	
+			        	
+			        	
+			        	HeaderColumnNameTranslateMappingStrategy<CsvObservation> strategy1 = new HeaderColumnNameTranslateMappingStrategy<CsvObservation>();
+			        	strategy1.setType(CsvObservation.class);
+			        	strategy1.setColumnMapping(mapping1);
+			        	
+			        	 CsvToBean csvToBean1 = new CsvToBeanBuilder(reader1)
+			             		 .withType(CsvObservation.class)
+			                     .withMappingStrategy(strategy1)		                     
+			                     .withIgnoreLeadingWhiteSpace(true)
+			                     .withSeparator(csvConnection.getSeparator().charAt(0))
+			                     .build();
+			             
+			        	 csvToBean1.setMappingStrategy(strategy1);		             
+			            
+			            
+			        	 
+			             List<CsvObservation> csvObservations1 = csvToBean1.parse();
+			             
+			             
 		             
-		             for (CsvObservation csvObservation : csvObservations) {
-		            	 //apply sorting here
-		            	 if(DateTime.parse(csvObservation.getTime()).isAfter(start)&&DateTime.parse(csvObservation.getTime()).isBefore(end)) {
-		            		 observationList.add(csvObservation);
+		             for (int i=0;i<csvObservations.size();i++) {
+		            	 
+		            	 if (csvObservations.get(i).getVenue().equals(csvConnection.getSearchVenue())) {
+		            		 double obsValue = Double.parseDouble(csvObservations.get(i).getCsvValue());
+			            	 Observation newObservation = new Observation (csvObservations.get(i).getTimeBegin(),obsValue);
+			            	 
+			            	 
+			            	 DateTime init_time = new DateTime(newObservation.getTime());
+			            	 init_time = init_time.minusSeconds(5);
+			            	 Observation initObservation = new Observation (init_time.toString(),0.0);
+			            	 
+			            	 double obsValue1 = Double.parseDouble(csvObservations1.get(i).getCsvValue());
+			            	 Observation newObservation1 = new Observation (csvObservations1.get(i).getTimeEnd(),obsValue1);
+			            	 
+			            	
+			            	 
+			            	 DateTime end_time = new DateTime(newObservation1.getTime());
+			            	 end_time = end_time.plusSeconds(5);
+			            	 Observation endObservation = new Observation (end_time.toString(),0.0);
+			            	 
+			            	 if(DateTime.parse(newObservation.getTime()).isAfter(start)&&DateTime.parse(newObservation.getTime()).isBefore(end)) {
+			            		 
+			            		 
+			            		
+			            		 observationList.add(initObservation);			            		 
+				            	 observationList.add(newObservation);					            	
+				            	 observationList.add(newObservation1);				            	
+				            	 observationList.add(endObservation);
+				            
+				            	
+			            	 }
 		            	 }
 		            	 
-		            	 
-		 				
-		 				//Collections.sort(observationList1, new DateTimeComparison());
-		 			}
-		            
+		             }
 		             
-		            
-	        	}
-	        	
+		             
+	        	}    
+		             
 				
 	        	return observationList;
 			

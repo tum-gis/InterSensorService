@@ -2,12 +2,19 @@ package org.tum.gis.minisos.dataSourceConnection.csv;
 
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CsvConnection extends DataSourceConnection {
 
 	private String fileLocation;
 	private String separator;
-	private int timeColumn;
+	private int timeBeginColumn;
+	private int timeEndColumn;
 	private int valueColumn;
+	private int venueColumn;
+	private double latitude;
+	private double longitude;
+	private String searchVenue;
 	
 	public CsvConnection() {
 		
@@ -21,8 +28,13 @@ public class CsvConnection extends DataSourceConnection {
 						String unitOfMeasure, 
 						String fileLocation,
 						String separator,
-						int timeColumn, 
-						int valueColumn) {
+						int timeBeginColumn, 
+						int timeEndColumn,
+						int valueColumn,
+						int venueColumn,
+						double latitude,
+						double longitude,
+						String searchVenue) {
 		
 		super(	id, 
 				name, 
@@ -34,8 +46,13 @@ public class CsvConnection extends DataSourceConnection {
 		
 		this.fileLocation = fileLocation;
 		this.separator = separator;
-		this.timeColumn = timeColumn;
+		this.timeBeginColumn = timeBeginColumn;
+		this.timeEndColumn = timeEndColumn;
 		this.valueColumn = valueColumn;
+		this.venueColumn = venueColumn;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.searchVenue = searchVenue;
 	}
 
 	public String getFileLocation() {
@@ -54,20 +71,52 @@ public class CsvConnection extends DataSourceConnection {
 		this.separator = separator;
 	}
 	
-	public int getTimeColumn() {
-		return timeColumn;
+	
+
+	public int getTimeBeginColumn() {
+		return timeBeginColumn;
+	}
+	public void setTimeBeginColumn(int timeBeginColumn) {
+		this.timeBeginColumn = timeBeginColumn;
+	}
+	public int getTimeEndColumn() {
+		return timeEndColumn;
+	}
+	public void setTimeEndColumn(int timeEndColumn) {
+		this.timeEndColumn = timeEndColumn;
+	}
+	public int getVenueColumn() {
+		return venueColumn;
+	}
+	public void setVenueColumn(int venueColumn) {
+		this.venueColumn = venueColumn;
 	}
 
-	public void setTimeColumn(int timeColumn) {
-		this.timeColumn = timeColumn;
+	public double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 
+	public double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 	public int getValueColumn() {
 		return valueColumn;
 	}
 
 	public void setValueColumn(int valueColumn) {
 		this.valueColumn = valueColumn;
+	}
+	public String getSearchVenue() {
+		return searchVenue;
+	}
+	public void setSearchVenue(String searchVenue) {
+		this.searchVenue = searchVenue;
 	}
 	
 	
