@@ -22,7 +22,7 @@ public class JdbcController {
 	private JdbcService jdbcService;
 	
 	
-	@RequestMapping(method=RequestMethod.POST, value="/datasourcesjdbc")
+	@RequestMapping(method=RequestMethod.POST, value="/jdbc")
 	public void addDataSource(@RequestBody JdbcConnection jdbcConnection) {
 		jdbcService.addDataSource(jdbcConnection);
 	}

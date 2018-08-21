@@ -15,7 +15,7 @@ public class CsvConnectionController {
 	@Autowired
 	private CsvConnectionService csvConnectionService;
 	
-	@RequestMapping(method=RequestMethod.POST, value="/datasources")
+	@RequestMapping(method=RequestMethod.POST, value="/csv")
 	public void addDataSource(@RequestBody CsvConnection csvConnection) throws IOException, ParseException {		
 		csvConnectionService.addDataSource(csvConnection);
 	}

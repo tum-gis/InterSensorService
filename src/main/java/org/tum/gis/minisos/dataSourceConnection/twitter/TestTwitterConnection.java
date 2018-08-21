@@ -33,6 +33,7 @@ public class TestTwitterConnection {
 				"38715440-q3dLLeHRS2OqQRl0gwijUvlsBipIdxrcUHnK1SK8o",
 				"q191jEc1ibF8psoh4QbAIflK8sTarJDVGD6s5iTyXfNTT");
 		
+		
 		System.out.println(twitter);
 
 		//Setting Parameters for required location
@@ -79,16 +80,10 @@ public class TestTwitterConnection {
 				resultTweet.put("coordinates", jsonTweetList.get(i).get("geo").get("coordinates"));
 				
 				resultTweetList.add(resultTweet);
-				//System.out.println(jsonTweetList.get(i));
-				/*System.out.println(jsonTweetList.get(i).get("created_at"));
-				System.out.println(jsonTweetList.get(i).get("id"));
-				System.out.println(jsonTweetList.get(i).get("text"));
-				System.out.println(jsonTweetList.get(i).get("place").get("full_name"));
-				System.out.println(jsonTweetList.get(i).get("geo").get("coordinates"));*/
+				
 			}
 		}
-		//System.out.println(jsonTweetList);
-		//System.out.println(jsonTextResponse.get("search_metadata").get("next_results"));
+	
 		
 		while (jsonTextResponse.get("search_metadata").has("next_results")) {
 			queryParam = jsonTextResponse.get("search_metadata").get("next_results").asText();
@@ -113,14 +108,11 @@ public class TestTwitterConnection {
 					resultTweet.put("coordinates", jsonTweetList.get(i).get("geo").get("coordinates"));
 					
 					resultTweetList.add(resultTweet);
-					
-					/*System.out.println(jsonTweetList.get(i).get("created_at"));
-					System.out.println(jsonTweetList.get(i).get("geo"));*/
+				
 				}
 			}
 			
-			//System.out.println(jsonTextResponse.get("statuses").size());
-			//System.out.println(jsonTextResponse.get("search_metadata").get("next_results"));
+		
 		}
 		
 		String resultTweetAll = resultTweetList.toString();
@@ -133,70 +125,9 @@ public class TestTwitterConnection {
 		System.out.println(resultTweetList.get(5));
 		System.out.println(resultTweetList.get(6));
 		
-		/*do {
-			
-			List<Tweet> tweetList = twitter.searchOperations().search(parameters).getTweets();
-			searchResultCount = twitter.searchOperations().search(parameters).getTweets().size();
-		
-			
-			
-			for (int i=0;i<tweetList.size();i++) {
-				long tweetId = tweetList.get(i).getId();
-				if(tweetList.get(i).getUser().isGeoEnabled()) {
-					System.out.println(i+","+tweetList.get(i).getUser().isGeoEnabled());
-				
-				//For each Tweet ID, check if geolocation exists
-				String tweetUrl = "https://api.twitter.com/1.1/statuses/show.json?id="+tweetId;
-				URI finalUrl = URIBuilder.fromUri(tweetUrl).build();
-				String search = twitter.restOperations().getForObject(finalUrl, String.class);
-				ObjectMapper mapper = new ObjectMapper();
-				JsonNode jsonTextResponse = mapper.readTree(search);
-				if(!jsonTextResponse.get("geo").isNull()) {
-					//String returnedTweet = jsonTextResponse.get("geo").get;
-					System.out.println(jsonTextResponse.get("geo"));
-				}
-				}
-				if(tweetId<lowestTweetId) {
-					lowestTweetId = tweetId;
-					parameters.maxId(lowestTweetId);
-				}
-				
-			}
-		} while (searchResultCount != 0 && searchResultCount % 100 == 0);*/
 		
 		
-		//System.out.println(twitter.searchOperations().search(s1).getTweets().get(0).getInReplyToScreenName());
-		//System.out.println(tweetList.size());
-		//System.out.println(twitter.searchOperations().search("Munich", 200));
-		//System.out.println(twitter.geoOperations().getPlace("1004424817074896899"));
-		/*List<String> queriedTweet = new ArrayList<>();
-		for (int i=0;i<tweetList.size();i++) {
-			long tweetId = tweetList.get(i).getId();
-			parameters.maxId(tweetId);
-			String tweetUrl = "https://api.twitter.com/1.1/statuses/show.json?id="+tweetId;
-			URI finalUrl = URIBuilder.fromUri(tweetUrl).build();
-			String search = twitter.restOperations().getForObject(finalUrl, String.class);
-			ObjectMapper mapper = new ObjectMapper();
-			JsonNode jsonTextResponse = mapper.readTree(search);*/
-			
-			/*if(!jsonTextResponse.get("geo").isNull()) {
-				String returnedTweet = jsonTextResponse.get("geo").asText();
-				queriedTweet.add(returnedTweet);
-				System.out.println(jsonTextResponse.get("geo"));
-				System.out.println(jsonTextResponse.get("geo").asText());
-				//System.out.println(jsonTextResponse.get("geo"));
-			}*/
-		//}
-		//System.out.println(queriedTweet.size());
-		//MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-		//parameters.set("q","Munich");
-		//parameters.set("result_type", "recent");
-		//URI url =  URIBuilder.fromUri("https://api.twitter.com/1.1/statuses/show.json?id=1004474342602887169").build();
 		
-		//String data= twitter.restOperations().getForObject(url, String.class);
-		//String search = twitter.restOperations().getForObject(url, String.class);
-		//System.out.println(search);
 	
-		//System.out.println(parameters.getSinceId()+"---"+parameters.getMaxId());
 	}
 }

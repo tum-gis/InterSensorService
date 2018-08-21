@@ -14,7 +14,7 @@ public class TwitterController {
 	private TwitterService twitterService;
 	
 	@CrossOrigin()
-	@RequestMapping(method=RequestMethod.POST, value="/datasourcesTwitter")
+	@RequestMapping(method=RequestMethod.POST, value="/twitter")
 	public void addDataSource(@RequestBody TwitterConnection twitterConnection) {
 		twitterService.addDataSource(twitterConnection);
 	}

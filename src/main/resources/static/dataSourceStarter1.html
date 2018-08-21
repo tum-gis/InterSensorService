@@ -3,8 +3,16 @@
 <body>
 	<h1>Form</h1>
     <form enctype='application/json' action="#" th:action="@{/datasourcesthingspeak}" th:object="${thingspeakConnection}" method="POST">
-    	<p>Name: <input type="text" th:field="*{name}" /></p>
-        <p>Description: <input type="text" th:field="*{description}" /></p>
+    	<p>name: <input type="text" th:field="*{name}" /></p>
+        <p>description: <input type="text" th:field="*{description}" /></p>
+         <p>connectionType: <input type="text" th:field="*{connectionType}" /></p>
+          <p>observationProperty: <input type="text" th:field="*{observationProperty}" /></p>
+           <p>observationType: <input type="text" th:field="*{observationType}" /></p>
+            <p>unitOfMeasure: <input type="text" th:field="*{unitOfMeasure}" /></p>
+             <p>serviceName: <input type="text" th:field="*{serviceName}" /></p>
+              <p>serviceType: <input type="text" th:field="*{serviceType}" /></p>
+               <p>channel: <input type="text" th:field="*{channel}" /></p>
+               <p>field: <input type="text" th:field="*{field}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>

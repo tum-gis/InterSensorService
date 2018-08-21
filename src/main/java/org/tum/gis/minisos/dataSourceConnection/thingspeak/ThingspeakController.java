@@ -19,7 +19,7 @@ public class ThingspeakController {
 	@Autowired
 	private ThingspeakService thingspeakService;
 	
-	@RequestMapping(method=RequestMethod.POST, value="/datasourcesthingspeak")
+	@RequestMapping(method=RequestMethod.POST, value="/thingspeak")
 	public void addDataSource(@RequestBody ThingspeakConnection thingspeakConnection) {
 		thingspeakService.addDataSource(thingspeakConnection);
 	}

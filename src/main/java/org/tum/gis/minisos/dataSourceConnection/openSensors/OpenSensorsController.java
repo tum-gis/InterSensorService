@@ -15,7 +15,7 @@ public class OpenSensorsController {
 	@Autowired
 	private OpenSensorsService openSensorsService;
 	
-	@RequestMapping(method=RequestMethod.POST, value="/datasourcesOpenSensors")
+	@RequestMapping(method=RequestMethod.POST, value="/openSensors")
 	public void addDataSource(@RequestBody OpenSensorsConnection openSensorsConnection) throws URISyntaxException {
 		openSensorsService.addDataSource(openSensorsConnection);
 	}

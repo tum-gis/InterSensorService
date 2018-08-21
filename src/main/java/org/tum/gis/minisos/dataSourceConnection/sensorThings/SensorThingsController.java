@@ -12,7 +12,7 @@ public class SensorThingsController {
 	@Autowired
 	private SensorThingsService sensorThingsService;
 	
-	@RequestMapping(method=RequestMethod.POST, value="/datasourcesSensorThings")
+	@RequestMapping(method=RequestMethod.POST, value="/sensorThings")
 	public void addDataSource(@RequestBody SensorThingsConnection sensorThingsConnection) {
 		sensorThingsService.addDataSource(sensorThingsConnection);
 	}

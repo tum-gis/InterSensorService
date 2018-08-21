@@ -11,6 +11,8 @@ public class C3ntinelConnection extends DataSourceConnection {
 	private String resolution;
 	private String username;
 	private String password;
+	private double latitude;
+	private double longitude;
 	
 	public C3ntinelConnection() {
 		super();
@@ -29,7 +31,9 @@ public class C3ntinelConnection extends DataSourceConnection {
 								int meterId, 
 								String resolution, 
 								String username,
-								String password) {
+								String password,
+								double latitude,
+								double longitude) {
 		super(id, 
 				  name, 
 				  description, 
@@ -45,6 +49,8 @@ public class C3ntinelConnection extends DataSourceConnection {
 		this.resolution = resolution;
 		this.username = username;
 		this.password = password;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 
@@ -125,6 +131,22 @@ public class C3ntinelConnection extends DataSourceConnection {
 
 	public void setResolution(String resolution) {
 		this.resolution = resolution;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 	
 	

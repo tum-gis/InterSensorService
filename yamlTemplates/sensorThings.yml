@@ -1,0 +1,23 @@
+#In order to run InterSensor Service with this YAML file,
+#Copy the contents of this file in the file src/main/resources/application.yml
+
+#Optionnal: Configure server port here. 
+#If not defined, the default port is 8080
+
+#server:
+#  port: 9091
+
+#Provide SensorThings Channel details here  
+
+
+datasource-connection:
+  name: "SensorThings_Temperature_Stream"
+  description: "Live_SensorThings_Stream recording temperature"
+  connectionType: "SensorThings"   #Fixed identifier to check the connection type
+  observationProperty: "Temperature_SensorThings"
+  unitOfMeasure: "Celsius"
+  serviceName: "SensorThings"
+  serviceType: "JSON"
+  baseUrl: "https://example.sensorup.com/v1.0"
+  thingId: 8774755
+  datastreamId: 8774757

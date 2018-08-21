@@ -126,6 +126,7 @@ public class ObservationService {
 			return csvConnectionService.parseCsv(timeseriesId, csvConnection);
 		} else if (dataSource instanceof TwitterConnection) {
 			
+			
 			TwitterConnection twitterConnection = (TwitterConnection) dataSource;
 			return twitterService.parseTwitter(timeseriesId, twitterConnection);
 		} 
