@@ -1,5 +1,5 @@
 #In order to run InterSensor Service with this YAML file,
-#Copy the contents of this file in the file application.yml
+#Copy the contents of this file in the file src/main/resources/application.yml
 
 #Optionnal: Configure server port here. 
 #If not defined, the default port is 8080
@@ -7,23 +7,17 @@
 #server:
 #  port: 9091
 
-#Provide CSV file details here  
-#This example is for retrieving time period details from a csv file 
+#Provide SensorThings Channel details here  
+
 
 datasource-connection:
-  name: "TwitterConnection"
-  description: "GeoTagged Tweets around London QEOP"
-  connectionType: "Twitter"
-  #observationProperty: "CSV_Events_ArcelorMittal_Orbit"
-  observationType: "String"
-  unitOfMeasure: "TweetJSON"
-  serviceName: "Twitter API"
+  name: "SensorThings_Temperature_Stream"
+  description: "Live_SensorThings_Stream recording temperature"
+  connectionType: "SensorThings"   #Fixed identifier to check the connection type
+  observationProperty: "Temperature_SensorThings"
+  unitOfMeasure: "Celsius"
+  serviceName: "SensorThings"
   serviceType: "JSON"
-  baseUrl: "https://api.twitter.com/1.1/search/tweets.json"
-  apiKey: "GnYN7GGuOtRXJHe3DfkLpte6F"
-  apiSecret: "o3wO1UNUySGld9lXoQMvFWpAKPd8VAkTHu2bEV1b4QkLyjLGXq"
-  accessToken: "38715440-q3dLLeHRS2OqQRl0gwijUvlsBipIdxrcUHnK1SK8o"
-  accessTokenSecret: "q191jEc1ibF8psoh4QbAIflK8sTarJDVGD6s5iTyXfNTT"
-  latitude: 51.54347
-  longitude: -0.01652
-  radius: 1
+  baseUrl: "https://example.sensorup.com/v1.0"
+  thingId: 8774755
+  datastreamId: 8774757

@@ -5,7 +5,9 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import org.tum.gis.minisos.interfaces.seriesRestApi52n.stations.Station;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.stations.Stations;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries.FlotData;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries.FlotSeries;
+import org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries.TimeseriesIdentifierCollection;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.timeseries.TimeseriesMetadata;
 import org.tum.gis.minisos.observation.ObservationService;
 import org.tum.gis.minisos.timeseries.TimeseriesService;
@@ -159,13 +162,31 @@ public class SeriesRestApiService {
 		featureList.add(feature);
 		
 		Station station = new Station();
+		
+		//for each timeseries, create new timeseriesidentifiercollections
+		TimeseriesIdentifierCollection timeseriesIdentifierCollection = new TimeseriesIdentifierCollection();
+
+		timeseriesIdentifierCollection.setCategory(category);
+		timeseriesIdentifierCollection.setFeature(feature);
+		timeseriesIdentifierCollection.setOffering(offering);
+		timeseriesIdentifierCollection.setPhenomenon(phenomenon);
+		timeseriesIdentifierCollection.setProcedure(procedure);
+		timeseriesIdentifierCollection.setCategory(category);
+		timeseriesIdentifierCollection.setService(services);
+		
+		
 		station.getProperties().setLabel(dataSource.getName());
-		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setCategory(category);
+		/*station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setCategory(category);
 		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setFeature(feature);
 		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setOffering(offering);
 		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setPhenomenon(phenomenon);
 		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setProcedure(procedure);
-		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setService(services);
+		station.getProperties().getTimeseries().getTimeseriesIdentifierCollection().setService(services);*/
+		
+		Map<String, TimeseriesIdentifierCollection> mapper = new HashMap<>();
+		mapper.put("1", timeseriesIdentifierCollection);
+		//mapper.put("2", timeseriesIdentifierCollection);
+		station.getProperties().setTimeseries(mapper);
 		stationList.add(station);
 		
 		TimeseriesMetadata timeseriesMetadata = new TimeseriesMetadata();

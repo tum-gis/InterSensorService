@@ -12,6 +12,7 @@ import java.util.Locale;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.ISODateTimeFormat;
 import org.springframework.expression.ParseException;
 
@@ -47,7 +48,7 @@ public class CustomDateUtil {
 		
 		try {
 			//Date dateValidity = DateTimePatternEval(str);
-			DateTime validDate = new DateTime(dt);
+			DateTime validDate = new DateTime(dt).toDateTime(DateTimeZone.UTC);
 			return validDate;
 		} catch (ParseException pe) {
 			System.err.println("DateTimeCreator: Could not parse date: " + dt);
@@ -57,9 +58,12 @@ public class CustomDateUtil {
 	}
 	
 	public static String IsoFormatter(DateTime dt) {
-		org.joda.time.format.DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
-		String str = fmt.print(dt);
-		return str;
+		//org.joda.time.format.DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+		String str1 = dt.toString();
+		DateTime parsedTime = DateTime.parse(str1).toDateTime(DateTimeZone.UTC);
+		String readableTime = parsedTime.toString();
+		//String str = fmt.print(dt);
+		return readableTime;
 	}
 	
 	public static long UnixTimeCreator(String time) {
