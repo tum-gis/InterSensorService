@@ -24,7 +24,7 @@ public class GreetingController {
 
     @PostMapping("/greeting")
     public String greetingSubmit(@ModelAttribute ThingspeakConnection thingspeakConnection) {
-    	thingspeakService.addDataSource(thingspeakConnection);
+    //	thingspeakService.addDataSource(thingspeakConnection);
     	return null;
     	//return "result";
     }

@@ -10,22 +10,22 @@ public class Thing {
 	
 	
 	@JsonProperty("@iot.id")
-	private int id;
+	public int id;
 	@JsonProperty("@iot.selfLink")
-	private String selfLink;
+	public String selfLink;
 	
-	private String description;
-	private String name;
-	private Properties properties;
+	public String description;
+	public String name;
+	public Properties properties;
 	
 	@JsonProperty("Datastreams@iot.navigationLink")
-	private String datastreams;
+	public String datastreams;
 	
 	@JsonProperty("HistoricalLocations@iot.navigationLink")
-	private String historicalLocations;
+	public String historicalLocations;
 	
 	@JsonProperty("Locations@iot.navigationLink")
-	private String locations;
+	public String locations;
 
 	public Thing() {
 		

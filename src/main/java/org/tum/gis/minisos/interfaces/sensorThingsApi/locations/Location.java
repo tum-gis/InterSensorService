@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Location {
 
 	@JsonProperty("@iot.id")
-	private int id;
+	public int id;
 	
 	@JsonProperty("@iot.selfLink")
-	private String selfLink;
+	public String selfLink;
 	
-	private String description;
-	private String name;
-	private String encodingType;
-	private Coordinates location;
-	private String type;
+	public String description;
+	public String name;
+	public String encodingType;
+	public Coordinates location;
+	public String type;
+	
+	@JsonProperty("Things@iot.navigationLink")
+	private String things;
 	
 	@JsonProperty("HistoricalLocations@iot.navigationLink")
-	private String Things;
-	
-	@JsonProperty("Locations@iot.navigationLink")
-	private String HistoricalLocations;
+	private String historicalLocations;
 	
 	
 	public Location() {
@@ -28,7 +28,7 @@ public class Location {
 	}
 	
 	public Location(int id, String selfLink, String description, String name, String encodingType, Coordinates location,
-			String type, String Things, String HistoricalLocations) {
+			String type, String things, String historicalLocations) {
 		super();
 		this.id = id;
 		this.selfLink = selfLink;
@@ -37,8 +37,8 @@ public class Location {
 		this.encodingType = encodingType;
 		this.location = location;
 		this.type = type;
-		this.Things = Things;
-		this.HistoricalLocations = HistoricalLocations;
+		this.things = things;
+		this.historicalLocations = historicalLocations;
 	}
 	public int getId() {
 		return id;
@@ -83,16 +83,16 @@ public class Location {
 		this.type = type;
 	}
 	public String getThings() {
-		return Things;
+		return things;
 	}
 	public void setThings(String things) {
-		Things = things;
+		this.things = things;
 	}
 	public String getHistoricalLocations() {
-		return HistoricalLocations;
+		return historicalLocations;
 	}
 	public void setHistoricalLocations(String historicalLocations) {
-		HistoricalLocations = historicalLocations;
+		this.historicalLocations = historicalLocations;
 	}
 	
 	

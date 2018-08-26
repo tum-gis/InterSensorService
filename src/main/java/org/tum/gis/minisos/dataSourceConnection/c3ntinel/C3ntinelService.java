@@ -23,6 +23,7 @@ import org.tum.gis.minisos.dataSource.DataSource;
 import org.tum.gis.minisos.dataSource.DataSourceService;
 import org.tum.gis.minisos.dataSourceConnection.c3ntinel.meter.Meter;
 import org.tum.gis.minisos.dataSourceConnection.c3ntinel.readings.C3ntinelReadings;
+import org.tum.gis.minisos.interfaces.sensorThingsApi.SensorThingsApiService;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.SeriesRestApiService;
 import org.tum.gis.minisos.observation.Observation;
 import org.tum.gis.minisos.observation.ObservationService;
@@ -49,6 +50,9 @@ public class C3ntinelService {
 	@Autowired
 	private SeriesRestApiService seriesRestApiService;
 	
+	@Autowired
+	private SensorThingsApiService sensorThingsApiService;
+	
 	public void addDataSource(C3ntinelConnection c3ntinelConnection) throws ParseException, JsonProcessingException, URISyntaxException, IOException {
 		
 		int flag = 0;
@@ -67,6 +71,7 @@ public class C3ntinelService {
 			timeseriesService.addTimeseries(timeseriesId, dataSourceId, c3ntinelConnection);
 			validateC3ntinelConnection(timeseriesId,c3ntinelConnection);
 			seriesRestApiService.seriesRestApi52nFormatter(c3ntinelConnection);
+			sensorThingsApiService.SensorThingsApiFormatter(c3ntinelConnection);
 		}
 		else {
 			dataSourceId = IdSequenceManager.DataSourceSequence();
@@ -77,6 +82,7 @@ public class C3ntinelService {
 			timeseriesService.addTimeseries(timeseriesId, dataSourceId, c3ntinelConnection);
 			validateC3ntinelConnection(timeseriesId,c3ntinelConnection);
 			seriesRestApiService.seriesRestApi52nFormatter(c3ntinelConnection);
+			sensorThingsApiService.SensorThingsApiFormatter(c3ntinelConnection);
 		}
 	}
 	
@@ -113,7 +119,6 @@ public class C3ntinelService {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode jsonTextResponse = mapper.readTree(tokenResponse.getBody());
 		String accessToken = jsonTextResponse.get("access_token").toString().replace("\"", "");
-		
 		//Step 2: Send a request to the API with access token as Bearer in the header
 		
 		HttpHeaders messageHeader = new HttpHeaders();
@@ -126,9 +131,9 @@ public class C3ntinelService {
 	    HttpEntity messageEntity = new HttpEntity(messageHeader);
 		
 		
+	    
 		String meterUrl = c3ntinelConnection.getBaseUrl()+"/"+"meter"+"/"+c3ntinelConnection.getMeterId();
 		String readingUrl = meterUrl+"/"+"readings"+"?"+"resolution"+"="+c3ntinelConnection.getResolution().toUpperCase();
-		
 		
 	    
 	    ResponseEntity<Meter> meterResponse = restTemplate.exchange(meterUrl, HttpMethod.GET, messageEntity, Meter.class);
@@ -211,6 +216,7 @@ public class C3ntinelService {
 		String meterUrl = c3ntinelConnection.getBaseUrl()+"/"+"meter"+"/"+c3ntinelConnection.getMeterId();
 		String readingUrl = meterUrl+"/"+"readings"+"?"+"resolution"+"="+c3ntinelConnection.getResolution().toUpperCase()
 							+"&start_date="+startTimeModified+"&end_date="+endTimeModified;
+		
 		
 		
 	    ResponseEntity<C3ntinelReadings> readingResponse = restTemplate.exchange(readingUrl, HttpMethod.GET, messageEntity, C3ntinelReadings.class);

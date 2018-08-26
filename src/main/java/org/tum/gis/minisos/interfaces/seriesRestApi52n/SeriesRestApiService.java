@@ -112,9 +112,7 @@ public class SeriesRestApiService {
 			
 			value.add(listObservation52n.getValues().get(i).getTimestamp());						
 			value.add(listObservation52n.getValues().get(i).getValue());
-			
-		
-			
+
 			values.add(value.toArray(new Number[0]));
 			
 			

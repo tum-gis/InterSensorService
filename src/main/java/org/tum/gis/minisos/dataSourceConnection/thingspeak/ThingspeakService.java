@@ -3,6 +3,8 @@
  */
 package org.tum.gis.minisos.dataSourceConnection.thingspeak;
 
+import java.io.FileNotFoundException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import org.tum.gis.minisos.dataSource.DataSource;
 import org.tum.gis.minisos.dataSource.DataSourceService;
 import org.tum.gis.minisos.dataSourceConnection.DataSourceConnection;
+import org.tum.gis.minisos.interfaces.sensorThingsApi.SensorThingsApiService;
 import org.tum.gis.minisos.interfaces.seriesRestApi52n.SeriesRestApiService;
 import org.tum.gis.minisos.observation.Observation;
 import org.tum.gis.minisos.observation.ObservationListManager;
@@ -39,6 +42,9 @@ public class ThingspeakService {
 	
 	@Autowired
 	private SeriesRestApiService seriesRestApiService;
+	
+	@Autowired
+	private SensorThingsApiService sensorThingsApiService;
 
 	//private static final Logger log = LoggerFactory.getLogger(ThingspeakService.class);
 	
@@ -55,7 +61,7 @@ public class ThingspeakService {
 		//System.out.println(d);
     }*/
 	
-	public void addDataSource(ThingspeakConnection thingspeakConnection) {
+	public void addDataSource(ThingspeakConnection thingspeakConnection) throws UnknownHostException, FileNotFoundException {
 		
 		int flag = 0;
 		int dataSourceId = 1;
@@ -73,6 +79,7 @@ public class ThingspeakService {
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,thingspeakConnection);
 			validateThingspeakConnection(timeseriesId,thingspeakConnection);
 			seriesRestApiService.seriesRestApi52nFormatter(thingspeakConnection);
+			sensorThingsApiService.SensorThingsApiFormatter(thingspeakConnection);
 		}
 		else {
 			dataSourceId = IdSequenceManager.DataSourceSequence();
@@ -83,6 +90,7 @@ public class ThingspeakService {
 			timeseriesService.addTimeseries(timeseriesId,dataSourceId,thingspeakConnection);
 			validateThingspeakConnection(timeseriesId,thingspeakConnection);
 			seriesRestApiService.seriesRestApi52nFormatter(thingspeakConnection);
+			sensorThingsApiService.SensorThingsApiFormatter(thingspeakConnection);
 		}
 		
 	}
