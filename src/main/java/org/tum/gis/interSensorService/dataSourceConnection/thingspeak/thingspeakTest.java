@@ -1,10 +1,10 @@
 package org.tum.gis.interSensorService.dataSourceConnection.thingspeak;
 
-import static org.mockito.Matchers.contains;
+
 
 //import java.io.File;
 //import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
 import java.io.IOException;
 //import java.io.InputStream;
