@@ -7,20 +7,17 @@
 #server:
 #  port: 9091
 
-#Provide C3ntinel Channel details here  
-
+#Provide Thingspeak Channel details here  
+#Thingspeak channel consists of a channel id, which further comprises of different fields 
+# For example, https://thingspeak.com/channels/64242
 
 datasource-connection:
-  name: "SmartMeter_Electricity_perDay"
-  description: "Daily_SmartMeter_Stream"
-  connectionType: "C3ntinel"   #Fixed identifier to check the connection type
-  observationProperty: "ElecConsumption_perDay"
-  observationType: "OM_Measurement"
-  unitOfMeasure: "KWh"
-  serviceName: "C3ntinel"
+  name: "Thingspeak_Humidity_Sensor"
+  description: "New thingspeak connection recording Humidity"
+  connectionType: "Thingspeak"
+  observationProperty: "Humidity_Thingspeak"
+  unitOfMeasure: "Percent"
+  serviceName: "Thingspeak"
   serviceType: "JSON"
-  baseUrl: "https://api.c3ntinel.com"
-  meterId: 64575
-  resolution: "DAY"
-  username: "cb15e1c0-ec03-4e38-ab7c-0fc07fb3a276"
-  password: "Mcr]D^{2EJ"
+  channel: 64242
+  field: 2
