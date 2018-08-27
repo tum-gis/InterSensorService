@@ -1,4 +1,4 @@
-package org.tum.gis.minisos;
+package org.tum.gis.interSensorService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
