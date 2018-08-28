@@ -11,17 +11,18 @@
 #This example is for retrieving time period details from a csv file 
 
 datasource-connection:
-  name: "CSV_Events_ArcelorMittal_Orbit"
-  description: "CSV File having event details in London QEOP"
+  name: "CSV_SmartMeter"
+  description: "CSV File having observations about electricity consumption in a building"
   connectionType: "CSV"
-  observationProperty: "CSV_Events_ArcelorMittal_Orbit"
-  unitOfMeasure: "Visitors_Count"
-  fileLocation: "C:/Kanishk/QEOP_UseCase/Events/QEOP_Events_List_(sent 120718)_1.csv"
+  observationProperty: "Electricity_Consumption"
+  observationType: "OM_Measurement"
+  unitOfMeasure: "KWh"
+  fileLocation: "C:/Kanishk/csv-zip-content_Elec.csv.csv"
   separator: ";"
-  timeBeginColumn: 0
-  timeEndColumn: 6
-  valueColumn: 10
-  venueColumn: 11
+  timeBeginColumn: 3
+  #timeEndColumn: 6
+  valueColumn: 4
+  #venueColumn: 11
   latitude: 51.53883
   longitude: -0.01664
   #searchVenue: Here East

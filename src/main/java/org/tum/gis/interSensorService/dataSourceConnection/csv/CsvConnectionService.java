@@ -222,7 +222,10 @@ public class CsvConnectionService {
 	        		mapping.put(csvHeaderList[timeBeginColumn], "timeBegin");
 		        	mapping.put(csvHeaderList[valueColumn], "csvValue");
 		        	
-		        	mapping.put(csvHeaderList[venueColumn], "venue");
+		        	if(venueColumn!=0) {
+		        		mapping.put(csvHeaderList[venueColumn], "venue");
+		        	}
+		        	
 		        	
 		        	
 		        	HeaderColumnNameTranslateMappingStrategy<CsvObservation> strategy = new HeaderColumnNameTranslateMappingStrategy<CsvObservation>();
@@ -270,28 +273,68 @@ public class CsvConnectionService {
 		             
 				       for (int i=0;i<csvObservations.size();i++) {
 					   
-				    	 if (csvObservations.get(i).getVenue().equals(csvConnection.getSearchVenue())) {
+				    	 if(!(csvConnection.getSearchVenue()==null)&&(csvConnection.getVenueColumn()!=0)) {
+				    		 if (csvObservations.get(i).getVenue().equals(csvConnection.getSearchVenue())) {
+					    		 double obsValue = Double.parseDouble(csvObservations.get(i).getCsvValue());
+							     Observation newObservation = new Observation (csvObservations.get(i).getTimeBegin(),obsValue);
+							            	 
+							     if(timeEndColumn!=0) {
+							    	 DateTime init_time = new DateTime(newObservation.getTime());
+					            	 init_time = init_time.minusSeconds(5);
+					            	 Observation initObservation = new Observation (init_time.toString(),0.0);
+					            	 
+					            	 double obsValue1 = Double.parseDouble(csvObservations1.get(i).getCsvValue());
+					            	 Observation newObservation1 = new Observation (csvObservations1.get(i).getTimeEnd(),obsValue1);
+					            	 
+					            	 DateTime end_time = new DateTime(newObservation1.getTime());
+					            	 end_time = end_time.plusSeconds(5);
+					            	 Observation endObservation = new Observation (end_time.toString(),0.0);
+					            	 
+					            	 if(!newObservation.getTime().equals(newObservation1.getTime())) {
+					            		 observationList.add(initObservation);		            		
+						            	 observationList.add(newObservation);		            	 
+						            	 observationList.add(newObservation1);			            	
+						            	 observationList.add(endObservation);
+					            	 } 
+							     }
+				            	 else {
+				            		 observationList.add(newObservation);
+				            	 }
+				            		 
+				            	 
+					    	 }
+				    	 }else {
 				    		 double obsValue = Double.parseDouble(csvObservations.get(i).getCsvValue());
 						     Observation newObservation = new Observation (csvObservations.get(i).getTimeBegin(),obsValue);
-						            	 
 			            	 
-			            	 DateTime init_time = new DateTime(newObservation.getTime());
-			            	 init_time = init_time.minusSeconds(5);
-			            	 Observation initObservation = new Observation (init_time.toString(),0.0);
+						     
+						     
+						     if(timeEndColumn!=0) {
+						    	 DateTime init_time = new DateTime(newObservation.getTime());
+				            	 init_time = init_time.minusSeconds(5);
+				            	 Observation initObservation = new Observation (init_time.toString(),0.0);
+				            	 
+				            	 double obsValue1 = Double.parseDouble(csvObservations1.get(i).getCsvValue());
+				            	 Observation newObservation1 = new Observation (csvObservations1.get(i).getTimeEnd(),obsValue1);
+				            	 
+				            	 DateTime end_time = new DateTime(newObservation1.getTime());
+				            	 end_time = end_time.plusSeconds(5);
+				            	 Observation endObservation = new Observation (end_time.toString(),0.0);
+				            	 
+				            	if(!newObservation.getTime().equals(newObservation1.getTime())) {
+				            		observationList.add(initObservation);		            		
+					            	 observationList.add(newObservation);		            	 
+					            	 observationList.add(newObservation1);			            	
+					            	 observationList.add(endObservation);
+				            	}
+						     }else {
+				            		observationList.add(newObservation);
+				            	}
+						     
 			            	 
-			            	 double obsValue1 = Double.parseDouble(csvObservations1.get(i).getCsvValue());
-			            	 Observation newObservation1 = new Observation (csvObservations1.get(i).getTimeEnd(),obsValue1);
 			            	 
-			            	 DateTime end_time = new DateTime(newObservation1.getTime());
-			            	 end_time = end_time.plusSeconds(5);
-			            	 Observation endObservation = new Observation (end_time.toString(),0.0);
-			            	 
-			            	
-			            	 observationList.add(initObservation);		            		
-			            	 observationList.add(newObservation);		            	 
-			            	 observationList.add(newObservation1);			            	
-			            	 observationList.add(endObservation);
 				    	 }
+				    	  
 				    	 
 		            
 		            	 
@@ -346,7 +389,10 @@ public class CsvConnectionService {
 	        		mapping.put(csvHeaderList[timeBeginColumn], "timeBegin");
 		        	mapping.put(csvHeaderList[valueColumn], "csvValue");
 		        	
-		        	mapping.put(csvHeaderList[venueColumn], "venue");
+		        	if(venueColumn!=0) {
+		        		mapping.put(csvHeaderList[venueColumn], "venue");
+		        	}
+		        	
 		        	
 		        	HeaderColumnNameTranslateMappingStrategy<CsvObservation> strategy = new HeaderColumnNameTranslateMappingStrategy<CsvObservation>();
 		        	strategy.setType(CsvObservation.class);
@@ -394,36 +440,83 @@ public class CsvConnectionService {
 		             
 		             for (int i=0;i<csvObservations.size();i++) {
 		            	 
-		            	 if (csvObservations.get(i).getVenue().equals(csvConnection.getSearchVenue())) {
+		            	 if(!(csvConnection.getSearchVenue()==null)&&(csvConnection.getVenueColumn()!=0)) {
+		            		 if (csvObservations.get(i).getVenue().equals(csvConnection.getSearchVenue())) {
+			            		 double obsValue = Double.parseDouble(csvObservations.get(i).getCsvValue());
+				            	 Observation newObservation = new Observation (csvObservations.get(i).getTimeBegin(),obsValue);
+				            	 
+				            	 if(timeEndColumn!=0) {
+				            		 DateTime init_time = new DateTime(newObservation.getTime());
+					            	 init_time = init_time.minusSeconds(5);
+					            	 Observation initObservation = new Observation (init_time.toString(),0.0);
+					            	 
+					            	 double obsValue1 = Double.parseDouble(csvObservations1.get(i).getCsvValue());
+					            	 Observation newObservation1 = new Observation (csvObservations1.get(i).getTimeEnd(),obsValue1);
+					            	 
+					            	
+					            	 
+					            	 DateTime end_time = new DateTime(newObservation1.getTime());
+					            	 end_time = end_time.plusSeconds(5);
+					            	 Observation endObservation = new Observation (end_time.toString(),0.0);
+					            	 
+					            	 if(DateTime.parse(newObservation.getTime()).isAfter(start)&&DateTime.parse(newObservation.getTime()).isBefore(end)) {
+					            		 
+					            		 
+					            		 if(!newObservation.getTime().equals(newObservation1.getTime())) {
+					            			 observationList.add(initObservation);			            		 
+							            	 observationList.add(newObservation);					            	
+							            	 observationList.add(newObservation1);				            	
+							            	 observationList.add(endObservation);
+					            		 }
+					            		
+						            
+						            	
+					            	 }
+				            	 }else {
+				            		 if(DateTime.parse(newObservation.getTime()).isAfter(start)&&DateTime.parse(newObservation.getTime()).isBefore(end)) {
+				            			 observationList.add(newObservation);	
+				            		 }
+			            		 }
+				            	
+			            	 }
+		            	 }else {
 		            		 double obsValue = Double.parseDouble(csvObservations.get(i).getCsvValue());
 			            	 Observation newObservation = new Observation (csvObservations.get(i).getTimeBegin(),obsValue);
 			            	 
-			            	 
-			            	 DateTime init_time = new DateTime(newObservation.getTime());
-			            	 init_time = init_time.minusSeconds(5);
-			            	 Observation initObservation = new Observation (init_time.toString(),0.0);
-			            	 
-			            	 double obsValue1 = Double.parseDouble(csvObservations1.get(i).getCsvValue());
-			            	 Observation newObservation1 = new Observation (csvObservations1.get(i).getTimeEnd(),obsValue1);
-			            	 
-			            	
-			            	 
-			            	 DateTime end_time = new DateTime(newObservation1.getTime());
-			            	 end_time = end_time.plusSeconds(5);
-			            	 Observation endObservation = new Observation (end_time.toString(),0.0);
-			            	 
-			            	 if(DateTime.parse(newObservation.getTime()).isAfter(start)&&DateTime.parse(newObservation.getTime()).isBefore(end)) {
-			            		 
-			            		 
-			            		
-			            		 observationList.add(initObservation);			            		 
-				            	 observationList.add(newObservation);					            	
-				            	 observationList.add(newObservation1);				            	
-				            	 observationList.add(endObservation);
+			            	 if(timeEndColumn!=0) {
+			            		 DateTime init_time = new DateTime(newObservation.getTime());
+				            	 init_time = init_time.minusSeconds(5);
+				            	 Observation initObservation = new Observation (init_time.toString(),0.0);
+				            	 double obsValue1 = Double.parseDouble(csvObservations1.get(i).getCsvValue());
+				            	 Observation newObservation1 = new Observation (csvObservations1.get(i).getTimeEnd(),obsValue1);
+
+				            	 DateTime end_time = new DateTime(newObservation1.getTime());
+				            	 end_time = end_time.plusSeconds(5);
+				            	 Observation endObservation = new Observation (end_time.toString(),0.0);
+				            	 
+				            	 if(DateTime.parse(newObservation.getTime()).isAfter(start)&&DateTime.parse(newObservation.getTime()).isBefore(end)) {
+				            		 
+				            		 
+				            		
+				            		 if(!newObservation.getTime().equals(newObservation1.getTime())) {
+				            			 observationList.add(initObservation);			            		 
+						            	 observationList.add(newObservation);					            	
+						            	 observationList.add(newObservation1);				            	
+						            	 observationList.add(endObservation);
+				            		 }
+				            	 }
+			            	 }
+			            	 else {
+			            		 if(DateTime.parse(newObservation.getTime()).isAfter(start)&&DateTime.parse(newObservation.getTime()).isBefore(end)) {
+			            			 observationList.add(newObservation);	
+			            		 }
+			            		 	
+			            		 }
 				            
 				            	
-			            	 }
+			            	 
 		            	 }
+		            	 
 		            	 
 		             }
 		             
