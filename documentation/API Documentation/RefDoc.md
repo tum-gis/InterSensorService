@@ -18,11 +18,8 @@ http://127.0.0.1/inter-sensor-service/timeseries/{id} - Get a timeseries by id
 
 #Accessing Observations
 http://127.0.0.1/inter-sensor-service/timeseries/{id}/observations?start=2018-08-01T00:00:00Z&end=2018-08-02T00:00:00Z
-(This request determines data source connection properties by the given id, 
-                         establishes the connection, 
-                         retrieves the observations within the temporal filter,
-                         and models according to the Observation class) 
 ```
+The above-mentioned requests determine data source connection properties by the given IDs, establish the connections, retrieve the observations within the temporal filter, and model according to the Observation class. 
 
 # Standardized external interfaces
 The observations from each data source can be encoded "on-the-fly" according to the international OGC Sensor Web Enablement (SWE) standards mentioned as follows:
@@ -68,7 +65,7 @@ Please note that the InterSensor Service currently does not support all the oper
 
 The observations from established InterSensor Service can be queried according to the O&M format by simply using the following GetObservation request
 ```
-#GetObservation Request for the INterSensor Service
+#GetObservation Request for the InterSensor Service
 http://127.0.0.1/OGCSensorThingsApi/v1.0/ogc-sos-webapp/service?service=SOS&version=2.0.0&request=GetObservation&temporalFilter=om:phenomenonTime,2018-08-05T00:00:00/2018-08-05T05:00:00
 ```
 More details about the OGC SensorThings API operations can be found [here](http://www.opengeospatial.org/standards/sos).
@@ -76,7 +73,7 @@ More details about the OGC SensorThings API operations can be found [here](http:
 Please note that the InterSensor Service currently does not support GetCapabilities and DescribeSensor operations. It is a work in progress.
 
 ## 52° North Timeseries API
-Timeseries API developed by 52°North is a RESTful web binding to the OGC Sensor Observation Service. It allows querying and visualizing sensor locations and their observations on the so-called Helgoland client.
+[Timeseries API](http://sensorweb.demo.52north.org/sensorwebclient-webapp-stable/api-doc/) developed by 52°North is a REST-ful web binding to the OGC Sensor Observation Service. It allows querying and visualizing sensor locations and their observations on the so-called [Helgoland client](https://github.com/52North/helgoland).
 
 The observations from established InterSensor Service can be queried according to Timeseries API by using the following command:
 ```
