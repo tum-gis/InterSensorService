@@ -21,7 +21,7 @@ mvn clean install
 By default, it will generate an application JAR file and a configuration file (*application.yml*). If you prefer to work with WAR files, it can also be generated. See [details](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#build-tool-plugins-maven-packaging).
 
 #### Step 2:
-Configure the data source connection details inside the application.yml file. The templates for configuration files are provided [here](master/yamlTemplates).
+Configure the data source connection details inside the application.yml file. The templates for configuration files are provided [here](yamlTemplates).
 Make sure the JAR file and application.yml are in the same folder
 ```
 java -jar <filename.jar>
