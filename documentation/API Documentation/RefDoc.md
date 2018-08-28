@@ -28,7 +28,7 @@ http://127.0.0.1/inter-sensor-service/timeseries/{id}/observations?start=2018-08
 The observations from each data source can be encoded "on-the-fly" according to the international OGC Sensor Web Enablement (SWE) standards mentioned as follows:
 
 ## OGC SensorThings API
-SensorThings API is a new standard providing an open and unified framework to interconnect IoT sensing devices, data, and applications over the Web. It is REST-ful, lightweight and based on JSON. 
+[SensorThings API](http://www.opengeospatial.org/standards/sensorthings) is a new standard providing an open and unified framework to interconnect IoT sensing devices, data, and applications over the Web. It is REST-ful, lightweight and based on JSON. 
 
 The observations from established InterSensor Service can be queried according to the SensorThings API by simply using the following commands
 ```
@@ -59,44 +59,31 @@ http://127.0.0.1/OGCSensorThingsApi/v1.0/ObservedProperties
 #FeaturesOfInterest
 http://127.0.0.1/OGCSensorThingsApi/v1.0/FeaturesOfInterest
 ```
-More details about the OGC SensorThings API requests can be found [here](https://developers.sensorup.com/docs/).
+More details about the OGC SensorThings API operations can be found [here](https://developers.sensorup.com/docs/).
 
 Please note that the InterSensor Service currently does not support all the operations of the SensorThings API. It is a work in progress. 
 
 ## OGC Sensor Observation Service
+[Sensor Observation Service](http://www.opengeospatial.org/standards/sos) (SOS) is a widely adopted web service to query sensor description and metadata and real-time observations. It comprises of well-defined operations such as DescribeSensor to retrieve sensor description according to the SensorML standard and GetObservation to retrieve real-time observations according to the Observations and Measurements (O&M) standard.
+
+The observations from established InterSensor Service can be queried according to the O&M format by simply using the following GetObservation request
+```
+#GetObservation Request for the INterSensor Service
+http://127.0.0.1/OGCSensorThingsApi/v1.0/ogc-sos-webapp/service?service=SOS&version=2.0.0&request=GetObservation&temporalFilter=om:phenomenonTime,2018-08-05T00:00:00/2018-08-05T05:00:00
+```
+More details about the OGC SensorThings API operations can be found [here](http://www.opengeospatial.org/standards/sos).
+
+Please note that the InterSensor Service currently does not support GetCapabilities and DescribeSensor operations. It is a work in progress.
+
 ## 52° North Timeseries API
+Timeseries API developed by 52°North is a RESTful web binding to the OGC Sensor Observation Service. It allows querying and visualizing sensor locations and their observations on the so-called Helgoland client.
 
-
-InterSensor Service is a new lightweight web service allowing users to connect to multiple sensor and IoT platforms and retrieving their observations without worrying about data storage and the multitude of different APIs.  It is a Java application based on the Spring framework and is available as free and Open Source.
-
-# Architecture
-![Alt text](theme/img/Architecture.png?raw=true "Architecture")
-The architecture of the InterSensor Service comprises of the following layers:
-## Data Adapters
-The data adapters allows establishing connections to not only platforms such as ThingSpeak, OpenSensors or Weather Underground, but also to external databases, CSV files, Cloud based spreadsheets, GPS feeds, and real-time Twitter feeds. While querying, the service opens a data source connection and retrieves the observations based on querying parameters directly from the data source. 
-## Standardized External Interfaces
-The retrieved sensor observations can be encoded "on-the-fly" according to international standardized interfaces such as the OGC Sensor Observation Service and OGC SensorThings API. It allows linking numerous sensor data streams from heterogeneous sensor platforms with existing sensor web infrastructures. 
-
-# Getting Started
-Please perform the following intstructions:
-#### Step 1:
-Clone the GitHub repository and install the application
+The observations from established InterSensor Service can be queried according to Timeseries API by using the following command:
 ```
-git clone https://github.com/kanishk-chaturvedi/InterSensorService.git
-cd InterSensorService
-mvn clean install
+#Base URL for the 52°North Timeseries
+http://127.0.0.1:8080/52n-rest-api
 ```
-By default, it will generate an application JAR file and a configuration file (*application.yml*). If you prefer to work with WAR files, it can also be generated. See [details](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#build-tool-plugins-maven-packaging).
+The above-mentioned command can simply be provided to the Helgoland client in order to visualize and interact with the timeseries data. 
 
-#### Step 2:
-Configure the data source connection details inside the *application.yml* file. The templates for configuration files are provided [here](yamlTemplates).
-Please move the modified *application.yml* file in the same folder where the JAR file is located (Execution of JAR file looks for the YAML file in the same folder).
-```
-cd target
-java -jar <filename.jar>
-```
-#### Step 3:
-Upon successful data source connection, the application will start running. For example, if your server is 127.0.0.1 and the port is 8080, the homepage can be accessed using http://127.0.0.1:8080/inter-sensor-service/
-The InterSensor Service determines the host address and port from configuration files and generates the URLs. 
 
-For more details, please refer to documentation and tutorials.
+
