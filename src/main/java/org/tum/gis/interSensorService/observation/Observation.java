@@ -1,6 +1,8 @@
 package org.tum.gis.interSensorService.observation;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.springframework.expression.ParseException;
@@ -12,6 +14,9 @@ public class Observation {
 	private String time;
 	private String timestamp;
 	private double value;
+	private int intValue;
+	private boolean boolValue;
+	private List<Double> geomValue;
 	
 	private String strValue;
 	
@@ -36,6 +41,26 @@ public class Observation {
 		this.strValue = strValue;
 	}
 	
+	public Observation( String time, int intValue) {
+		super();
+		
+		this.time = time;
+		this.intValue = intValue;
+	}
+	
+	public Observation( String time, boolean boolValue) {
+		super();
+		
+		this.time = time;
+		this.boolValue = boolValue;
+	}
+	
+	public Observation( String time, List<Double> geomValue) {
+		super();
+		
+		this.time = time;
+		this.geomValue = geomValue;
+	}
 	
 	public String getTime() throws java.text.ParseException {			
 		
@@ -74,6 +99,30 @@ public class Observation {
 
 	public void setStrValue(String strValue) {
 		this.strValue = strValue;
+	}
+
+	public int getIntValue() {
+		return intValue;
+	}
+
+	public void setIntValue(int intValue) {
+		this.intValue = intValue;
+	}
+
+	public boolean isBoolValue() {
+		return boolValue;
+	}
+
+	public void setBoolValue(boolean boolValue) {
+		this.boolValue = boolValue;
+	}
+
+	public List<Double> getGeomValue() {
+		return geomValue;
+	}
+
+	public void setGeomValue(List<Double> geomValue) {
+		this.geomValue = geomValue;
 	}
 	
 	

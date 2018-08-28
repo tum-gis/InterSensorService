@@ -16,6 +16,7 @@ datasource-connection:
   description: "New thingspeak connection recording Humidity"
   connectionType: "Thingspeak"
   observationProperty: "Humidity_Thingspeak"
+  observationType: OM_Measurement
   unitOfMeasure: "Percent"
   serviceName: "Thingspeak"
   serviceType: "JSON"
