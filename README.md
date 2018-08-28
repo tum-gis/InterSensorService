@@ -28,6 +28,7 @@ cd target
 java -jar <filename.jar>
 ```
 #### Step 3:
-Upon successful data source connection, the application will start running. For example, if your server is localhost and port is 8080, the homepage can be accessed using http://localhost:8080/inter-sensor-service/
+Upon successful data source connection, the application will start running. For example, if your server is 127.0.0.1 and the port is 8080, the homepage can be accessed using http://127.0.0.1:8080/inter-sensor-service/
+The InterSensor Service determines the host address and port from configuration files and generates the URLs. 
 
 For more details, please refer to documentation and tutorials.
