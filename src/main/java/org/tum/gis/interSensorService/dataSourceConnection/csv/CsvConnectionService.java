@@ -95,11 +95,7 @@ public class CsvConnectionService {
 			seriesRestApiService.seriesRestApi52nFormatter(csvConnection);
 			sensorThingsApiService.SensorThingsApiFormatter(csvConnection);
 		}
-		//DataSource dataSource = new DataSource(3,csvConnection);
-		
-		
-		
-		//dataSourceService.addDataSource(dataSource);
+
 		
 		//insert a new timeseries with unique id
 		//timeseriesService.addTimeseries(csvConnection);
