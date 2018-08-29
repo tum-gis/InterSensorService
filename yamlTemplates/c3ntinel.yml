@@ -11,8 +11,8 @@
 
 
 datasource-connection:
-  name: "Aquatic_Centre_Electricity_perDay"
-  description: "Daily_SmartMeter_Stream"
+  name: "Name of the meter"
+  description: "Description of observation"
   connectionType: "C3ntinel"   #Fixed identifier to check the connection type
   observationProperty: "ElecConsumption_perDay"
   observationType: "OM_Measurement"
@@ -20,7 +20,7 @@ datasource-connection:
   serviceName: "C3ntinel"
   serviceType: "JSON"
   baseUrl: "https://api.c3ntinel.com"
-  meterId: 64575
+  meterId: 1
   resolution: "DAY"
   username: "********"
   password: "********"
