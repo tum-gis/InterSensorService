@@ -1,34 +1,30 @@
-# InterSensor Service
-InterSensor Service is a new lightweight web service allowing users to connect to multiple sensor and IoT platforms and retrieving their observations without worrying about data storage and the multitude of different APIs.  It is a Java application based on the Spring framework and is available as free and Open Source.
+# Adding Geo-Tagged Tweets to the InterSensor Service
+The [Twitter API](https://developer.twitter.com/en/docs.html) is a REST based API allowing to connect to real-time tweets based on user profile and different search parameters such as keywords, geo-location etc. Twitter API supports querying geo-tagged tweets using the [geocode](https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators.html) parameter. It requires a point location (latitude, longitude) and a radius (e.g. 1 km) around that point. Additionally, even a search keyword can also be provided, however, we can leave it blank if we want to retrieve all tweets. However, the response may also include tweets which are not geo-tagged but if their users’ location lie within the search criteria. In order to select appropriate tweets with geo-location, specific JSON node of geo-location needs to be checked if it is null or not. 
 
-# Architecture
-![Alt text](theme/img/Architecture.png?raw=true "Architecture")
-The architecture of the InterSensor Service comprises of the following layers:
-## Data Adapters
-The data adapters allows establishing connections to not only platforms such as ThingSpeak, OpenSensors or Weather Underground, but also to external databases, CSV files, Cloud based spreadsheets, GPS feeds, and real-time Twitter feeds. While querying, the service opens a data source connection and retrieves the observations based on querying parameters directly from the data source. 
-## Standardized External Interfaces
-The retrieved sensor observations can be encoded "on-the-fly" according to international standardized interfaces such as the OGC Sensor Observation Service and OGC SensorThings API. It allows linking numerous sensor data streams from heterogeneous sensor platforms with existing sensor web infrastructures. 
+In order to connect to the Twitter API, it is required to [register your application with Twitter](https://spring.io/guides/gs/register-twitter-app/). Upon registering, please retrieve **apiKey**, **apiSecret**, **accessToken**, and **accessTokenSecret**. Please provide the details to the configuration file (*application.yml*) as  below:
 
-# Getting Started
-Please perform the following intstructions:
-#### Step 1:
-Clone the GitHub repository and install the application
 ```
-git clone https://github.com/kanishk-chaturvedi/InterSensorService.git
-cd InterSensorService
-mvn clean install
+datasource-connection:
+  name: "TwitterConnection"
+  description: "Geo-Tagged Tweets around a location"
+  connectionType: "Twitter"
+  observationType: "JsonString"
+  unitOfMeasure: "UoM"
+  serviceName: "Twitter API"
+  serviceType: "JSON"
+  baseUrl: "https://api.twitter.com/1.1/search/tweets.json"
+  apiKey: "**********"
+  apiSecret: "**********"
+  accessToken: "**********"
+  accessTokenSecret: "**********"
+  latitude: 51.54347 #Location of a point
+  longitude: -0.01652 #Location of a point
+  radius: 1 #Radius in km
 ```
-By default, it will generate an application JAR file and a configuration file (*application.yml*). If you prefer to work with WAR files, it can also be generated. See [details](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#build-tool-plugins-maven-packaging).
 
-#### Step 2:
-Configure the data source connection details inside the *application.yml* file. The templates for configuration files are provided [here](yamlTemplates).
-Please move the modified *application.yml* file in the same folder where the JAR file is located (Execution of JAR file looks for the YAML file in the same folder).
-```
-cd target
-java -jar <filename.jar>
-```
-#### Step 3:
-Upon successful data source connection, the application will start running. For example, if your server is 127.0.0.1 and the port is 8080, the homepage can be accessed using http://127.0.0.1:8080/inter-sensor-service/
-The InterSensor Service determines the host address and port from configuration files and generates the URLs. 
+After configuring the details, the InterSensor Service will be able to connect to this data source and encode observations according to the standardized external interfaces. For more details about the endpoints, please refer to the [Documentation](./../APIDocumentation/RefDoc.md)
 
-For more details, please refer to documentation and tutorials.
+Some points to be noted working with the Twitter API are:
+* With geo-location search criteria, best results are obtained only within 3 km radius of a location. If we select a larger radius (e.g. 10 km), number of tweets are surprisingly low. It is also discussed [here](https://twittercommunity.com/t/twitter-search-api-always-return-geo-null/66166).
+*	Basic free account of Twitter allows only 900 requests within 15 minutes. Also, Twitter response supports pagination containing 100 tweets per page from a search response. That means, for any search criteria, if the response contains 1500 tweets, they will need to be accessed using 15 successive requests. 
+*	Basic free account of Twitter allows searching for tweets for only last 7 days. 
