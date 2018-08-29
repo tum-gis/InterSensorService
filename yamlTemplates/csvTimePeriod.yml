@@ -1,0 +1,28 @@
+#In order to run InterSensor Service with this YAML file,
+#Copy the contents of this file in the file application.yml
+
+#Optionnal: Configure server port here. 
+#If not defined, the default port is 8080
+
+#server:
+#  port: 9091
+
+#Provide CSV file details here  
+#This example is for retrieving time period details from a csv file 
+
+datasource-connection:
+  name: "Name of the File"
+  description: "Description"
+  connectionType: "CSV"
+  observationProperty: "Property"
+  observationType: "OM_Measurement"
+  unitOfMeasure: "UoM"
+  fileLocation: "C:/location/filename.csv" # Please change the path accordingly
+  separator: ";" # please use the appropriate separator character 
+  timeBeginColumn: 0  # the column number of the observation start time (column numbers start from 0)
+  timeEndColumn: 6 # the column number of the observation end time (column numbers start from 0)
+  valueColumn: 10 # the column number of the observation value (column numbers start from 0)
+  venueColumn: 11 # the column number from which a string needs to be searched, if any
+  latitude: 51.53883 #Location
+  longitude: -0.01664 #Location
+  searchVenue: Here East #Search string

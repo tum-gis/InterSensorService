@@ -1,7 +1,7 @@
 #In order to run InterSensor Service with this YAML file,
 #Copy the contents of this file in the file application.yml
 
-#Optionnal: Configure server port here. 
+#Optional: Configure server port here. 
 #If not defined, the default port is 8080
 
 #server:
