@@ -8,9 +8,9 @@ We introduce a new lightweight web service called InterSensor Service, which all
 ## Architecture
 ![Alt text](theme/img/Architecture.png?raw=true "Architecture")
 The architecture of the InterSensor Service comprises of the following layers:
-## Data Adapters
+### Data Adapters
 The data adapters allows establishing connections to multiple platforms such as [ThingSpeak](https://thingspeak.com/), [OpenSensors](https://www.opensensors.com/) or [Weather Underground](https://www.wunderground.com/). In addition, users can also connect to timeseries data stored in external databases (such as [PostgreSQL](https://www.postgresql.org/), [Oracle](https://www.oracle.com/index.html)), basic files (such as CSV), Cloud based systems (e.g. [Google Fusion Table](https://developers.google.com/fusiontables/)), GPS Exchange Formats (GPX), and real-time [Twitter feeds](https://developer.twitter.com/en/docs.html) . While querying, the service opens a data source connection and retrieves the observations based on querying parameters directly from the data source. 
-## Standardized External Interfaces
+### Standardized External Interfaces
 The retrieved sensor observations can be encoded "on-the-fly" according to international standardized interfaces such as the [OGC Sensor Observation Service](http://www.opengeospatial.org/standards/sos), [OGC SensorThings API](http://www.opengeospatial.org/standards/sensorthings), and 52° North [Timeseries API](http://sensorweb.demo.52north.org/sensorwebclient-webapp-stable/api-doc/index.html). It allows querying and visualizing numerous sensor data streams from heterogeneous sensor platforms with existing sensor web infrastructures. 
 
 ## Getting Started
@@ -41,11 +41,11 @@ For more details, please refer to the [documentation](documentation/APIDocumenta
 ### Docker Installation
 Coming soon! 
 
-### Demonstrations
+## Demonstrations
 An instance of InterSensor Service is being employed in Queen Elizabeth Olympic Park, London under the [Smart District Data Infrastructure framework](http://www.gis.bgu.tum.de/en/projects/smart-district-data-infrastructure/). A list of demonstrations are available [here](documentation/Demonstrations).
 
-### Developers
+## Developers
 The InterSensor Service has been conceptualized and developed by the [Chair of Geoinformatics, Technical University of Munich](http://www.gis.bgu.tum.de). 
 
-### License
+## License
 The InterSensor Service is available as free and open source and is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). 
