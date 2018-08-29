@@ -36,13 +36,16 @@ java -jar <filename.jar>
 Upon successful data source connection, the application will start running. For example, if your server is 127.0.0.1 and the port is 8080, the homepage can be accessed using http://127.0.0.1:8080/inter-sensor-service/
 The InterSensor Service determines the host address and port from configuration files and generates the URLs. 
 
-For more details, please refer to [documentation](documentation/API Documentation) and [tutorials](documentation/Tutorials).
+For more details, please refer to the [documentation](documentation/APIDocumentation/RefDoc.md) and [tutorials](documentation/Tutorials).
 
 ### Docker Installation
-Coming soon!
-
-### Documentations
-A comprehensive reference documentation and tutorials are available here. 
+Coming soon! 
 
 ### Demonstrations
-An instance of InterSensor Service is being employed in Queen Elizabeth Olympic Park, London under the Smart District Data Infrastructure framework. A list of demonstrations are available here.
+An instance of InterSensor Service is being employed in Queen Elizabeth Olympic Park, London under the [Smart District Data Infrastructure framework](http://www.gis.bgu.tum.de/en/projects/smart-district-data-infrastructure/). A list of demonstrations are available [here](documentation/Demonstrations).
+
+### Developers
+The InterSensor Service has been conceptualized and developed by the [Chair of Geoinformatics, Technical University of Munich](http://www.gis.bgu.tum.de). 
+
+### License
+The InterSensor Service is available as free and open source and is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). 
