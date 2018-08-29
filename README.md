@@ -1,7 +1,7 @@
 # InterSensor Service
 
 ## Introduction
-In many smart city projects, multiple stakeholders and companies are involved who use their own sensors and IoT devices which are managed by different platforms and APIs. In order to work within a common operational framework, sensor web infrastructures play a key role in providing interoperability between heterogeneous sneosr platforms and observations. However, it is unlikely that all stakeholders would be willing to inject their proprietary data into a third-party data storage in the sensor web.
+In many smart city projects, multiple stakeholders and companies are involved who use their own sensors and IoT devices which are managed by different platforms and APIs. In order to work within a common operational framework, sensor web infrastructures play a key role in providing interoperability between heterogeneous sensor platforms and observations. However, it is unlikely that all stakeholders would be willing to inject their proprietary data into a third-party data storage in the sensor web.
 
 We introduce a new lightweight web service called InterSensor Service, which allows users to connect to multiple IoT platforms, databases and basic files and retrieving their observations without worrying about data storage and the multitude of different APIs.  It is a Java application based on the Spring framework and is available as free and Open Source.
 
