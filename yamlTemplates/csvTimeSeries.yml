@@ -11,18 +11,15 @@
 #This example is for retrieving time period details from a csv file 
 
 datasource-connection:
-  name: "CSV_SmartMeter"
-  description: "CSV File having observations about electricity consumption in a building"
+  name: "CSV_WeatherStation"
+  description: "CSV File having temperature readings recorded by a weather station"
   connectionType: "CSV"
-  observationProperty: "Electricity_Consumption"
+  observationProperty: "Temperature"
   observationType: "OM_Measurement"
-  unitOfMeasure: "KWh"
-  fileLocation: "C:/Kanishk/csv-zip-content_Elec.csv.csv"
-  separator: ";"
-  timeBeginColumn: 3
-  #timeEndColumn: 6
-  valueColumn: 4
-  #venueColumn: 11
-  latitude: 51.53883
-  longitude: -0.01664
-  #searchVenue: Here East
+  unitOfMeasure: "Celsius"
+  fileLocation: "C:/fileLocation/fileName.csv"  # Please change the path accordingly
+  separator: ";"  # please use the appropriate separator character 
+  timeBeginColumn: 3 # the column number of the observation time (column numbers start from 0)
+  valueColumn: 4 # the column number of the observation value (column numbers start from 0)
+  latitude: 51.53883 # location of the weather station
+  longitude: -0.01664 # location of the weather station
