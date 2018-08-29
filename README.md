@@ -19,7 +19,7 @@ Please perform the following intstructions:
 #### Step 1:
 Clone the GitHub repository and install the application
 ```
-git clone https://github.com/kanishk-chaturvedi/InterSensorService.git
+git clone https://github.com/tum-gis/InterSensorService.git
 cd InterSensorService
 mvn clean install
 ```
