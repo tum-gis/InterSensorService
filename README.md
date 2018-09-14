@@ -45,7 +45,9 @@ Coming soon!
 An instance of InterSensor Service is being employed in Queen Elizabeth Olympic Park, London under the [Smart District Data Infrastructure framework](http://www.gis.bgu.tum.de/en/projects/smart-district-data-infrastructure/). A list of demonstrations are available [here](documentation/Demonstrations).
 
 ## Developers
-The InterSensor Service has been conceptualized and developed by the [Chair of Geoinformatics, Technical University of Munich](http://www.gis.bgu.tum.de). 
+The InterSensor Service has been conceptualized and developed by 
+Kanishk Chaturvedi and Thomas H. Kolbe from
+the [Chair of Geoinformatics, Technical University of Munich](http://www.gis.bgu.tum.de). 
 
 ## License
 The InterSensor Service is available as free and open source and is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). 
