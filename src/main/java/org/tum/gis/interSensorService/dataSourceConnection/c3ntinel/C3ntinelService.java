@@ -103,7 +103,7 @@ public class C3ntinelService {
 		
 		String authBasicString = "Basic "+encodedAuth;
 		
-		String tokenUrl = "https://auth.c3ntinel.com/sso/oauth/token";
+		String tokenUrl = "******";
 		URI tokenUri = new URI(tokenUrl);
 		
 		HttpHeaders tokenRequestHeader = new HttpHeaders();
@@ -125,7 +125,7 @@ public class C3ntinelService {
 		String authBearerString = "Bearer "+accessToken;
 		
 		messageHeader.set("Accept", "application/json");
-	    //headers.set("Authorization", "Basic S2FuaXNoay5DaGF0dXJ2ZWRpOlRVTWdpczIwMTc=");
+	   
 		messageHeader.set("Authorization", authBearerString);
 		
 	    HttpEntity messageEntity = new HttpEntity(messageHeader);
@@ -184,7 +184,7 @@ public class C3ntinelService {
 			
 		String authBasicString = "Basic "+encodedAuth;
 				
-		String tokenUrl = "https://auth.c3ntinel.com/sso/oauth/token";
+		String tokenUrl = "*****";
 		URI tokenUri = new URI(tokenUrl);
 				
 		HttpHeaders tokenRequestHeader = new HttpHeaders();
