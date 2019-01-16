@@ -56,4 +56,5 @@ RUN set -x && \
   ls -lA && \
   ls -lA /intersensorservice
 
+EXPOSE 8080
 ENTRYPOINT [ "entrypoint.sh" ]
