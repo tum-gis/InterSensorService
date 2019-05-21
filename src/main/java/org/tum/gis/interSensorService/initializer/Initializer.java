@@ -44,6 +44,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.tum.gis.interSensorService.dataSourceConnection.Ixsi.IxsiConnection;
 import org.tum.gis.interSensorService.dataSourceConnection.c3ntinel.C3ntinelConnection;
 import org.tum.gis.interSensorService.dataSourceConnection.csv.CsvConnection;
 import org.tum.gis.interSensorService.dataSourceConnection.openSensors.OpenSensorsConnection;
@@ -120,6 +121,12 @@ public class Initializer {
 				datasourceType = "twitter";
 				TwitterConnection twitterConnection = mapper.convertValue(obj, TwitterConnection.class);
 				jsonNodeDataSource = mapper.convertValue(twitterConnection, JsonNode.class);
+				break;
+			
+			case "\"Ixsi\"":
+				datasourceType = "ixsi";
+				IxsiConnection ixsiConnection = mapper.convertValue(obj, IxsiConnection.class);
+				jsonNodeDataSource = mapper.convertValue(ixsiConnection, JsonNode.class);
 				break;
 			
 			/*case "\"JDBC\"":

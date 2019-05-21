@@ -32,6 +32,8 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -43,6 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tum.gis.interSensorService.interfaces.Interface;
 import org.tum.gis.interSensorService.interfaces.sensorObservationService.GetObservation.GetObservationResponse;
 import org.tum.gis.interSensorService.interfaces.seriesRestApi52n.ListObservation52n;
+import org.xml.sax.SAXException;
 
 
 @RestController
@@ -56,7 +59,7 @@ public class ObservationController {
 	
 	@CrossOrigin()
 	@RequestMapping(value = "/inter-sensor-service/timeseries/{id}/observations" , produces = {MediaType.APPLICATION_JSON_VALUE})
-	public List<Observation> getObservationList(@PathVariable int id) throws IOException, ParseException{
+	public List<Observation> getObservationList(@PathVariable int id) throws IOException, ParseException, ParserConfigurationException, SAXException{
 		return observationService.getObservationList(id);
 	}
 	

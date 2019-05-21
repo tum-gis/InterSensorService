@@ -1,0 +1,19 @@
+#In order to run InterSensor Service with this YAML file,
+#Copy the contents of this file in the file application.yml
+
+#Optional: Configure server port here. 
+#If not defined, the default port is 8080
+
+#server:
+#  port: 9091
+
+datasource-connection:
+  name: "IxsiConnection"
+  description: "Car sharing details around Augsburg"
+  connectionType: "Ixsi"
+  observationType: "JsonString"
+  unitOfMeasure: "UoM"
+  serviceName: "Ixsi"
+  serviceType: "XML"
+  messageID: "1"
+  systemID: "3011"

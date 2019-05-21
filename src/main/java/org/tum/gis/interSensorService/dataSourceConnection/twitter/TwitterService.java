@@ -66,7 +66,7 @@ public class TwitterService {
 												twitterConnection.getAccessTokenSecret());
 		
 		
-		System.out.println("Test1:"+twitterConnection.getApiKey());
+		//System.out.println("Test1:"+twitterConnection.getApiKey());
 		//Example Twitter search request
 		//https://api.twitter.com/1.1/search/tweets.json?q=&geocode=51.543463,-0.016520,1km&include_entities=0&count=100"
 		String baseUrl = twitterConnection.getBaseUrl();
@@ -84,7 +84,7 @@ public class TwitterService {
 		URI tweetUri = URIBuilder.fromUri(tweetUrl).build();
 		String tweetResponse = twitter.restOperations().getForObject(tweetUri, String.class);
 		
-		System.out.println(tweetUrl);
+		//System.out.println(tweetUrl);
 		
 		//Converting tweet text response to JSON response for better querying
 		ObjectMapper mapper = new ObjectMapper();

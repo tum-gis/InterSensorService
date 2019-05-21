@@ -32,12 +32,16 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tum.gis.interSensorService.dataSource.DataSource;
 import org.tum.gis.interSensorService.dataSource.DataSourceService;
 import org.tum.gis.interSensorService.dataSourceConnection.DataSourceConnection;
+import org.tum.gis.interSensorService.dataSourceConnection.Ixsi.IxsiConnection;
+import org.tum.gis.interSensorService.dataSourceConnection.Ixsi.IxsiService;
 import org.tum.gis.interSensorService.dataSourceConnection.c3ntinel.C3ntinelConnection;
 import org.tum.gis.interSensorService.dataSourceConnection.c3ntinel.C3ntinelService;
 import org.tum.gis.interSensorService.dataSourceConnection.csv.CsvConnection;
@@ -57,6 +61,7 @@ import org.tum.gis.interSensorService.interfaces.seriesRestApi52n.Observation52n
 import org.tum.gis.interSensorService.timeseries.Timeseries;
 import org.tum.gis.interSensorService.timeseries.TimeseriesService;
 import org.tum.gis.interSensorService.util.CustomDateUtil;
+import org.xml.sax.SAXException;
 
 @Service
 public class ObservationService {
@@ -86,6 +91,9 @@ public class ObservationService {
 	
 	@Autowired
 	private C3ntinelService c3ntinelService;
+	
+	@Autowired
+	private IxsiService ixsiService;
 	
 	public List<ObservationListManager> observationList = new ArrayList<>();
 	
@@ -124,7 +132,7 @@ public class ObservationService {
 	// insert into observationList
 	//retrieve List
 	
-	public List<Observation> getObservationList(int timeseriesId) throws IOException, ParseException{
+	public List<Observation> getObservationList(int timeseriesId) throws IOException, ParseException, ParserConfigurationException, SAXException{
 		Timeseries timeseries = null;
 		DataSourceConnection dataSource = null;
 		for (int i = 0; i< timeseriesService.timeseriesList.size();i++) {
@@ -155,6 +163,11 @@ public class ObservationService {
 			
 			TwitterConnection twitterConnection = (TwitterConnection) dataSource;
 			return twitterService.parseTwitter(timeseriesId, twitterConnection);
+		} else if (dataSource instanceof IxsiConnection) {
+			
+			
+			IxsiConnection ixsiConnection = (IxsiConnection) dataSource;
+			return ixsiService.parseIxsi(timeseriesId, ixsiConnection);
 		} 
 		return null;
 	}

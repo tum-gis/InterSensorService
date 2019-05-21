@@ -36,6 +36,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -58,6 +60,7 @@ import org.tum.gis.interSensorService.interfaces.sensorThingsApi.sensors.Sensor;
 import org.tum.gis.interSensorService.interfaces.sensorThingsApi.sensors.Sensors;
 import org.tum.gis.interSensorService.interfaces.sensorThingsApi.things.Thing;
 import org.tum.gis.interSensorService.interfaces.sensorThingsApi.things.Things;
+import org.xml.sax.SAXException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -245,7 +248,7 @@ public class SensorThingsApiController {
 	
 	@CrossOrigin()
 	@RequestMapping(value = "/Observations", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public Observations getObservations() throws ParseException, IOException {
+	public Observations getObservations() throws ParseException, IOException, ParserConfigurationException, SAXException {
 		Observations observations = sensorThingsApiService.getObservations();
 		return observations;
 	}

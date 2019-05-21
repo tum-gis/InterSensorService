@@ -41,6 +41,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +69,7 @@ import org.tum.gis.interSensorService.interfaces.sensorThingsApi.things.Things;
 import org.tum.gis.interSensorService.observation.ObservationService;
 import org.tum.gis.interSensorService.timeseries.TimeseriesService;
 import org.tum.gis.interSensorService.util.SpringHost;
+import org.xml.sax.SAXException;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -495,7 +498,7 @@ public class SensorThingsApiService {
 		return null;
 	}
 	
-	public Observations getObservations() throws ParseException, IOException {
+	public Observations getObservations() throws ParseException, IOException, ParserConfigurationException, SAXException {
 		Observations observations = new Observations();
 		List<Observation> observationList = new ArrayList<>();
 		int timeseriesId = timeseriesService.getTimeseriesById(dataSourceService.getAllDataSources().get(0).getId()).getId();
